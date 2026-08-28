@@ -1,5 +1,1732 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr"><head><title>1. Description et analyse</title><meta charset="utf-8"/><link rel="preload" href="../../index-2162c67d.css" as="style"/><link rel="preload" href="../../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Roboto:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/><meta name="og:site_name" content="Cours — Stratos Solutions"/><meta property="og:title" content="1. Description et analyse"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="1. Description et analyse"/><meta name="twitter:description" content/><meta property="og:description" content/><meta property="og:image:alt" content/><meta property="twitter:domain" content="cours.stratos-solutions.fr"/><meta property="og:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse"/><meta property="twitter:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content/><meta name="generator" content="Quartz"/><link href="../../index-2162c67d.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-589c1cea.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7f220492.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-e427079e.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-58d5ff56.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7262b5a7.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-b208a628.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-ed0fce9b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta property="og:image:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta name="twitter:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="technologies/systeme-d-information-de-gestion/1.-description-et-analyse" data-basepath><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Cours — Stratos Solutions</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Recherche" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Recherche</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Rechercher quelque chose..." placeholder="Rechercher quelque chose..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Mode sombre"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Mode sombre"><title>Mode sombre</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Mode clair"><title>Mode clair</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Mode lecture"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Mode lecture"><title>Mode lecture</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-2" aria-label="Explorateur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorateur</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-2" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/">Technologies</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/systeme-d-information-de-gestion/">Systeme d information de gestion</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>1. Description et analyse</a></div></nav><h1 class="article-title">1. Description et analyse</h1></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Vue Graphique</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+<html lang="fr" dir="ltr"><head><title>1. Description et analyse</title><meta charset="utf-8"/><link rel="preload" href="../../index-2162c67d.css" as="style"/><link rel="preload" href="../../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Roboto:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/><meta name="og:site_name" content="Cours — Stratos Solutions"/><meta property="og:title" content="1. Description et analyse"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="1. Description et analyse"/><meta name="twitter:description" content="1.1 Le rôle du système d’information dans les organisations Programme 🗒️ Pédagogie Compétences attendues Savoirs associés Analyser la qualité d’une information ; Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information ; Mettre en évidence le rôle du système d’informati..."/><meta property="og:description" content="1.1 Le rôle du système d’information dans les organisations Programme 🗒️ Pédagogie Compétences attendues Savoirs associés Analyser la qualité d’une information ; Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information ; Mettre en évidence le rôle du système d’informati..."/><meta property="og:image:alt" content="1.1 Le rôle du système d’information dans les organisations Programme 🗒️ Pédagogie Compétences attendues Savoirs associés Analyser la qualité d’une information ; Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information ; Mettre en évidence le rôle du système d’informati..."/><meta property="twitter:domain" content="cours.stratos-solutions.fr"/><meta property="og:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse"/><meta property="twitter:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="1.1 Le rôle du système d’information dans les organisations Programme 🗒️ Pédagogie Compétences attendues Savoirs associés Analyser la qualité d’une information ; Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information ; Mettre en évidence le rôle du système d’informati..."/><meta name="generator" content="Quartz"/><link href="../../index-2162c67d.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-589c1cea.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7f220492.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-e427079e.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-58d5ff56.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7262b5a7.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-b208a628.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-ed0fce9b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta property="og:image:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta name="twitter:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/1.-description-et-analyse-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="technologies/systeme-d-information-de-gestion/1.-description-et-analyse" data-basepath><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Cours — Stratos Solutions</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Recherche" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Recherche</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Rechercher quelque chose..." placeholder="Rechercher quelque chose..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Mode sombre"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Mode sombre"><title>Mode sombre</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Mode clair"><title>Mode clair</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Mode lecture"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Mode lecture"><title>Mode lecture</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-2" aria-label="Explorateur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorateur</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-2" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/">Technologies</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/systeme-d-information-de-gestion/">Systeme d information de gestion</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>1. Description et analyse</a></div></nav><h1 class="article-title">1. Description et analyse</h1><p show-comma="true" class="content-meta"><time datetime="2026-08-28T08:34:23.744Z">28 août 2026</time><span>54 min de lecture</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="11-le-rôle-du-système-dinformation-dans-les-organisations">1.1 Le rôle du système d’information dans les organisations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-le-rôle-du-système-dinformation-dans-les-organisations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="programme">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<aside>  
+🗒️
+<p><strong>Pédagogie</strong></p>
+<p><strong>Compétences attendues</strong></p>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>
+<p>Analyser la qualité d’une information ;</p>
+</li>
+<li>
+<p>Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information ;</p>
+</li>
+<li>
+<p>Mettre en évidence le rôle du système d’information dans une organisation ;</p>
+</li>
+<li>
+<p>Repérer les composantes du système d’information et leur rôle ;</p>
+</li>
+<li>
+<p>Différencier les niveaux du système d’information.</p>
+</li>
+<li>
+<p>Critères de qualité de l’information : accessibilité, exactitude, actualité, pertinence, exhaustivité ;</p>
+</li>
+<li>
+<p>Nature et composantes du système d’information : interaction des ressources humaines, technologiques et organisationnelles ;</p>
+</li>
+<li>
+<p>Présentation de l’organisation comme un ensemble de trois sous-systèmes : décisionnel, opérant et d’information ;</p>
+</li>
+<li>
+<p>Rôles opérationnel et stratégique du système d’information ;</p>
+</li>
+<li>
+<p>Les différents niveaux du système d’information : métier, fonctionnel, applicatif, technique.</p>
+  </li></ul></aside>
+
+
+<aside>  
+🗒️
+<p><strong>Plan</strong></p>
+<ul>
+<li>
+<p><strong>Cours</strong></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.1.1 La qualité de l’information dans les organisations<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.1.2 Le fonctionnement du système d’information (SI)<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.1.3 Les niveaux du système d’information (SI)<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</li>
+<li>
+<p><strong>Synthèse</strong></p>
+  </li></ul></aside>
+
+
+<aside>  
+📝
+<p><strong>Mots clés</strong></p>
+<p>Accessibilité, Agilité, Audit, Fiabilité, Gestion des droits d’accès, Performance globale, Qualité</p>
+</aside>
+<p>Le système d’information (SI) d’une organisation permet de collecter, produire, mémoriser et diffuser une information de qualité nécessaire aux acteurs.</p>
+<p>Le Big Data est au cœur des problématiques des systèmes d’information via les 3V : Volume (quantité de données créées et exploitées), Velocity (rapidité tant dans leur création que dans leur transmission) et Variety (variété).</p>
+<p>La gestion et la qualité de ces informations constituent un enjeu crucial au service de la performance globale.</p>
+<h2 id="cours">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="111-la-qualité-de-linformation-dans-les-organisations">1.1.1 La qualité de l’information dans les organisations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#111-la-qualité-de-linformation-dans-les-organisations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Introduction</strong></p>
+<ul>
+<li>
+<p>Une organisation <strong>performante</strong> repose sur <strong>l’exploitation</strong> d’informations nécessaires à la <strong>prise de décision</strong> ou à la production de documents ﬁnanciers, commerciaux ou juridiques :</p>
+<ul>
+<li>Une <strong>information</strong> comporte ainsi cette caractéristique d’utilité dans un <strong>contexte précis</strong> ;</li>
+<li>L’information, pour être transmise, échangée, traitée, conservée, modiﬁée, etc., prend une dimension <strong>pratique</strong> et devient une <strong>donnée</strong>.</li>
+</ul>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>L’entreprise Trek’Mountain organise des séjours d’escalade en haute montagne pour les particuliers.</p>
+<p>Elle participe à des salons professionnels.</p>
+<p>Les salariés renseignent de nombreux participants et enregistrent les nom et adresse mail des personnes particulièrement intéressées dans un ﬁchier.</p>
+<p>Ainsi stockées dans un environnement numérique, ces données font sens lorsqu’il s’agit d’envoyer une publicité ciblée ou encore d’inviter des clients potentiels, autant d’informations capitales pour les commerciaux.</p>
+  </aside>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les critères de qualité de l’information</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>La qualité de l’information désigne sa capacité à répondre aux besoins de chaque organisation.</p>
+  </aside>
+<ul>
+<li>La qualité de l’information constitue un <strong>enjeu</strong> essentiel pour différencier les organisations entre elles ;</li>
+<li>L’information doit satisfaire divers <strong>critères</strong> aﬁn d’être estimée de qualité.</li>
+</ul>
+<p><img src="attachment:f394821f-486d-4f7a-ba55-843712acd6ac:image.png" alt="Les critères de qualité de l’information"/></p>
+<p>Les critères de qualité de l’information</p>
+<ul>
+<li>Dans une <strong>recherche</strong> sur un site Web, l’accessibilité est évaluée en <strong>nombre de clics</strong> (Click-Through Rate-CTR) pour atteindre l’information ⇒ Une accessibilité <strong>optimale</strong> équivaut à un <strong>maximum de trois clics</strong>.</li>
+</ul>
+  <aside>  
+  💡
+<p><strong>A savoir</strong></p>
+<p>La consultation de sites Internet doit permettre de s’assurer de la qualité des contenus. Préférez les sites institutionnels (.org/.gouv) aux sites commerciaux (.com).</p>
+  </aside>
+</li>
+<li>
+<p><strong>Les sources internes ou externes</strong></p>
+<ul>
+<li>Chaque organisation est amenée à utiliser des informations :
+<ul>
+<li>En provenance de l’extérieur (enquêtes statistiques Insee, enquêtes marketing conﬁées à des cabinets de conseils, réseaux sociaux, site Web, etc.) ;</li>
+<li>Issues d’un processus généré en interne (par les salariés) et destinées aux acteurs internes (services comptable, commercial, production, etc.), aux partenaires économiques (clients, sous-traitants, fournisseurs) et aux entités administratives (centre des impôts, Urssaf, sécurité sociale, etc.) ;</li>
+</ul>
+</li>
+<li>Cette production interne d’informations est régulière et prend des formes diverses :
+<ul>
+<li>Etablissement des documents de synthèse (bilan, compte de résultat, annexes) pour l’administration ;</li>
+<li>Calcul du montant de TVA due ;</li>
+<li>Réalisation d’un bulletin de salaire électronique pour les salariés ;</li>
+<li>Production d’informations issues du contrôle de gestion au travers des calculs de coûts, des résultats analytiques, des budgets, de la gestion des stocks, etc.</li>
+</ul>
+</li>
+<li>Que les sources d’information soient externes ou internes, elles obéissent aux mêmes critères de qualité.</li>
+</ul>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>L’entreprise Bobsleigh’Tecnik fabrique des bobsleighs pour des pratiques sportives en clubs privés.</p>
+<p>Aﬁn de ﬁxer les prix les plus pertinents de ses produits, elle réalise des calculs de coûts auxquels elle ajoute une marge.</p>
+<p>Ces coûts sont issus des informations sur les prix des matières premières, des charges de personnels, des loyers du local de production, etc.</p>
+<p>Elle produit ainsi de nouvelles informations utiles à sa gestion.</p>
+  </aside>
+</li>
+<li>
+<p><strong>Les procédures de contrôle de la qualité de l’information</strong></p>
+<ul>
+<li>L’information vient alimenter la prise de décision, déclencher l’action ou répondre aux obligations légales et administratives ;</li>
+<li>Elle constitue ainsi une ressource clé pour toute organisation et doit donc être contrôlée aﬁn d’en vériﬁer la qualité.</li>
+</ul>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>Une procédure désigne les activités et missions à réaliser aﬁn d’atteindre un objectif : la qualité de l’information.</p>
+<p>Cela fait référence à tout ce qui est mis en œuvre pour favoriser, améliorer, planiﬁer et maîtriser la qualité.</p>
+  </aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>Contexte</strong></th><th><strong>Procédure de contrôle</strong></th></tr></thead><tbody><tr><td>Identiﬁcation de l’émetteur et du destinataire des données.</td><td>- Gestion des droits d’accès sur le système d’information aﬁn de déterminer qui peut collecter, modiﬁer, créer et supprimer des données ;</td></tr></tbody></table></div>
+<ul>
+<li>Mise à jour planiﬁée de cette gestion des droits d’accès : départ des utilisateurs, changement de poste de travail, embauche, etc. ;</li>
+<li>Utilisation de signature électronique, chiffrement. |<br/>
+| Utilisation optimale de l’information | - Audit du SI aﬁn d’en diagnostiquer les failles pouvant impacter la qualité des données : nombreuses saisies, absence d’interopérabilité entre les logiciels, manque de formation des utilisateurs, mises à jour irrégulières, etc. ;</li>
+<li>Utilisation de référentiels de bonnes pratiques (ex. : Cobit) ;</li>
+<li>Visibilité des conditions générales de vente (CGV) sur le site marchand. |<br/>
+| Risques à maîtriser aﬁn de ne pas hypothéquer la qualité de l’information | - Mise à jour régulière des logiciels sécuritaires ;</li>
+<li>Compatibilité des logiciels entre eux au sein du SI à vériﬁer et à prendre en compte au moment des choix applicatifs, notamment en vue de l’implémentation d’un progiciel de gestion intégré ;</li>
+<li>PGI (modules compatibles) ;</li>
+<li>Mise en place d’interfaces (circulation des données) entre logiciels, d’échanges de données informatisées aﬁn de limiter les saisies ;</li>
+<li>Mise en place d’une certiﬁcation ISO 9001 (management de la qualité) ;</li>
+<li>Utilisation de protocoles https garantissant la sécurité des sites partenaires. |</li>
+</ul>
+  <aside>  
+  💡
+<p><strong>A savoir</strong></p>
+<p>La qualité désigne également la gestion en termes de coûts qu’engendre un SI.</p>
+<p>Comme toute fonction dans une organisation, le SI doit être en capacité de générer des performances au moindre coût.</p>
+  </aside>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 1 : Bobsleigh’Tecnik</strong></p>
+<p>La société Bobsleigh’Tecnik fabrique des bobsleighs et des accessoires dédiés à cette pratique sportive. L’entreprise dispose d’un système d’information performant et doit en permanence se mettre en phase avec les besoins des clients. Elle consulte ainsi régulièrement les avis, notations et commentaires sur les sites Web de ses concurrents. Bobsleigh’Tecnik renouvelle en permanence son catalogue de produits pour l’ajuster aux évolutions technologiques attendues. L’entreprise fait partie d’un laboratoire de R&amp;D, Ice’Lab, sur les nouvelles technologies et matériaux innovants. Ice’Lab vient de mettre au point un matériau composite ultra-performant.</p>
+<ol>
+<li><strong>L’information disponible au travers des réseaux sociaux est-elle de qualité ? Justiﬁez votre réponse.</strong></li>
+<li><strong>En quoi les informations issues du laboratoire de recherche permettent-elles de satisfaire certains critères de qualité ?</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="112-le-fonctionnement-du-système-dinformation-si">1.1.2 Le fonctionnement du système d’information (SI)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#112-le-fonctionnement-du-système-dinformation-si" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Introduction</strong></p>
+<ul>
+<li>Toutes les organisations sont aujourd’hui informatisées puisqu’elles s’appuient sur des modalités numériques pour fonctionner, prendre des décisions, réaliser leurs activités tant dans leur cœur de métier que dans les domaines de l’information comptable et ﬁnancière.</li>
+</ul>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>Un système d’information (SI) désigne un ensemble structuré de ressources matérielles, logicielles, humaines et organisationnelles.</p>
+  </aside>
+<ul>
+<li>Le SI a vocation à collecter, traiter, communiquer et conserver des données exploitées ;</li>
+<li>Il se caractérise par :
+<ul>
+<li>Les différentes fonctions assurées (toutes les actions à mener) ;</li>
+<li>Ses composantes (les différents services, le découpage de l’organisation, etc.) ;</li>
+<li>Les rôles qui lui sont assignés.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les fonctions du SI</strong></p>
+<ul>
+<li>Le système d’information assure quatre fonctions essentielles :</li>
+</ul>
+<p>| Collecte des données | - Le SI n’est d’aucune utilité s’il n’est pas alimenté en données ;</p>
+<ul>
+<li>Ces données émanent de l’extérieur (clients et fournisseurs), de l’intérieur de l’entreprise (création d’une facture) ; d’institutionnels (État, droit du travail, banques, administration ﬁscale). |<br/>
+| --- | --- |<br/>
+| Stockage des données | - Les traitements successifs des données collectées et produites nécessitent à chaque étape un stockage (données d’un devis stockées avant de générer un bon de commande) ;</li>
+<li>La sauvegarde des données est réalisée dans les bases des clients ou des fournisseurs ;</li>
+<li>L’archivage des données est imposé dans les contrats de travail des salariés. |<br/>
+| Traitement des données | - Les données doivent être transformées pour atteindre les objectifs (ex. : le bon de commande d’un client doit faire l’objet d’un bon de livraison, d’une facture, d’un enregistrement comptable dans le logiciel comptable) ;</li>
+<li>Chaque information peut générer une autre information (en suivant un processus). |<br/>
+| Diffusion des données | - Toute information (stockée ou produite) n’a de réelle valeur que si elle parvient au bon destinataire qui en a besoin au bon moment avec un contenu ﬁable ;</li>
+<li>Le système d’information doit permettre cette communication des données de façon sécurisée. |</li>
+</ul>
+</li>
+<li>
+<p><strong>Les composantes du SI</strong></p>
+  <aside>  
+  💡
+<p><strong>A savoir</strong></p>
+<p>Les entreprises consacrent, en moyenne, 1 à 9 % de leur chiffre d’affaires à l’informatique, montant global dont 54 % sont dédiés à l’équipement et aux logiciels, 15 % aux services et 32 % au personnel.</p>
+  </aside>
+<ul>
+<li>Les données, socle des informations dont chaque organisation a besoin, repose sur trois composantes essentielles :</li>
+</ul>
+<p><img src="attachment:88dfb957-5f50-4d8b-8caf-6527e6943e22:SI_01.png" alt="Composantes essentielles du SI"/></p>
+<p>Composantes essentielles du SI</p>
+</li>
+<li>
+<p><strong>Les rôles du SI</strong></p>
+<ul>
+<li>Le SI est un vecteur de performance globale ;</li>
+<li>Il constitue l’épine dorsale de l’entité au regard des activités internes mais également vis-à-vis des clients, fournisseurs, administrations, etc. ;</li>
+<li>Les rôles assumés par le SI sont un véritable avantage concurrentiel.</li>
+</ul>
+<p><img src="attachment:b264376c-fd7e-43a9-aba2-9f7e3069c23d:SI_02.png" alt="Du SI opérationnel au SI stratégique"/></p>
+<p>Du SI opérationnel au SI stratégique</p>
+</li>
+<li>
+<p><strong>L’identification des échelons du SI</strong></p>
+<ul>
+<li>Le SI englobe différents échelons dans son fonctionnement ;</li>
+<li>Ces échelons se déclinent depuis l’utilisateur qui réalise ses missions au travers de son poste de travail jusqu’au fonctionnement totalement connecté entre entités nationales et internationales, administrations étatiques, comptables, ﬁscales, etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 2 : North’Musik</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Analyser la qualité d’une information</li>
+<li>Repérer et mettre en œuvre des procédures de contrôle de la qualité d’une information
+  </li></ul></aside>
+</li>
+</ul>
+<p>Domiciliée à Maubeuge, l’entreprise North’Musik est spécialisée dans la production d’instruments de musique. Les RH connaissent sur le bout des doigts les métiers de l’entreprise : fabrication, services commerciaux, présents dans divers salons professionnels, comptabilité, informatique, etc. Le système d’information est un axe central de performances. Cependant, le nouveau dirigeant, Jean Çalur, s’interroge sur les améliorations à apporter.</p>
+<p>Le responsable du site Web de North’Musik déplore des inexactitudes dans le comptage des visiteurs uniques (VU). Manifestement 1 % de ces VU n’ont pas été comptés. Il s’appuie sur ces informations pour ajuster les commandes de produits dans les ateliers de fabrication de North’Musik et les commandes fournisseurs.</p>
+<ol>
+<li>
+<p><strong>Évaluez la gravité de ce manquement.</strong></p>
+<p><em><strong>Le responsable commercial de North’Musik vient de constater une erreur de mise à jour des tarifs sur 1 % des commandes client.</strong></em></p>
+</li>
+<li>
+<p><strong>Précisez l’importance revêtue par ce chiffre dans ce contexte.</strong></p>
+<p><em><strong>À la suite du licenciement d’un comptable de North’Musik il y a deux mois, aucune mesure n’a été prise en matière de droits d’accès le concernant.</strong></em></p>
+</li>
+<li>
+<p><strong>Énoncez les procédures à mettre en œuvre afin de garantir la qualité du SI de North’Musik.</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+
+
+<h3 id="113-les-niveaux-du-système-dinformation-si">1.1.3 Les niveaux du système d’information (SI)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#113-les-niveaux-du-système-dinformation-si" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>L’identification des niveaux du SI</strong></p>
+<ul>
+<li>Le SI peut être décomposé selon plusieurs dimensions indispensables à la concrétisation de ses missions ;</li>
+<li>Chacune de ces dimensions constitue un niveau du SI.</li>
+</ul>
+<p><img src="attachment:eb82c869-4618-4dca-ab50-088db9f28522:SI_03.png" alt="Niveaux du SI"/></p>
+<p>Niveaux du SI</p>
+</li>
+<li>
+<p><strong>Les interactions entre les sous-systèmes</strong></p>
+<ul>
+<li>Le système d’information est au cœur des sous-systèmes de l’organisation ;</li>
+<li>Tous les acteurs doivent agir sur le SI aﬁn d’en renforcer l’agilité ;</li>
+<li>L’interaction entre ces sous-systèmes doit être dynamique et tournée vers la performance globale de l’entreprise :
+<ul>
+<li>Le <strong>sous-système décisionnel</strong> doit permettre le traitement des informations internes et externes nécessaires à toute prise de décision :
+<ul>
+<li>L’utilisation de systèmes de gestion de base de données relationnelle, de progiciels de gestion intégrés (PGI), de systèmes OLAP (On Line Analytical Processing), d’entrepôts de données (Data Warehouses)… agit sur la qualité de la décision ;</li>
+<li>Les solutions produisent de la valeur ajoutée, permettant ainsi à l’entreprise de se distinguer de la concurrence, ou Business Intelligence (BI).</li>
+</ul>
+</li>
+<li>Le <strong>sous-système opérant</strong> est dédié aux métiers :
+<ul>
+<li>Il les assiste dans leurs missions de collecte, stockage, traitement et diffusion de l’information ;</li>
+<li>Il satisfait ainsi le système décisionnel (ex. : gestion des stocks, maîtrise des coûts, suivi des salariés et des règlements).</li>
+</ul>
+</li>
+<li>Le <strong>sous-système d’information</strong> offre les conditions de fonctionnement aux systèmes décisionnel opérant, facilitant les échanges d’informations.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 3 : Skate’In</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Mettre en évidence le rôle du système d’information dans une organisation</li>
+<li>Repérer les composantes du système d’information et leur rôle</li>
+<li>Différencier les niveaux du système d’information
+  </li></ul></aside>
+</li>
+</ul>
+<p>L’entreprise Skate’In vend des skateboards, longboards et accessoires de protection en lien avec ces pratiques sportives. Skate’In dispose de deux boutiques situées au centre-ville d’Annecy ainsi que d’un site marchand très prisé par les internautes. À ce jour, 85 % des ventes se font en ligne. Skate’In est au cœur des problématiques numériques et dispose d’un SI performant mais en perte de vitesse depuis 6 mois. De nombreux fournisseurs et clients sont présents sur les territoires européen, américain et australien.</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li>
+<p><strong>Repérez les composantes du SI permettant un fonctionnement performant du SI de Skate’In.</strong></p>
+</li>
+<li>
+<p><strong>Mettez en évidence les fonctions du SI mobilisées dans le contexte d’une commande passée par un client australien.</strong></p>
+</li>
+<li>
+<p><strong>Montrez comment le SI de Skate’In s’appuie distinctement sur des rôles opérationnels et stratégiques de son SI.</strong></p>
+<p><img src="attachment:a08d258c-a905-4934-a401-c7dbad122a76:image.png" alt="image.png"/></p>
+</li>
+</ol>
+</li>
+</ul>
+
+
+<h2 id="qcm">QCM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qcm" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><a href="https://app.wooclap.com/YUJLZM/questionnaires/68a4d31f5e36e5259d513a92" class="external external-link">https://app.wooclap.com/YUJLZM/questionnaires/68a4d31f5e36e5259d513a92<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<h2 id="synthèse">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="le-rôle-du-si-dans-les-organisations">Le rôle du SI dans les organisations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-rôle-du-si-dans-les-organisations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="attachment:a5a5a4e5-2a0d-4de9-87b7-576dde96930f:image.png" alt="Synthèse"/></p>
+<p>Synthèse</p>
+<aside>  
+💡
+<p><strong>A savoir</strong></p>
+<p>Une interaction optimale entre toutes les composantes permet l’efficacité du SI et une réponse en adéquation avec les besoins de l’entreprise.</p>
+</aside>
+<h1 id="12-la-dimension-humaine-du-système-dinformation">1.2 La dimension humaine du système d’information<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-la-dimension-humaine-du-système-dinformation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="programme-1">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<aside>  
+🗒️
+<p><strong>Pédagogie</strong></p>
+<p><strong>Compétences attendues</strong></p>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>
+<p>Repérer le rôle des différents acteurs et leurs responsabilités dans le fonctionnement du système d’information ;</p>
+</li>
+<li>
+<p>Participer à l’identiﬁcation des besoins en compétences numériques.</p>
+</li>
+<li>
+<p>Rôles et responsabilités des acteurs : utilisateurs des progiciels et des applications ; directeur et gestionnaires des systèmes d’information ; chefs de projets ; développeurs d’applications ; responsable des infrastructures informatiques ;</p>
+</li>
+<li>
+<p>Interaction de la direction des systèmes d’information avec les autres directions de l’organisation ;</p>
+</li>
+<li>
+<p>Les compétences numériques attendues des utilisateurs du système d’information.</p>
+  </li></ul></aside>
+
+
+<aside>  
+🗒️
+<p><strong>Plan</strong></p>
+<ul>
+<li>
+<p><strong>Cours</strong> :</p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.2.1 Les rôles et responsabilités des acteurs du SI<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.2.2 Les interactions de la DSI avec les autres directions<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</li>
+<li>
+<p><strong>Synthèse</strong></p>
+  </li></ul></aside>
+
+
+<aside>  
+📝
+<p><strong>Mots clés</strong></p>
+<p>Acteur du SI, Agilité, Direction générale, DSI, Gestionnaire du SI, Compétences numériques, Interactions, Performance globale</p>
+</aside>
+<p>Le système d’information est l’un des principaux supports de pérennité et de croissance de l’entreprise. Il repose sur des ressources matérielles, logicielles, organisationnelles et, bien sûr, humaines. Chaque utilisateur contribue de façon collaborative à l’accomplissement des missions qui assurent la performance globale. Quels sont les rôles, missions et périmètres de chacune des ressources humaines du SI ?</p>
+<h2 id="cours-1">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="121-les-rôles-et-responsabilités-des-acteurs-du-si">1.2.1 Les rôles et responsabilités des acteurs du SI<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#121-les-rôles-et-responsabilités-des-acteurs-du-si" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Introduction</strong></p>
+<ul>
+<li>Le SI génère de nombreux atouts en termes de productivité et de qualité ;</li>
+<li>Un acteur dédié au SI a des fonctions et missions précises ainsi qu’un pouvoir de décision ;</li>
+<li>Ses actions sont exclusivement concernées par le système d’information ;</li>
+<li>Il doit également rendre compte des actions menées.</li>
+</ul>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>L’entreprise Surf’Playa a pour stratégie de se développer à l’international vers la Californie, Hawaï, les Canaries, le Brésil, etc.</p>
+<p>Elle acquiert des boutiques près des meilleurs spots de surf.</p>
+<p>À chaque acquisition, le SI doit permettre les connexions, les accès aux bases de données partagées, etc.</p>
+<p>Le DSI déclenche les missions adéquates pour permettre ces accès et ces interconnexions.</p>
+<p>Il rend compte des résultats obtenus auprès de la direction générale.</p>
+  </aside>
+</li>
+<li>
+<p><strong>Les acteurs dédiés</strong></p>
+<ul>
+<li>Chaque acteur du SI – dont les acteurs dédiés –, contribue, au travers de ses missions, à la performance globale de l’organisation ;</li>
+<li>Aujourd’hui, aucune organisation ne peut fonctionner sans système d’information.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th><strong>Rôles</strong></th><th><strong>Responsabilités</strong></th></tr></thead><tbody><tr><td><strong>Directeur des SI</strong></td><td>- Déﬁnir le pilotage du SI</td><td></td></tr></tbody></table></div>
+<ul>
+<li>Faire coïncider le SI avec la stratégie</li>
+<li>Contrôler l’exécution des missions SI</li>
+<li>Diffuser les potentialités du SI dans toutes les directions métier</li>
+<li>Planiﬁer les actions à mener | - Mise en œuvre de la gouvernance SI</li>
+<li>Compte rendu de la cohérence globale du SI</li>
+<li>Optimisation des ressources ﬁnancières engagées pour le SI</li>
+<li>Application de la réglementation |<br/>
+| <strong>Gestionnaire des SI</strong> | - Assurer la disponibilité du SI</li>
+<li>Vériﬁer l’accessibilité aux bases de données</li>
+<li>S’assurer du bon fonctionnement du SI en fonction des spécialités de chacun | - Identiﬁcation des besoins des utilisateurs au travers d’enquêtes et d’audits</li>
+<li>Garant des maintenances logicielles et matérielles |<br/>
+| <strong>Directeur de la sécurité</strong> | - Mettre en œuvre des mesures sécuritaires performantes</li>
+<li>Actualiser la charte informatique en cohérence avec des conduites sécuritaires des utilisateurs</li>
+<li>Résoudre les incidents sur le SI | - Veille informationnelle technologique et applicative en lien avec la sécurité à assurer</li>
+<li>Expertises liées aux normes sécuritaires (tests de la robustesse de la sécurité, hacker éthique, etc.) |<br/>
+| <strong>Chef de projet SI</strong> | - Conduire le projet</li>
+<li>Animer l’équipe projet</li>
+<li>Vériﬁer l’avancement du projet | - Contrôle de la conformité entre l’attendu et le réalisé</li>
+<li>Planiﬁcation du projet |<br/>
+| <strong>Développeurs d’applications</strong> | - Réaliser les applications sur mesure et les interfaces entre logiciels</li>
+<li>Concevoir les modes opératoires des logiciels pour les utilisateurs | - Identiﬁcation des besoins applicatifs</li>
+<li>Réalisation d’une cartographie applicative</li>
+<li>Conformité des applications conçues avec le cahier des charges initial |<br/>
+| <strong>Responsable des infrastructures informatiques</strong> | - Vériﬁer la mise en œuvre des renouvellements et mises à jour des infrastructures informatiques | - Planiﬁcation des besoins en matériels (ordinateurs, serveurs, câblages, etc.) |<br/>
+| <strong>Utilisateur de progiciels et applications</strong> | - Maîtriser les usages</li>
+<li>Se former ou demander des formations</li>
+<li>Faire remonter les améliorations à déclencher | - Respect les consignes d’utilisation des applications en cohérence avec les droits d’accès</li>
+<li>Respect les consignes sécuritaires |</li>
+</ul>
+</li>
+<li>
+<p><strong>La mise à jour constante des compétences attendues</strong></p>
+<ul>
+<li>Les RH sont au centre des processus permettant de générer le succès de l’organisation ;</li>
+<li>Dans un contexte ultra-concurrentiel, les performances du SI constituent un avantage <strong>compétitif</strong> et donc un <strong>élément distinctif</strong> ;</li>
+<li>Certains éléments essentiels y contribuent :
+<ul>
+<li>Les compétences des collaborateurs doivent s’améliorer en permanence (formation aux applications, exploitation optimale du numérique, gestion prévisionnelle des emplois et des compétences – <strong>GPEC</strong>) ;</li>
+<li>La prégnance du numérique nécessite d’identiﬁer les besoins spéciﬁques en <strong>formation</strong> ;</li>
+<li>Le travail collaboratif doit être effectif et favoriser l’intelligence collective, grâce au partage et à <a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">l’accessibilité des données<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> ;</li>
+<li>Les RH doivent être impliquées dans les décisions impactant leur utilisation du SI (gestion en amont du changement de logiciel et pilotage participatif du SI) aﬁn de limiter <strong>les résistances au changement</strong> ;</li>
+<li>Les utilisateurs doivent être en phase avec les usages du SI pour maximiser les potentialités numériques (logiciels, matériels) ;</li>
+<li>Les insatisfactions des utilisateurs du SI doivent être repérées pour y remédier (logiciels, matériels, pannes de réseau, organisation, formation, etc.).</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Informations et données</th><th>Moteur de recherche, veille d’information, fake news, organisation des ﬁchiers, utilisation du tableur</th></tr></thead><tbody><tr><td>Communication et collaboration</td><td>Courriel, agenda, réseaux sociaux, outils collaboratifs, e-citoyenneté…</td></tr><tr><td>Création de contenu</td><td>Traitement de texte, image, son et vidéo, mise en page, droit d’auteur, programmation</td></tr><tr><td>Protection et sécurité</td><td>Données personnelles, accessibilité, ergonomie du poste de travail, cybersécurité, impacts environnementaux du numérique, cyberharcèlement, cyber-rançonnage…</td></tr><tr><td>Environnement numérique</td><td>Résolution de problèmes techniques, système d’exploitation, composants, histoire de l’informatique, progrès technologique</td></tr></tbody></table></div>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 1 : Ice Blue</strong></p>
+<p>La société Ice Blue conçoit et fabrique des parkas et doudounes. Elle comporte aujourd’hui 125 salariés dont un directeur du SI (qui pilote une équipe de 4 gestionnaires du SI), un directeur de production et une responsable des ressources humaines (RRH). Elle intègre dans son processs de fabrication l’impression de visuels de personnages en licence. À ce jour, les ventes se réalisent via un réseau de revendeurs spécialisés et des grandes et moyennes surfaces. La société comporte deux sites de recherche et développement (R&amp;D) situés à Saint-Étienne. Le dirigeant d’Ice Blue, Honoré Feur, souhaite acquérir deux ateliers de production dans la même région et proﬁter de la refonte du site Web pour développer des contacts avec des revendeurs spécialisés partout dans le monde. En l’absence de logiciel de production, le dirigeant souhaiterait que les informaticiens développent un logiciel compatible avec le logiciel de gestion des approvisionnements et le logiciel comptable.</p>
+<ol>
+<li><strong>Quel est le rôle du DSI dans ce contexte ?</strong></li>
+<li><strong>Faut-il désigner ou embaucher un chef de projet ? un développeur d’applications ?</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="122-les-interactions-de-la-dsi-avec-les-autres-directions">1.2.2 Les interactions de la DSI avec les autres directions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#122-les-interactions-de-la-dsi-avec-les-autres-directions" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Enjeux des relations entre SI et les autres services</strong></p>
+<ul>
+<li>La direction des systèmes d’information (DSI) doit diffuser les <strong>potentiels</strong> du SI à l’ensemble de l’organisation, notamment aux directions métier ;</li>
+<li>Chaque direction doit être intégrée dans la stratégie SI aﬁn de ﬂuidiﬁer les relations interdirections au service de la <strong>performance globale</strong>.</li>
+</ul>
+<p><img src="attachment:a28d9eca-f3e2-4cbb-977e-594d614a12b4:image.png" alt="Relations du SI avec les autres direction métier"/></p>
+<p>Relations du SI avec les autres direction métier</p>
+</li>
+<li>
+<p><strong>Lien entre la DSI et la direction générale</strong></p>
+<ul>
+<li>Le positionnement de la direction des systèmes d’information (DSI) au sein de l’organisation traduit la place accordée au SI ;</li>
+<li>Plusieurs objectifs y sont attendus :
+<ul>
+<li>Partager une vision commune du SI, source de création de valeur dans l’organisation ;</li>
+<li>Prendre des décisions permettant de proﬁter des potentiels du numérique ;</li>
+<li>Diffuser une culture du numérique au sein de l’ensemble des métiers de l’organisation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Fonctionnement agile de la DSI au sein de l’organisation</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>L’agilité du SI désigne sa capacité d’adaptation à la stratégie globale et aux nouveautés technologiques, tant matérielles que logicielles.</p>
+  </aside>
+<ul>
+<li>Tout changement dans la stratégie globale de l’organisation ou toute innovation technologique a un impact sur le système d’information, renforçant la nécessité de promouvoir la culture digitale interne pour faciliter l’évolution et l’adaptation du SI ;</li>
+<li>Les améliorations de ce dernier sont diffusées rapidement dans l’organisation, ce qui permet un alignement sur la stratégie globale.</li>
+</ul>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 2 : Food Truck</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Repérer le rôle des différents acteurs et leurs responsabilités dans le fonctionnement du système d’information</li>
+<li>Participer à l’identiﬁcation des besoins en compétences numériques
+  </li></ul></aside>
+</li>
+</ul>
+<p>Créée il y a 5 ans à Nîmes par Ernest Resjau, la société Food Truck compte avec 44 camions couvrant le sud de la France et 55 salariés, dont un responsable des infrastructures informatiques, un directeur du SI et deux gestionnaires du SI. Le site Web était jusqu’alors géré par un prestataire extérieur.</p>
+<p>Les plats proposés à la clientèle sont produits localement. Ernest Resjau a donc développé un réseau dense de contacts avec des agriculteurs et restaurateurs. Le SI est un axe central de sa réussite ; agile, il permet de réagir rapidement aux commandes de l’ensemble des food trucks, lesquelles sont planiﬁées chaque semaine. Les commandes et règlements en ligne sont possibles, ce qui ﬂuidiﬁe l’activité. Face à cet engouement, Ernest Resjau envisage d’étendre son activité à l’ensemble du territoire et de proﬁter des potentialités de son site Web.</p>
+<ol>
+<li><strong>Repérez les compétences nécessaires en matière de SI dans le contexte actuel.</strong></li>
+<li><strong>Compte tenu de la stratégie de développement envisagée, identiﬁez les nouvelles attentes à l’égard du SI.</strong></li>
+</ol>
+</li>
+<li>
+<p><strong>Cas pratique 3 : Cask&amp;Protek</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<p>Repérer le rôle des différents acteurs et leurs responsabilités dans le fonctionnement du système d’information</p>
+  </aside>
+<p>La société Cask&amp;Protek conçoit et fabrique des accessoires de protection pour les pratiques sportives de longboard, snowboard et alpinisme. La société est domiciliée à Lyon et son dirigeant Martin Chèredu, souhaite la développer à l’international. Les protec-tions produites en interne seraient désormais sous-traitées au Maroc, la conception et le cahier des charges restant un des métiers importants de Cask&amp;Protek. Le dirigeant est en discussion avec un concurrent actuel pour la reprise des ateliers et des 44 ouvriers qui y travaillaient. Un contrat sera conclu dans les prochains mois avec une centrale d’achats située en Californie. Un montant avoisinant les 15 % du CA actuel est envisagé.</p>
+<p>Le directeur des SI est convoqué à plusieurs reprises par Martin Chèredu aﬁn de réﬂéchir aux conséquences de ce tournant stratégique sur le SI.</p>
+<p>En vous appuyant sur le document, répondez aux questions ci-après.</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Repérez les principaux éléments qui se dégagent certainement des discussions entre le dirigeant et le directeur du SI.</strong></li>
+<li><strong>Identiﬁez les autres personnels et directeurs concernés par la nouvelle orientation stratégique.</strong></li>
+<li><strong>Expliquez pourquoi les directions Production et RH devraient être particulièrement touchées par la modiﬁcation du SI.</strong></li>
+<li><strong>Caractérisez l’agilité du SI dans ce contexte stratégique.</strong></li>
+</ol>
+<p><img src="attachment:52df05b3-b678-4a0b-b92b-669cc6e2843f:image.png" alt="image.png"/></p>
+</li>
+</ul>
+
+
+<h2 id="qcm-1">QCM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qcm-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><a href="https://app.wooclap.com/YUJLZM/questionnaires/68a4dab75e36e5259d536bbd" class="external external-link">https://app.wooclap.com/YUJLZM/questionnaires/68a4dab75e36e5259d536bbd<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<h2 id="synthèse-1">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="attachment:df05da6b-3260-4dc1-a6c0-36f48d9bcda1:image.png" alt="Synthèse"/></p>
+<p>Synthèse</p>
+<h1 id="13-la-dimension-technologique-du-système-dinformation">1.3 La dimension technologique du système d’information<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-la-dimension-technologique-du-système-dinformation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="programme-2">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<aside>  
+🗒️
+<p><strong>Pédagogie</strong></p>
+<p><strong>Compétences attendues</strong></p>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>
+<p>Maîtriser son espace numérique de travail ;</p>
+</li>
+<li>
+<p>Utiliser des outils numériques et des applications dans un contexte professionnel ;</p>
+</li>
+<li>
+<p>Localiser les ressources ;</p>
+</li>
+<li>
+<p>Se connecter au réseau de manière ﬁable ;</p>
+</li>
+<li>
+<p>Utiliser les services réseaux présents dans l’espace numérique de travail.</p>
+</li>
+<li>
+<p>Les moyens d’accès aux SI : poste de travail ﬁxe ou mobile, tablettes, smartphone, terminaux et autres périphériques ;</p>
+</li>
+<li>
+<p>Localisation des données et des applications ;</p>
+</li>
+<li>
+<p>Les serveurs : principes fonctionnels ;</p>
+</li>
+<li>
+<p>Réseaux publics et privés : internet/intranet/extranet ;</p>
+</li>
+<li>
+<p>Modalités d’accès au réseau ;</p>
+</li>
+<li>
+<p>Les services réseaux : l’informatique en nuage, services d’annuaire, de messagerie, Web, transfert de ﬁchiers.</p>
+  </li></ul></aside>
+
+
+<aside>  
+🗒️
+<p><strong>Plan</strong></p>
+<ul>
+<li>
+<p><strong>Cours</strong></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.3.1 L’espace numérique de travail (ENT)<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.3.2 Les ressources numériques dans le contexte professionnel<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</li>
+<li>
+<p><strong>Synthèse</strong></p>
+  </li></ul></aside>
+
+
+<aside>  
+📝
+<p><strong>Mots clés</strong></p>
+<p>Accès au réseau, Annuaire, Espace numérique de travail, Réseau, Équipements informatiques, Serveurs, Informatique en nuage, Réseau public, Réseau privé, VPN</p>
+</aside>
+<p>Axe fondamental de la performance des entreprises, le réseau informatique repose sur des pratiques sans cesse développées nécessitant des formations et mises à niveau régulière. La compétitivité des entreprises passe désormais par la maîtrise de la dimension digitale. Comment identiﬁer les avantages procurés par l’environnement numérique de travail ? Comment piloter la transition numérique des entreprises et proﬁter ainsi des potentialités offertes par le réseau ?</p>
+<h2 id="cours-2">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="131-lespace-numérique-de-travail-ent">1.3.1 L’espace numérique de travail (ENT)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#131-lespace-numérique-de-travail-ent" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Les caractéristiques d’un ENT</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>Un espace numérique de travail (ou portail de services) désigne un dispositif global d’offres de services numériques à la disposition des acteurs d’une organisation.</p>
+  </aside>
+<ul>
+<li>Point d’entrée du SI accessible à tous, l’ENT doit prendre en compte l’ensemble des missions de l’organisation auxquelles il vient en appui et améliore la performance.</li>
+</ul>
+  <aside>  
+  📝
+<p><strong>Exemple</strong><br/>
+L’ENT permet d’accéder :</p>
+<ul>
+<li>Aux agendas partagés des commerciaux ;</li>
+<li>Au service de réservation de la salle de visioconférence ;</li>
+<li>A une messagerie en ligne instantanée ;</li>
+<li>Aux inscriptions à la prochaine formation au PGI, aux sondages et questionnaires en ligne, etc.
+  </li></ul></aside>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>Avantages</strong></th><th><strong>Inconvénients</strong></th></tr></thead><tbody><tr><td>- Communication dans le travail : accessibilité rapide aux informations, connexion à l’organisation permanente, travail à distance, agilité, ﬂuidité ;</td><td>- Gestion complexe de la sécurisation des contenus conﬁdentiels et risque de surinformation ;</td></tr><tr><td>- Accessibilité aux ressources numériques : bases de données, applications, informations, processus, informations partagées ;</td><td>- Renforcement du sentiment de contrôle : les moments et durées de travail sont connus et conservés par le SI ;</td></tr><tr><td>- Facilite le travail collaboratif : les missions effectuées par un salarié peuvent être complétées par un autre en fonction des compétences et de la ﬁche de poste de chacun ;</td><td>- Brouillage entre la sphère du travail et la sphère privées : l’accès à distance permet le travail en dehors de la structure et conduire à des risques psychosociaux ;</td></tr><tr><td>- Rationalisation dans le travail : la structure du SI améliore la structuration du travail ;</td><td>- Affaiblissement des relations humaines : dans des grandes structures recourant au télétravail ;</td></tr><tr><td>- Amélioration d’un fonctionnement en processus : plusieurs collaborateurs peuvent agir en fonction de leurs compétences et mission tout au long d’un même processus.</td><td>- Certains changements affectant les fonctionnalités des ENT peuvent provoquer des réticences de la part des salariés (résistance au changement).</td></tr></tbody></table></div>
+<ul>
+<li>Deux actions sont essentielles lorsque l’on met en place un espace numérique de travail :</li>
+</ul>
+<p><img src="attachment:9cddb006-c997-4a2c-a144-286a86d7f26f:image.png" alt="Principales préconisations en matière d’usage de l’ENT"/></p>
+<p>Principales préconisations en matière d’usage de l’ENT</p>
+
+<li>
+<p><strong>Les matériels utilisés par le SI</strong></p>
+<ol>
+<li>
+<p><strong>Les principaux moyens d’accès au SI</strong></p>
+<ul>
+<li>
+<p>Les équipements permettant une connexion au système d’information sont variés aﬁn de répondre à des besoins à géométrie variable (localisation géographique, accès aux données, utilisation de logiciels et applicatifs, partage avec la clientèle, interconnexion entre sites de production, conﬁdentialité, etc.) :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Poste de travail ﬁxe</th><th>Rassemble plusieurs composants qui permettent la circulation et le traitement de l’information : matériels tels que la connectique, le processeur, la carte réseau, le ventilateur, la carte mère, les mémoires vive, morte et de masse (disque-dur interne ou externe) et logiciels tels que les systèmes d’exploitation et sécuritaires.</th></tr></thead><tbody><tr><td>Ordinateur portable</td><td>Mêmes composants que le poste de travail ﬁxe mais avec des capacités moindres (processeur moins puissant, espace de stockage mémoire vive plus petit, etc.) destinés à une utilisation agile au sein et à l’extérieur de l’entreprise.</td></tr><tr><td>Tablette</td><td>- Équipement connecté tactile (avec écran, sans clavier ni souris) très facilement transportable ;</td></tr></tbody></table></div>
+<ul>
+<li>Permet d’accéder aux applications, aux contenus multimédias, au réseau, etc. |<br/>
+| Smartphone | - Équipement multifonction connecté permettant d’exécuter des applications et la navigation sur le Web, géolocalisation, messagerie vocale |<br/>
+| Périphériques et terminaux (combinaisons de périphériques assurant la communication utilisateur-réseau) | - Équipements aux faibles ressources propres destinés à permettre le dialogue (requêtes à un serveur, utilisateur et système d’exploitation) :
+<ul>
+<li>Entrées : clavier, souris, webcam, micro, scanner, tablette graphique ;</li>
+<li>Sorties : écran, imprimante, hauts parleurs ;</li>
+<li>Antrées-sorties : modem, box, carte réseau. |</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Des modes de connexion agiles au service de la performance</strong></p>
+<ul>
+<li>Toutes les modalités de connexion répondent à des besoins sans cesse accrus et divers tant dans les contenus que dans les modalités d’échanges et de traitement des données :</li>
+</ul>
+<p><img src="attachment:432a2502-0107-40dc-be75-7f5248fa95fb:image.png" alt="Modèles d’accès aux SI"/></p>
+<p>Modèles d’accès aux SI</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 1 : ESN Nouméa</strong></p>
+<p>L’entreprise de services du numérique (ESN) Nouméa constitue un acteur fort en Nouvelle-Calédonie en matière de création de sites Web et d’applications sur mesure. Le site web <a href="http://www.esnnoumea.nc/" class="external external-link">www.esnnoumea.nc<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> présente les diverses activités proposées et réalisées par les deux dirigeants, Alain Boulouparis et Étini Moé et leurs 35 salariés. La DRH, Tahi-toa Dani, s’interroge sur l’évolution des pratiques professionnelles des salariés et leur rapport aux outils numériques.</p>
+<ol>
+<li><strong>Comment un salarié de l’ESN Nouméa peut-il se connecter à l’ENT de l’entreprise ?</strong></li>
+<li><strong>Quels sont les leviers de performances générées par l’ENT de l’ESN Nouméa ?</strong></li>
+<li><strong>L’accès aux ressources sur l’ENT est-il possible à l’identique pour tout collaborateur ?</strong></li>
+<li><strong>Comment la DRH doit-elle adapter le fonctionnement de l’entreprise de façon à maintenir un esprit d’équipe ?</strong></li>
+</ol>
+</li>
+<li>
+<p><strong>Cas pratique 2 : Société Kraﬂa</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Localiser les ressources</li>
+<li>Se connecter au réseau de manière ﬁable
+  </li></ul></aside>
+</li>
+</ul>
+<p>La société Kraﬂa, domiciliée à Clermont-Ferrand, est spécialisée dans les technologies de chauffage par géothermie. L’effectif de la société est de 55 personnes dont 2 comptables à temps partiel, 3 commerciaux et 50 techniciens. Un site Web permet aux clients d’accéder aux activités de l’entreprise.</p>
+<p>Le réseau local est constitué de 30 postes ﬁxes affectés au dirigeant, Manuel Jonsson, aux comptables, aux commerciaux et aux ateliers (un poste par atelier). Trois imprimantes ont été installées sur le réseau. Le réseau comporte notamment un serveur dédié au PGI de l’entreprise, un serveur de données hébergeant le système de gestion de base de données relationnelle (SGBDR), un serveur Web et un serveur comportant les applicatifs permettant d’accéder à des services intranet. Les équipements matériels et les logiciels se situent dans un local sécurisé de l’entreprise au rez-de-chaussée du bâtiment.</p>
+<ol>
+<li><strong>Analysez la situation du système informatique de la société Kraﬂa, identiﬁez son mode de fonctionnement et soulignez-en les avantages ou inconvénients.</strong></li>
+<li><strong>Indiquez les modalités nécessaires pour accéder au réseau de Kraﬂa.</strong></li>
+</ol>
+<p><em><strong>Manuel Jonsson vient de racheter la société Heckla, spécialisée dans les capteurs et les sondes géothermiques, qui exploite un réseau local similaire à celui de la société Kraﬂa et qui regroupe 5 postes et deux imprimantes. Heckla utilise notamment une base de données clients. Toutes les activités d’Heckla s’apprêtent à rejoindre le site de Kraﬂa.</strong></em></p>
+<ol>
+<li><strong>Identiﬁez les problèmes qui pourraient résulter de la réunion des deux systèmes informatiques.</strong></li>
+</ol>
+</li>
+
+
+
+<h3 id="132-les-ressources-numériques-dans-le-contexte-professionnel">1.3.2 Les ressources numériques dans le contexte professionnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#132-les-ressources-numériques-dans-le-contexte-professionnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Les réseaux</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>Un réseau est constitué d’un ensemble d’équipements interconnectés qui forment une infrastructure réseau. Ces équipements sont : ordinateurs, serveurs, etc.</p>
+  </aside>
+<ol>
+<li>
+<p><strong>Les finalités d’un réseau</strong></p>
+<ul>
+<li>Un réseau vise à partager des ressources et à échanger des informations. Il permet notamment :
+<ul>
+<li>Le partage de ﬁchiers, d’applications (logiciels de bureautique, PGI), de matériels (disques durs, imprimantes, scanner), de données (base de données) ;</li>
+<li>La communication entre processus (échange de données entre différentes applications, intégration des données, pilotage synchronisé de machines industrielles) ;</li>
+<li>Une diminution des temps d’opérabilité (réduction des temps d’accès aux données, de la durée de réalisation des traitements, des délais de communication) ;</li>
+<li>Les échanges entre les personnes (messagerie, visioconférence, e-learning, groupware).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Le réseau, source d’efﬁcience</strong></p>
+<ul>
+<li>Le réseau est un facteur d’efﬁcience car :
+<ul>
+<li>Il évite la redondance des matériels, des données, des applications et des traitements ;</li>
+<li>Il autorise l’utilisation de plateformes matérielles et logicielles hétérogènes (âges et caractéristiques différentes) et favorise leur évolution progressive (développement du parc informatique, introduction de nouvelles applications…) ;</li>
+<li>Il optimise les ressources ﬁnancières dédiées au parc informatique grâce à la mutualisation des équipements, des données, des espaces de stockage, des applications ou encore des abonnements. Des économies de coûts sont ainsi réalisées.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les typologies de réseau</strong></p>
+<ul>
+<li>
+<p>Une typologie des réseaux peut être établie selon leur étendue :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Catégories de réseaux</th><th>Étendue du réseau</th><th>Commentaires et caractéristiques</th></tr></thead><tbody><tr><td>Réseau privé ou local ou LAN (Local Area Network)</td><td>Connexion des équipements au sein d’un espace géographiquement limité, d’une entreprise privée.</td><td>- Réservé aux utilisateurs autorisés d’une organisation ;</td></tr></tbody></table></div>
+<ul>
+<li>Utilisations courantes : utilisation des logiciels de gestion, PGI, travail collaboratif ;<br/>
+Utilisation de services de type Internet (navigation, messagerie, accès à des applications) sur le réseau local (intranet). |<br/>
+| Réseau étendu WAN (Wide Area Network) | Interconnexion d’équipements dans une zone géographique étendue. | - Recours à des moyens de transmission publics, dont le plus connu des WAN, Internet (Interconnected Network), réseau de réseaux ;</li>
+<li>Possibilité d’accès à l’intranet via Internet au-delà du réseau local (uniquement pour les utilisateurs autorisés) ;<br/>
+Possibilité d’ouverture d’une partie de l’intranet à des partenaires extérieurs (fournisseurs, clients) via l’extranet. |</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les caractéristiques des réseaux</strong></p>
+<ul>
+<li>
+<p>On distingue les réseaux publics (Internet accessible à tous) et les réseaux privés (propriété d’une organisation ou d’un particulier) ;</p>
+</li>
+<li>
+<p>Ces derniers peuvent être utilisés de façon privée par la location physique de lignes, ou virtuellement, par réseau privé virtuel ou VPN (Virtual Private Network) ;</p>
+</li>
+<li>
+<p>Le VPN permet de relier des réseaux locaux par Internet de façon sécurisée à l’aide d’outils de chiffrement (tunnelisation) ;</p>
+</li>
+<li>
+<p>La mise en place de VPN permet de relier des réseaux locaux, favorisant ainsi l’accès aux ressources pour les utilisateurs d’équipements nomades en toute sécurité.</p>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>Une collectivité territoriale peut relier ses services (mairies annexes, services sociaux…) par un réseau public avec, le cas échéant, un VPN.</p>
+<p>Un cabinet d’expertise-comptable qui comporte plusieurs établissements peut relier ceux-ci de façon sécurisée grâce à un VPN et permettre les échanges sécurisés de données sur les dossiers clients.</p>
+  </aside>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les modalités d’accès aux réseaux</strong></p>
+<ul>
+<li>
+<p>L’accès ﬁable et sécurisé aux réseaux nécessite :</p>
+<ul>
+<li>Un identiﬁant permettant de reconnaître l’utilisateur comme faisant partie de l’organisation (habilitation à entrer dans l’ENT) ;</li>
+<li>UIn mot de passe pour prouver que l’utilisateur est bien la personne qu’il prétend être au moyen de son identiﬁant (certains identiﬁants se construisent de manière générique, ex. : « prénom_nom ») ;</li>
+<li>Un opérateur Internet (fournisseur d’accès à Intranet, FAI) avec des contraintes de service (disponibilité) et de débit ;</li>
+<li>Une connexion par un utilisateur en interne ou grâce à un logiciel de VPN.</li>
+</ul>
+<p><img src="attachment:a10aac30-0e5d-445a-a677-dc2f6806ce31:image.png" alt="Solutions de connexion"/></p>
+<p>Solutions de connexion</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les équipements réseaux</strong></p>
+ <aside>  
+ 💡
+<p><strong>A savoir</strong></p>
+<p>L’accès au réseau à distance est qualiﬁé de « nomadisme numérique ».</p>
+ </aside>
+<ul>
+<li>
+<p>Pour se connecter à un réseau, divers équipements sont nécessaires :</p>
+<p>| Serveur | - Système (matériel et logiciel) offrant des services ;</p>
+<ul>
+<li>Puissance adaptée à son rôle car il peut être sollicité par de multiples utilisateurs simultanément. |<br/>
+| --- | --- |<br/>
+| Carte réseau | Composant servant d’interface entre un hôte (ordinateur, imprimante…) et le réseau local (privé). |<br/>
+| Poste client | - Ordinateur ou poste de travail capable d’effectuer des tâches bureautiques ou des missions de métier ;</li>
+<li>Poste client lourd (des applications et ressources sont dans l’unité centrale) ou client léger aux capacités limitées (plus performant en maintenance) qui lance des requêtes aux serveurs. |<br/>
+| Concentrateur ou hub (en ﬁn d’existence) | - Démultiplication des prises informatiques pour relier les matériels du réseau ;</li>
+<li>Envoi systématique par le hub des informations à tous les équipements (risque de saturation du traﬁc réseau). |<br/>
+| Commutateur ou switch | - Démultiplication des prises informatiques pour relier les matériels du réseau ;</li>
+<li>Recentrage des messages et contenus envoyés uniquement sur les équipements destinataires, connus par leur adresse IP. |<br/>
+| Routeur | Interconnexion de deux réseaux différents (ex. : privé et public). |</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>La localisation des données et des applications</strong></p>
+<ol>
+<li>
+<p><strong>L’architecture client-serveur</strong></p>
+<ul>
+<li>
+<p>L’architecture client-serveur permet un dialogue entre les postes client et le serveur selon le principe suivant :</p>
+<ul>
+<li>Un poste client (dédié uniquement à ce rôle) lance une demande d’accès (requête) à un logiciel, un calcul, à une base de données ;</li>
+<li>Un serveur (ou les serveurs) dédié (s) qui répond à cette demande puisqu’il est fournisseur de services.</li>
+</ul>
+<p><img src="attachment:5b7111ad-c38c-4e2f-89b5-55acc6de7646:image.png" alt="Dialogue entre poste client et serveur"/></p>
+<p>Dialogue entre poste client et serveur</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les principes fonctionnels des serveurs</strong></p>
+<ul>
+<li>Les serveurs assument de nombreuses fonctions au sein du réseau en répondant aux demandes (requêtes) des postes client :
+<ul>
+<li>
+<p>Traitement et réponse, par ordre de priorité (ﬁle d’attente), aux requêtes des postes clients (y compris simultanément) ;</p>
+</li>
+<li>
+<p>Changement de localisation (autres serveurs, prestataires ESN, informatique en nuage) ;</p>
+</li>
+<li>
+<p>Répartition du traitement sur des serveurs (logiciels, bdd, accès Internet, sauvegardes, etc.), tout en masquant la localisation du serveur (information inconnue pour les usagers).</p>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>Selon les besoins, il existe des serveurs dédiés : serveur de données ou serveurs de ﬁchiers (gestion des données intégrées aux appli cations) ; serveur d’application (hébergement du PGI mis au service des usagers du réseau) ; serveur proxy (dispositif entre réseau local et internet pour accélérer les accès réseau).</p>
+  </aside>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>La localisation géographique des serveurs</strong></p>
+<ul>
+<li>
+<p>Les entreprises doivent s’enquérir des lieux de stockage des données aﬁn d’être en conformité avec le RGPD.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Enjeux</th><th>Caractéristiques</th></tr></thead><tbody><tr><td>- La proximité permet d’accélérer la communication ;</td><td></td></tr></tbody></table></div>
+<ul>
+<li>Le choix d’un pays doit garantir la conﬁdentialité des données stockées ;</li>
+<li>La localisation constitue un argument de vente (France notamment pour les entreprises françaises) ;</li>
+<li>Conﬁer les données à des serveurs localisés en France est source de garantie en matière de sécurité et de protection des données. | - Fournisseurs et hébergeurs de cloud sont soumis aux lois du pays dans lesquels sont installés les serveurs ;</li>
+<li>Le mode de transmission des données entre le cloud et l’utilisateur doit être sécurisé (chiffrement) ;</li>
+<li>Environnement compétitif, les tarifs et conditions d’utilisation des espaces constituent un argument concurrentiel ;</li>
+<li>La localisation fait partie des informations contractuelles que le client doit connaître. Cette transparence est essentielle. |</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Les services réseaux</strong></p>
+<ol>
+<li>
+<p><strong>L’informatique en nuage (Cloud Computing)</strong></p>
+ <aside>  
+ 📚
+<p><strong>Définition<br/>
+L’informatique en nuage</strong> ou Cloud Computing désigne un mode d’organisation donnant accès à des ressources et services à la demande via Internet. La localisation peut être éloignée entre les ordinateurs, les serveurs, les données, les logiciels, etc.</p>
+ </aside>
+<ul>
+<li>
+<p>Ces ressources sont distantes des utilisateurs et adaptables aux besoins.</p>
+<p><img src="attachment:8a42a1d1-5812-4919-9eb7-5c175133fb9e:image.png" alt="Principes de l’informatique en nuage (Cloud Computing)"/></p>
+<p>Principes de l’informatique en nuage (Cloud Computing)</p>
+</li>
+<li>
+<p>L’informatique en nuage (Cloud Computing) se distingue par des caractéristiques qui lui sont propres :</p>
+<ul>
+<li>
+<p>Organisation en architecture client-serveur où les ressources (logiciels, données) sont accessibles via Internet ;</p>
+</li>
+<li>
+<p>Serveurs gérés souvent par un prestataire extérieur ESN d’où perte de contrôle ;</p>
+</li>
+<li>
+<p>Connexion Internet de qualité nécessaire (sécurité, vitesse, débit, disponibilité, continuité de service) ;</p>
+</li>
+<li>
+<p>Tariﬁcation des services à l’utilisation (en fonction des connexions consommées par les utilisateurs) ;</p>
+</li>
+<li>
+<p>Partage des ressources sur des espaces différents ou éloignés géographiquement (données, applications, services, stockage, etc.) ;</p>
+</li>
+<li>
+<p>Réduction des coûts (car proportionnels à l’utilisation donc variables) ;</p>
+</li>
+<li>
+<p>Ajouts agiles de fonctionnalités, adaptation des services en fonction de l’évolutivité de l’organisation (nombre de postes et d’utilisateurs) ;</p>
+</li>
+<li>
+<p>Gestion effectuée par des entreprises spécialisées donc source de qualité pour l’organisation utilisatrice.</p>
+<blockquote>
+<p><strong>Focus : les modalités du Cloud Computing</strong><br/>
+Trois modalités de Cloud Computing coexistent aujourd’hui :</p>
+</blockquote>
+<ul>
+<li>Le cloud <strong>privé</strong> dédié à une entreprise (géré et/ou hébergé en interne ou par un prestataire) ;</li>
+<li>Le cloud <strong>public</strong> partagé et tarifé à l’utilisation (de bande passante consommée ou espace utilisé) ;</li>
+<li>Le cloud <strong>hybride</strong> combine des ressources (données sensibles sur un cloud privé, logiciels sur un cloud public), ce qui permet d’optimiser les coûts et la sécurité.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les services d’annuaire</strong></p>
+ <aside>  
+ 📚
+<p><strong>Définition</strong></p>
+<p>Un annuaire est un dispositif rassemblant des informations consultables par les utilisateurs du réseau (répertoire téléphonique, inventaire des ressources matérielles, bases de données clients et fournisseurs).</p>
+ </aside>
+<ul>
+<li>Le service d’annuaire doit être <strong>mis à jour</strong> en fonction du proﬁl des utilisateurs et relié à d’autres services tels que la messagerie, l’Intranet, les espaces de groupware (travail de groupe), etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Les services de messagerie</strong></p>
+ <aside>  
+ 📚
+<p><strong>Définition</strong><br/>
+Une messagerie est une fonctionnalité permettant de consulter, gérer et envoyer des courriers électroniques (e-mails) via un navigateur Internet.</p>
+ </aside>
+<ul>
+<li>L’utilisateur n’a pas à installer de logiciel spéciﬁque de messagerie sur son ordinateur ou smartphone ;</li>
+<li>La messagerie est accessible depuis n’importe quel poste disposant d’une connexion Internet (SaaS, Software As A Service).</li>
+</ul>
+</li>
+<li>
+<p><strong>Les services Web</strong></p>
+<ul>
+<li>
+<p>On regroupe sous l’expression « services Web » tous les dispositifs ou protocoles permettant à des applications hétérogènes de communiquer en réseau.</p>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>Un client internaute souhaite connaître le prix d’un article dans une enseigne commerciale en envoyant un message sur le Web.</p>
+<p>Le message contenant la référence de l’article en question va effectuer le traitement et renvoyer le prix au client.</p>
+  </aside>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les services de transfert de ﬁchiers</strong></p>
+<ul>
+<li>Désigne la possibilité de déposer et d’accéder à des espaces de stockage partagé de ﬁchiers ;</li>
+<li>L’espace est accessible via Internet et dispose de capacités volumiques supérieures à un simple mail.</li>
+</ul>
+ <aside>  
+ ⚠️
+<p><strong>Attention</strong></p>
+<p>Avant d’utiliser une plateforme de transfert ou de stockage de ﬁchiers, vériﬁez qu’il n’existe pas déjà un service mis à disposition par l’entreprise ou que les règles de sécurité informatique de l’entreprise vous y autorisent.</p>
+ </aside>
+ <aside>  
+ 📝
+<p><strong>Exemple</strong></p>
+<p>WeTransfer ou encore Grosﬁchiers sont des plateformes de transfert de ﬁchiers couramment utilisées.</p>
+<p>Drop Box et Google Drive sont des plateformes de partage et de stockage de ﬁchiers.</p>
+ </aside>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 3 : Mélina’s Musik</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Maîtriser son espace numérique de travail</li>
+<li>Utiliser des outils numériques et des applications dans un contexte professionnel
+  </li></ul></aside>
+</li>
+</ul>
+<p>L’entreprise Mélina’s Musik vend des instruments de musique à Caen depuis 30 ans. Le local commercial est vaste et comporte plusieurs salles d’essais musicaux et des salles privatives équipées de vidéoprojecteurs. L’entreprise a également aménagé l’année dernière une salle louée à des musiciens. Conscient des nouvelles exigences de ses clients, le dirigeant, Jean Danstor, a développé un ENT sous-utilisé à ce jour par les salariés musiciens. Jean Danstor souhaiterait valoriser ces outils.</p>
+<ol>
+<li><strong>Les salariés utilisent encore à ce jour un registre sous format papier de réservation des salles d’essai. Des conﬂits apparaissent lorsque le registre n’est pas mis à jour, voire égaré. Expliquez comment Jean Danstor pourrait inciter les salariés à utiliser l’ENT.</strong></li>
+<li><strong>Certains salariés ultra-spécialisés ne peuvent renseigner les clients en dehors de leur champ de compétence. Identiﬁez, pour ces acteurs, les avantages d’un ENT.</strong></li>
+<li><strong>Les logiciels commerciaux et de gestion des stocks sont accessibles via l’ENT. Or, les salariés ne les utilisent pas systématiquement. Analysez les risques et la manière d’y remédier.</strong></li>
+</ol>
+<p><img src="attachment:61de9b4f-50b7-433b-8bce-476352a25a8e:image.png" alt="image.png"/></p>
+</li>
+<li>
+<p><strong>Cas pratique 4 : Limoges Gourmet</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Utiliser des outils numériques et des applications dans un contexte professionnel</li>
+<li>Utiliser les services réseaux présents dans l’espace numérique de travail
+  </li></ul></aside>
+</li>
+</ul>
+<p>Le restaurant étoilé Limoges Gourmet est situé dans le centre-ville de Limoges depuis 20 ans. Il emploie 77 salariés aux spécialités variées : chefs, cuisiniers, serveurs, réceptionnistes, barmans, commis de salle, administratifs, etc. La dirigeante, Suzanne Donvala, s’appuie sur le SI pour améliorer les performances du restaurant.</p>
+<ol>
+<li><strong>Analysez la manière dont les diverses applications et outils disponibles sur le réseau (document 1) contribuent à l’amélioration de la performance du restaurant.</strong></li>
+<li><strong>Enumérez les matériels nécessaires (document 2) pour que ce SI fonctionne à plein.</strong></li>
+<li><strong>Expliquez pourquoi le fonctionnement du réseau améliore le travail collaboratif du restaurant.</strong></li>
+</ol>
+<p><img src="attachment:99f4fba2-9fbd-4c33-b8c7-d0ecc29c1951:image.png" alt="image.png"/></p>
+<p><img src="attachment:b09ebd0a-360c-43ac-9b3f-518a22219f1b:image.png" alt="image.png"/></p>
+
+<li>
+<p><strong>Cas pratique 5 : Start-up Dici</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétence attendue</strong></p>
+<p>Localiser les ressources</p>
+  </aside>
+<p>La start-up Dici, entreprise située à Melun et dirigée par le fondateur, Léonard Dici, conçoit et fabrique des radiateurs incorporant des serveurs. Il s’agit d’un mode de chauffage dont la chaleur dissipée par les serveurs est récupérée à des ﬁns de chauffage des bâtiments administratifs. Les serveurs dégagent une chaleur importante à l’utilisation et nécessitent d’installer des modes de refroidissement entraînant ainsi une double consommation énergétique. Léonard Dici a eu l’ingénieuse idée de proﬁter de la chaleur externalisée par les serveurs de données et d’application aﬁn de limiter les coûts de consommation énergétique liés au chauffage. Ses clients sont essentiellement localisés en région parisienne et font appel à Dici pour stocker leurs propres bases de données mais également celles d’autres entreprises faisant appel à Dici pour l’hébergement des données. Les clients qui hébergent ainsi des serveurs utilisés par d’autres entreprises bénéﬁ cient de rémunérations pour compenser les consommations énergétiques inhérentes au fonctionnement des serveurs.</p>
+<ol>
+<li>Identiﬁez les avantages d’une localisation des données dans la région de Melun pour Dici.</li>
+<li>Expliquez pourquoi le fonctionnement architecture-client permet une localisation des données distante des utilisateurs.</li>
+<li>Analysez la manière dont la start-up proﬁte du développement de l’informatique en nuage.</li>
+</ol>
+</li>
+<li>
+<p><strong>Cas pratique 6 : Surf’Tecnik</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétence attendue</strong></p>
+<p>Se connecter au réseau de manière ﬁable</p>
+  </aside>
+<p>L’entreprise Surf’Tecnik est installée à Bastia. Son activité se développe depuis 22 ans dans le domaine de la vente de surfs, kitesurfs, vêtements et accessoires asso-ciés. L’entreprise comporte à ce jour 66 salariés au sein des bureaux administratifs situés à Bastia. Ses salariés ont des compétences diverses : comptables, ﬁ nancières, commerciales et informatiques. Deux étudiants en DCG vont être intégrés à l’entreprise en tant que stagiaires au cours du mois de juin prochain. La dirigeante, Elsa Vincensini, informaticienne de formation, gère la société. Un réseau privé est exploité comportant quelques caractéristiques présentées dans le document.</p>
+</li>
+<li>
+<p><strong>Cas pratique 7 : Neige’Cloud</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<p>Utiliser les services réseaux présents dans l’espace numérique de travail</p>
+  </aside>
+<p>L’entreprise de services numériques Neige’Cloud est située à Amiens. Son dirigeant, Édouard Gand, a créé cette société il y a 10 ans et s’est spécialisé dans les réponses à apporter aux entreprises en matière de services réseaux. L’entreprise comporte aujourd’hui 56 salariés avec des compétences étendues. L’entreprise se propose de gérer à la place des entreprises clientes un certain nombre de services, notamment des espaces de stockage de type informatique en nuage (Cloud Computing), la mise en place de services Web, des services annuaires, etc. Son client, l’entreprise Boréale, spécialisée dans la fabrication d’éclairages urbains, vient de contacter un commercial de Neige’Cloud aﬁn de négocier un contrat. La commerciale chargée de l’affaire, Fatima Iglesias, va répondre aux questions formulées par le client.</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Expliquez pourquoi l’informatique en nuage constituera un avantage pour Boréale.</strong></li>
+<li><strong>Précisez si les services d’annuaire sont indispensables pour Boréale.</strong></li>
+</ol>
+</li>
+
+
+
+<h2 id="qcm-2">QCM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qcm-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><a href="https://app.wooclap.com/YUJLZM/questionnaires/68a4de5fae891b790bd7af10" class="external external-link">https://app.wooclap.com/YUJLZM/questionnaires/68a4de5fae891b790bd7af10<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<h2 id="synthèse-2">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="attachment:84860a86-8f1b-487e-97ed-fdb72450ed0b:image.png" alt="image.png"/></p>
+<h1 id="14-la-dimension-organisationnelle-du-système-dinformation">1.4 La dimension organisationnelle du système d’information<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-la-dimension-organisationnelle-du-système-dinformation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="programme-3">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<aside>  
+🗒️
+<p><strong>Pédagogie</strong></p>
+<p><strong>Compétences attendues</strong></p>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>
+<p>Collaborer à un diagnostic du système d’information ;</p>
+</li>
+<li>
+<p>Identiﬁer les besoins d’évolution du système d’information ;</p>
+</li>
+<li>
+<p>Justiﬁer les enjeux de la transition numérique d’une organisation ;</p>
+</li>
+<li>
+<p>Analyser un contrat de prestations de services informatiques.</p>
+</li>
+<li>
+<p>Internalisation et externalisation du système d’information ;</p>
+</li>
+<li>
+<p>La transition numérique des organisations ;</p>
+</li>
+<li>
+<p>Le rôle des entreprises de services numériques ;</p>
+</li>
+<li>
+<p>Contrats de prestations de services.</p>
+  </li></ul></aside>
+
+
+<aside>  
+🗒️
+<p><strong>Plan</strong></p>
+<ul>
+<li>
+<p><strong>Cours</strong></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.4.1 La transition numérique des entreprises<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.4.2 Les entreprises de services numériques (ESN)<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="https://app.notion.com/p/1-Syst-me-d-information-description-et-analyse-2490f6ff00b880ca93aaf6dd1132b7b8?pvs=21" class="external external-link">1.4.3 Les enjeux de l’internalisation ou de l’externalisation du SI<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</li>
+<li>
+<p><strong>Synthèse</strong></p>
+  </li></ul></aside>
+
+
+<aside>  
+📝
+<p><strong>Mots clés</strong></p>
+<p>Contrat de prestations de services, Diagnostic du SI, Entreprise de services numériques, Infogérance, Internalisation, Externalisation, Réseaux sociaux, Site Web, Spécialisation, Transition numérique</p>
+</aside>
+<p>Trois objectifs principaux de la présence en ligne des entreprises sont la nécessité de faire connaitre l’activité, pouvoir être trouvé facilement et pouvoir communiquer avec les clients ou prospect. Les modalités de la visibilité en ligne, enjeu crucial pour la compétitivité, prend des formes multiples : site Web, présence sur les réseaux sociaux, référencement, etc. Comment la mise en place de la transition numérique contribue-t-elle à accroître la performance des organisations ? Comment proﬁter des compétences des entreprises de services numériques (ESN) ?</p>
+<h2 id="cours-3">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="141-la-transition-numérique-des-entreprises">1.4.1 La transition numérique des entreprises<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#141-la-transition-numérique-des-entreprises" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<aside>  
+📚
+<p><strong>Définition</strong></p>
+<p>La transition numérique désigne le processus d’évolution d’une organisation lui permettant de proﬁter pleinement du potentiel offert par les technologies numériques.</p>
+</aside>
+<ul>
+<li>
+<p><strong>Le périmètre de la transition</strong></p>
+<ul>
+<li>
+<p>La transition numérique des organisations prend des formes plurielles aﬁn de générer des performances :</p>
+<p>| Collecte des données sur le Web, les réseaux sociaux (avis, notations, commentaires) | - Utilisation au sein de logiciels de la relation clientèle</p>
+<ul>
+<li>Adaptation, réajustement des biens et services</li>
+<li>Gestion “Social Media Newsroom” (gestion réseaux sociaux) |<br/>
+| --- | --- |<br/>
+| Visibilité sur le Web / référencement | - Construction d’une e-réputation, d’une identité sur le Web</li>
+<li>Développement de la présence sur le Web par des personnels spéciﬁques (Community Manager)</li>
+<li>Interaction avec les visiteurs (formulaire de contact, e-mailing)</li>
+<li>Attente de retombées commerciales de Facebook, Instagram…</li>
+<li>Référencement dans les moteurs de recherche |<br/>
+| Budget de la transition numérique | - Financement de la création du site Web</li>
+<li>Financement de la mobilité (accès en nomade au réseau)</li>
+<li>Développement du télétravail (matériel à domicile, connexion) |<br/>
+| Développement du numérique | - Évolution des usages du numérique en entreprise</li>
+<li>Sensibilisation aux risques du numérique</li>
+<li>Exploitation des plateformes d’e-commerce</li>
+<li>Appropriation des mesures sécuritaires du SI</li>
+<li>Maîtrise de la dématérialisation des factures, commandes…</li>
+<li>Organisation du télétravail (évolution des attentes des salariés, période Covid, acquisition d’équipements pour le travail à domicile, etc.) |</li>
+</ul>
+<blockquote>
+<p><strong>Focus - France Num</strong><br/>
+L’initiative France Num, lancée par la direction générale des entreprises du ministère de l’Économie et des Finances en janvier 2019, a pour objectif de rassembler les actions menées par l’État, les régions et leurs partenaires pour accompagner les TPE/PME vers le numérique. Plus de 1 300 « activateurs », répartis sur tout le territoire, sont mobilisés. France Num déploie aussi des prêts garantis par le secteur bancaire classique.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Le processus de transition</strong></p>
+  <aside>  
+  💡
+<p><strong>A savoir</strong></p>
+<p>L’e-commerce (produits et services) représente 112 Mds €, soit 13,4 % du commerce de détail (Fevad, 2020).</p>
+  </aside>
+<ul>
+<li>
+<p>La transition numérique s’organise en quatre étapes principales :</p>
+<p><img src="attachment:d9db2068-a47a-4678-9059-c9fddab0fab3:image.png" alt="Démarche de la transition numérique"/></p>
+<p>Démarche de la transition numérique</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 1 : Hôtel des Volcans</strong></p>
+<p>Installé à Clermont-Ferrand depuis 15 ans, l’Hôtel des Volcans dispose de 55 chambres. Il propose également des services de restauration, de garde d’enfants ou encore de location de vélos, lesquelles génèrent une croissance régulière de l’activité. L’hôtel emploie 106 salariés : 99 en hôtellerie-restauration et 5 à des postes administratifs. Trois ESN de la région prennent en charge les missions du SI, lequel est jugé performant.</p>
+<ol>
+<li><strong>Quelles sont les principales missions incombant aux ESN de l’Hôtel des Volcans ?</strong></li>
+<li><strong>Quels avantages l’Hôtel des volcans peut-il tirer du recours aux ESN ?</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="142-les-entreprises-de-services-numériques-esn">1.4.2 Les entreprises de services numériques (ESN)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#142-les-entreprises-de-services-numériques-esn" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<aside>  
+📚
+<p><strong>Définition</strong></p>
+<p>Une entreprise de services numériques (ESN) désigne une société spécialisée dans le domaine des prestations en technologies informatiques.</p>
+</aside>
+<ul>
+<li>Les ESN visent à <strong>améliorer le fonctionnement</strong> des SI de leurs clients via leurs <strong>savoir-faire</strong> dans le digital ;</li>
+<li>Elles répondent à un <strong>besoin d’externalisation</strong> des compétences numériques ;</li>
+<li>Ces ESN permettent aux entreprises de disposer de compétences informatiques et de <strong>se recentrer sur leur cœur de métier</strong>.</li>
+</ul>
+<aside>  
+📝
+<p><strong>Exemple</strong></p>
+<p>Capgemini et IBM sont deux ESN qui occupent une place importante dans le paysage mondial.</p>
+</aside>
+<ul>
+<li>
+<p><strong>Le rôle des ESN</strong></p>
+<ul>
+<li>
+<p>Parfois spécia<strong>l</strong>isées (webdesigner, gestionnaire des réseaux sociaux, développement d’applications, etc.), les ESN assurent des missions variées à <strong>géométrie variable</strong> dans tous les secteurs.</p>
+  <aside>  
+  📝
+<p><strong>Exemple</strong><br/>
+Les ESN interviennent dans l’aéronautique, l’industrie automobile, les télécommunications ou encore les services publics…).</p>
+  </aside>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>Le périmètre et contenu des prestations</strong></p>
+ <aside>  
+ 📝
+<p><strong>Définition</strong></p>
+<p><strong>L’infogérance</strong> consiste en prise en charge ponctuelle du SI par une ESN.</p>
+ </aside>
+<ul>
+<li>
+<p>Les activités d’infogérance peuvent couvrir des missions ponctuelles (conseil technique sur l’achat d’un serveur) ou assurer le développement complet d’un SI :</p>
+<p>| Conseil, mise en place de solutions digitales | - Diagnostic du SI, audit du parc informatique, tableaux de bord du numérique</p>
+<ul>
+<li>Rédaction d’un cahier des charges (projet SI à réaliser)</li>
+<li>Évaluation des besoins d’évolution du SI (fusion d’entreprises, croissance du SI)</li>
+<li>Transformation digitale, valorisation de l’e-réputation</li>
+<li>Choix technologiques (caractéristiques, poste client léger, nomadisme, télétravail)</li>
+<li>Gestion électronique de documents</li>
+<li>Mise en place du télétravail |<br/>
+| --- | --- |<br/>
+| Cybersécurité, hébergement des données | - Lieux d’hébergement, de stockage, d’archivage des données (data)</li>
+<li>Sauvegardes externalisées dans l’informatique en nuage (cloud)</li>
+<li>Tests de résistance du SI aux cyber-attaques, aux intrusions</li>
+<li>Administration d’un réseau, gestion des droits d’accès</li>
+<li>Processus de cybersécurité intégrée (protéger, surveiller, traquer, renforcer) |<br/>
+| Intégration, transition numérique | - Création d’un site Web, audience et analyses du traﬁc d’un site Web</li>
+<li>SEO (Search Engine Optimization) du site Web (référencement)</li>
+<li>Analyse des données sur les réseaux sociaux et décisions-réponses clients</li>
+<li>Clients connectés, échanges de données et analyses en temps réel</li>
+<li>VoIP (voix IP) : leviers de réduction des coûts, mobilité |<br/>
+| Formation | - Progiciel de gestion intégré (PGI)</li>
+<li>Logiciel CRM (relation client)</li>
+<li>Logiciel GCL (logistique)</li>
+<li>Logiciel de gestion des points de vente, d’e-commerce</li>
+<li>E-learning</li>
+<li>Community manager</li>
+<li>Comportement et compétences en sécurité informatique |<br/>
+| Conception, développement, support technique | - Prise en charge de tout ou partie du SI (infrastructure matérielle et applicative)</li>
+<li>Support technique (câblage informatique, assistance technique) et hotline</li>
+<li>Maintenance matérielle et logicielle (préventive, corrective, évolutive)</li>
+<li>Développement et maintenance des applications métier</li>
+<li>Solutions SaaS (logiciels en ligne facturés à l’utilisation) |</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les besoins des entreprises clientes</strong></p>
+<ul>
+<li>
+<p>Les ESN apportent une expertise qui fait souvent défaut en interne ;</p>
+</li>
+<li>
+<p>Elles compensent l’absence de compétences informatiques dans l’entreprise cliente :</p>
+<p><img src="attachment:55cf1400-ef64-4d94-8ee8-d4062ee5287b:image.png" alt="Compétences spécialisées des ESN"/></p>
+<p>Compétences spécialisées des ESN</p>
+</li>
+</ul>
+ <aside>  
+ 💡
+<p><strong>A savoir</strong></p>
+<p>Le big data désigne des jeux de données extrêmement volumineux et complexes qui ne peuvent pas être facilement gérés ou analysés avec des outils de traitement de données traditionnels, en particulier des feuilles de calcul. Le big data comprend des données structurées, telles qu’une base de données d’inventaire ou une liste de transactions financières, des données non structurées, telles que des publications ou des vidéos sur les réseaux sociaux, et des jeux de données mixtes, tels que ceux utilisés pour entraîner de grands modèles de langage pour l’IA. Ces jeux de données peuvent inclure n’importe quoi, des travaux de Shakespeare aux dix derniers budgets annuels d’une entreprise.</p>
+ </aside>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Les contrats de prestations de services</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<p>Un contrat de prestation de services est une convention au terme de laquelle une société s’oblige, contre rémunération, à exécuter pour une autre société une mission déterminée.</p>
+  </aside>
+<ol>
+<li>
+<p><strong>Les modalités de facturation du contrat de services</strong></p>
+<ul>
+<li>La facturation des missions répond à différents modèles de ﬁxation du prix :
+<ul>
+<li>Le forfait est un montant ﬁxe, issu d’un engagement mutuel entre le client et l’ESN. Les contenus sont alimentés par un cahier des charges. Le prix est souvent plus élevé mais permet de s’affranchir d’incertitudes. L’ESN s’engage à une obligation de résultat ;</li>
+<li>La régie est une facturation au réel. Cette facturation est adaptée aux missions spéciﬁques reposant sur des compétences spécialisées ou innovantes. Le montant peut être néanmoins ﬁxé dans une fourchette de prix. L’ESN exécute alors souvent les misions selon une obligation de moyens ;</li>
+<li>Une formule hybride permet, selon la nature des missions, de proﬁter des avantages et inconvénients des deux alternatives.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Les clauses et contenus</strong></p>
+<ul>
+<li>
+<p>Le contrat de services répond au cahier des charges qui lui est adjoint ;</p>
+</li>
+<li>
+<p>Un cahier des charges rassemble, entre autres, les caractéristiques techniques, les délais et les modalités des missions ;</p>
+</li>
+<li>
+<p>Il prévoit également des clauses permettant de faire face aux manquements du prestataire (non-respect des délais d’intervention à la suite d’une panne, non-respect de la conﬁdentialité des données, etc.).</p>
+  <aside>  
+  📝
+<p><strong>Exemple</strong></p>
+<p>Parmi les clauses les plus courantes ﬁgurent les missions, les délais, les pénalités en cas retard ou d’inexécution du contrat et le prix à régler.</p>
+  </aside>
+</li>
+</ul>
+<p><img src="attachment:8bf84584-d6ca-4347-af80-edd7b276a7fc:image.png" alt="image.png"/></p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 2 : Snowtik</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Collaborer à un diagnostic du système d’information</li>
+<li>Identiﬁer les besoins d’évolution du système d’information</li>
+<li>Justiﬁer les enjeux de la transition numérique d’une organisation
+  </li></ul></aside>
+</li>
+</ul>
+<p>Domiciliée à Lyon, l’entreprise Snowtik fabrique des équipements matériels pour la pratique de sports d’hiver. Aux skis traditionnels, s’est ajoutée il y a 5 ans la fabrication de snowboards et chaussures. Snowtik vend aux particuliers et aux professionnels. Le système d’information est géré partiellement en interne et par le biais de deux ESN qui œuvrent sur des missions complémentaires. Le parc informatique est composé de 44 postes ﬁxes situés dans les bureaux administratifs et les ateliers de production.</p>
+<p>La location de matériel en station va bientôt grossir le portefeuille d’activités (possibilité de réservation en ligne). Un diagnostic du SI actuel est présenté dans le document.</p>
+<ol>
+<li><strong>Repérez les objectifs du diagnostic effectué sur le SI de Snowtik.</strong></li>
+<li><strong>Expliquez pourquoi la collaboration des utilisateurs est nécessaire pour mener à bien ce diagnostic.</strong></li>
+<li><strong>Indiquez et justiﬁez les évolutions du SI à déclencher au regard des conclusions du diagnostic et de la nouvelle activité.</strong></li>
+<li><strong>Identiﬁez les missions pour lesquelles le télétravail peut être préconisé et précisez pourquoi et comment le SI est apte à y répondre.</strong></li>
+</ol>
+<p><img src="attachment:f05525ce-75aa-4dee-b126-f751a8224a0f:image.png" alt="image.png"/></p>
+</li>
+</ul>
+
+
+<h3 id="143-les-enjeux-de-linternalisation-ou-de-lexternalisation-du-si">1.4.3 Les enjeux de l’internalisation ou de l’externalisation du SI<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#143-les-enjeux-de-linternalisation-ou-de-lexternalisation-du-si" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>Les organisations ont trois possibilités :</p>
+<ul>
+<li>Mettre en œuvre leur SI en interne ;</li>
+<li>Conﬁer la gestion du SI à une ESN (prestation de service) ;</li>
+<li>Adopter un système mixte en ne déléguant que certaines tâches.</li>
+</ul>
+</li>
+<li>
+<p><strong>La prise de décision</strong></p>
+  <aside>  
+  📚
+<p><strong>Définition</strong></p>
+<ul>
+<li>
+<p>L’internalisation est la prise en charge d’une tâche ou d’une mission par l’organisation ;</p>
+</li>
+<li>
+<p>L’externalisation consiste à conﬁer une tâche ou une mission à un prestataire extérieur spécialisé. Dans le cas du SI, on parle d’infogérance.</p>
+  </li></ul></aside>
+</li>
+<li>
+<p>La décision d’internalisation ou d’externalisation relève, pour partie, d’une stratégie d’entreprise.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pourquoi choisir d’internaliser ?</th><th>Pourquoi conﬁer une tâche à une ESN ?</th></tr></thead><tbody><tr><td>- Compétences déjà présentes en interne</td><td></td></tr></tbody></table></div>
+<ul>
+<li>Volonté de garder la maîtrise du SI</li>
+<li>Culture de l’indépendance</li>
+<li>Interlocuteurs SI connus, proximité avec les utilisateurs | - Manque de compétences en interne</li>
+<li>Nouvelle mission spécialisée (site Web)</li>
+<li>Coût moindre</li>
+<li>Flexibilité des besoins |</li>
+</ul>
+  <aside>  
+  ⚠️
+<p><strong>Attention</strong></p>
+<p>N’évacuez pas trop vite la possibilité de mixer gestion interne et prestations de services à géométrie variable.</p>
+  </aside>
+
+<li>
+<p><strong>Le diagnostic du SI</strong></p>
+<ul>
+<li>Les systèmes d’information s’insèrent dans une démarche d’amélioration continue de la qualité de l’existant.</li>
+</ul>
+<ol>
+<li><strong>Le diagnostic couvre les domaines suivants</strong>
+<ul>
+<li>Etat des lieux du SI : matériels, logiciels, organisationnel, humain ;</li>
+<li>Anticipation d’évolutions à venir : croissance de l’organisation, Web ;</li>
+<li>Dysfonctionnements, exposition aux risques, cyber-attaques ;</li>
+<li>Etat des compétences internes et évolution des besoins ;</li>
+<li>Qualité, ﬁabilité des données ;</li>
+<li>Accès au réseau, connectivité, nomadisme ;</li>
+<li>Mesure des dysfonctionnements au travers d’indicateurs ;</li>
+<li>Travail collaboratif (ou groupware) opérationnel ;</li>
+<li>Aptitude de l’organisation à mettre en place un télétravail performant ;</li>
+<li>Maturité technologique de l’organisation.</li>
+</ul>
+</li>
+<li><strong>La collaboration à un diagnostic des besoins</strong>
+<ul>
+<li>Le diagnostic de l’existant peut être découpé en une série d’actions :
+<ul>
+<li>Enquêtes sur les pratiques, sur la satisfaction des utilisateurs ;</li>
+<li>Consultation des inventaires matériels et applicatifs ;</li>
+<li>Mesures des temps d’accès au réseau, des espaces de stockage des données, etc. ;</li>
+<li>Evaluation de la concordance des potentiels actuels du SI avec les besoins réels ;</li>
+<li>Mise en place performante du télétravail.</li>
+</ul>
+</li>
+<li>Ces missions ne peuvent être réalisées sans implication des ressources humaines de l’organisation (recueil des pratiques et données, collecte des témoignages et constats de l’existant) ;</li>
+<li>Chaque utilisateur du SI doit être associé à la phase de diagnostic interne.</li>
+</ul>
+</li>
+<li><strong>Les conclusions du diagnostic</strong>
+<ul>
+<li>
+<p>La ﬁnalité d’un diagnostic est de déclencher des actions en matière de :</p>
+<ul>
+<li>Maintenance et d’acquisition de matériels et logiciels ;</li>
+<li>Répartition des responsabilités des acteurs ;</li>
+<li>Déclenchement des formations, recrutement ;</li>
+<li>Amélioration de la sécurité du SI ;</li>
+<li>Anticipation des cyber-attaques, le cyber-rançonnage.</li>
+</ul>
+  <aside>  
+  💡
+<p><strong>A savoir</strong></p>
+<p>Le diagnostic peut être réalisé en interne ou par une ESN. Assurez-vous de l’objectivité de l’évaluation du SI que seule une ESN garantit.</p>
+  </aside>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Mise en pratique</strong></p>
+<ul>
+<li>
+<p><strong>Cas pratique 3 : Çalur</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétence attendue</strong></p>
+<p>Analyser un contrat de prestations de services informatiques</p>
+  </aside>
+<p>Située à Maubeuge, la SARL Çalur propose des biens et services liés à la pratique de véhicules tout-terrain. Un local abrite à la fois les bureaux administratifs, une boutique ouverte au public où sont vendus les articles spécialisés et les ateliers où sont effectuées les installations (treuils, pare bufﬂes, protections, etc.). L’entreprise emploie 44 salariés. Le personnel est essentiellement composé d’ouvriers spécialisés et de techniciens réalisant les travaux d’installation sur les véhicules tout-terrain, de vendeurs et de personnels administratifs. Les logiciels métiers, en cohérence avec les activités comptables et commerciales, sont maîtrisés par leurs utilisateurs.</p>
+<p>La gérante de l’entreprise Çalur, Inès Hautmont, conﬁe de nombreuses missions inhérentes à la fonction système d’information à des ESN de la région. Son parc informatique est composé de 28 postes, dont 5 exclusivement dédiés à des activités de diagnostic et de contrôle des installations des tout-terrain au moyen d’outils logiciels spéciﬁques. Les serveurs applicatifs et de données sont hébergés chez un prestataire informatique qui en assure la gestion, l’ESN MaubeugeTik. Les mises à jour logicielles, les maintenances des ordinateurs et des imprimantes sont également gérées par des ESN.</p>
+  <aside>  
+  📝
+<p><strong>Document</strong></p>
+<p>Extrait des clauses du contrat de service de l’ESN MaubeugeTik</p>
+<ul>
+<li>Désignations, coordonnées de l’ESN MaubeugeTik et la SARL Çalur.</li>
+<li>Objet du contrat de service : relatif à la gestion des serveurs applicatifs et de données hébergées chez le prestataire.</li>
+<li>Assistance téléphonique 7j/7 24h/24, hotline.</li>
+<li>Rendez-vous programmés chaque premier lundi du mois aﬁ n de faire le point sur les dysfonctionnements constatés, sur l’état des serveurs, les évolutions en capacités à envisager et les besoins en maintenance applicative.</li>
+<li>Mise à disposition d’un interlocuteur de l’ESN MaubeugeTik, dédié aux besoins de Çalur.</li>
+<li>Appel ou enregistrement sur un espace numérique dédié par un membre quelconque de Çalur pour déclarer un dysfonctionnement nécessitant une intervention de l’ESN.</li>
+<li>Délai d’intervention en cas de dysfonctionnement ﬁxé à 15minutes.</li>
+<li>Méthode de facturation du présent contrat : au forfait de 2 500€ TTC mensuels payables le premier jour ouvré de chaque mois par virement bancaire, facture fournie huit jours avant l’arrivée de l’échéance.</li>
+<li>Pour toute demande exceptionnelle non couverte par le contrat, tarif en réel de 125€ par heure exécutée par l’ESN MaubeugeTik.</li>
+<li>Un accès Web sécurisé permettra de consulter l’état du contrat, la liste des interventions effectuées, le temps exceptionnel d’intervention réalisé.</li>
+<li>Conﬁdentialité : le prestataire s’engage à garder strictement conﬁdentiel toute information et documents auxquels il a accès dans le cadre de ses missions envers Çalur.</li>
+<li>Signatures électroniques des deux parties, date, lieu.
+  </li></ul></aside>
+</li>
+</ul>
+<ol>
+<li><strong>Repérez les éléments manquants au regard du contrat de prestation de services présenté dans le document.</strong></li>
+<li><strong>Identiﬁez les avantages et inconvénients des modalités de facturation du contrat de prestations de services présenté dans le document.</strong></li>
+<li><strong>Justiﬁez le choix d’externalisation des missions liées au SI.</strong></li>
+</ol>
+</li>
+<li>
+<p><strong>Cas pratique 4 : Névada</strong></p>
+  <aside>  
+  📚
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Collaborer à un diagnostic du système d’information</li>
+<li>Identiﬁer les besoins d’évolution du système d’information</li>
+<li>Justiﬁer les enjeux de la transition numérique d’une organisation</li>
+<li>Analyser un contrat de prestations de services informatiques
+  </li></ul></aside>
+</li>
+
+<p>L’entreprise Névada, domiciliée à Rouen, fabrique des arcs pour une pratique sportive en club. L’activité est gérée par 10 salariés, passionnés par leur métier mais peu tournés vers le développement commercial. Le dirigeant, Mathis Tavegus, qui pratique ce sport depuis 15 ans, s’inquiète de la baisse de CA au cours des 4 dernières années. Il a conscience que son SI n’est guère porteur de réussite.</p>
+<p>Les clients sont globalement ﬁdèles, mais certains se tournent vers des fournisseurs plus réactifs. En effet, seuls les contacts téléphoniques ou les déplacements sur le lieu de Névada, permettent aux clients de passer commande. Le père de Mathis Tavegus, technico-commercial, gère le réseau. Il s’occupe également des devis. Un cabinet d’expertise comptable, la SAGF, assure les missions comptables et ﬁnancières. L’ESN Bertﬂau intervient sur le SI. Lors de sa dernière visite, l’ESN Bertﬂau a préconisé d’engager le déclenchement d’une transition numérique. Le dirigeant, sensible à ces arguments, organise une rencontre avec Bertﬂau lors de laquelle ses salariés sont invités à exposer les idées et attentes en lien avec le SI.</p>
+<p>En vous appuyant sur vos connaissances et sur le dossier documentaire, répondez aux questions ci-après.</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Déterminez en quoi la venue des salariés à la réunion avec l’ESN Bertﬂau est source de réussite du projet d’évolution du SI.</strong></li>
+<li><strong>Expliquez pourquoi, avant tout déclenchement de projet, un diagnostic est réalisé.</strong></li>
+<li><strong>Identiﬁez les enjeux de la transition numérique pour Névada.</strong></li>
+<li><strong>Repérez les manquements dans le projet initial du contrat de services de Bertﬂau.</strong></li>
+<li><strong>Précisez les raisons pour lesquelles l’entreprise Névada a choisi de faire appel à des prestataires extérieurs pour la gestion du SI et du site Web.</strong></li>
+</ol>
+<p><img src="attachment:f17be472-28b1-449f-9c86-5aaeaca499af:image.png" alt="image.png"/></p>
+<p><img src="attachment:e7ddc22e-aeb3-4101-a187-bc6bcee8cd2f:image.png" alt="image.png"/></p>
+<p><img src="attachment:fcde4cf4-be79-4bd7-965d-95efed7cd88a:image.png" alt="image.png"/></p>
+
+
+
+
+<h2 id="qcm-3">QCM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qcm-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><a href="https://app.wooclap.com/AKCMRX?from=instruction-slide" class="external external-link">https://app.wooclap.com/AKCMRX?from=instruction-slide<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<h2 id="synthèse-3">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="attachment:c58b67a6-26ff-45f4-b52a-3e5bbe87ee9b:image.png" alt="image.png"/></p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Vue Graphique</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
                 s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
                 c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
                 C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
@@ -9,4 +1736,4 @@
                 C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
                 S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
                 s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
-                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Créé avec <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://stratos-solutions.fr">Stratos Solutions</a></li><li><a href="mailto:contact@stratos-solutions.fr">Contact</a></li></ul></footer></div></div></body><script src="../../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript-9114441b.js" type="module" data-persist="true"></script></html>
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-1" aria-expanded="true"><h3>Table des Matières</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#11-le-rôle-du-système-dinformation-dans-les-organisations" data-for="11-le-rôle-du-système-dinformation-dans-les-organisations">1.1 Le rôle du système d’information dans les organisations</a></li><li class="depth-1"><a href="#programme" data-for="programme">Programme</a></li><li class="depth-1"><a href="#cours" data-for="cours">Cours</a></li><li class="depth-2"><a href="#111-la-qualité-de-linformation-dans-les-organisations" data-for="111-la-qualité-de-linformation-dans-les-organisations">1.1.1 La qualité de l’information dans les organisations</a></li><li class="depth-2"><a href="#112-le-fonctionnement-du-système-dinformation-si" data-for="112-le-fonctionnement-du-système-dinformation-si">1.1.2 Le fonctionnement du système d’information (SI)</a></li><li class="depth-2"><a href="#113-les-niveaux-du-système-dinformation-si" data-for="113-les-niveaux-du-système-dinformation-si">1.1.3 Les niveaux du système d’information (SI)</a></li><li class="depth-1"><a href="#qcm" data-for="qcm">QCM</a></li><li class="depth-1"><a href="#synthèse" data-for="synthèse">Synthèse</a></li><li class="depth-2"><a href="#le-rôle-du-si-dans-les-organisations" data-for="le-rôle-du-si-dans-les-organisations">Le rôle du SI dans les organisations</a></li><li class="depth-0"><a href="#12-la-dimension-humaine-du-système-dinformation" data-for="12-la-dimension-humaine-du-système-dinformation">1.2 La dimension humaine du système d’information</a></li><li class="depth-1"><a href="#programme-1" data-for="programme-1">Programme</a></li><li class="depth-1"><a href="#cours-1" data-for="cours-1">Cours</a></li><li class="depth-2"><a href="#121-les-rôles-et-responsabilités-des-acteurs-du-si" data-for="121-les-rôles-et-responsabilités-des-acteurs-du-si">1.2.1 Les rôles et responsabilités des acteurs du SI</a></li><li class="depth-2"><a href="#122-les-interactions-de-la-dsi-avec-les-autres-directions" data-for="122-les-interactions-de-la-dsi-avec-les-autres-directions">1.2.2 Les interactions de la DSI avec les autres directions</a></li><li class="depth-1"><a href="#qcm-1" data-for="qcm-1">QCM</a></li><li class="depth-1"><a href="#synthèse-1" data-for="synthèse-1">Synthèse</a></li><li class="depth-0"><a href="#13-la-dimension-technologique-du-système-dinformation" data-for="13-la-dimension-technologique-du-système-dinformation">1.3 La dimension technologique du système d’information</a></li><li class="depth-1"><a href="#programme-2" data-for="programme-2">Programme</a></li><li class="depth-1"><a href="#cours-2" data-for="cours-2">Cours</a></li><li class="depth-2"><a href="#131-lespace-numérique-de-travail-ent" data-for="131-lespace-numérique-de-travail-ent">1.3.1 L’espace numérique de travail (ENT)</a></li><li class="depth-2"><a href="#132-les-ressources-numériques-dans-le-contexte-professionnel" data-for="132-les-ressources-numériques-dans-le-contexte-professionnel">1.3.2 Les ressources numériques dans le contexte professionnel</a></li><li class="depth-1"><a href="#qcm-2" data-for="qcm-2">QCM</a></li><li class="depth-1"><a href="#synthèse-2" data-for="synthèse-2">Synthèse</a></li><li class="depth-0"><a href="#14-la-dimension-organisationnelle-du-système-dinformation" data-for="14-la-dimension-organisationnelle-du-système-dinformation">1.4 La dimension organisationnelle du système d’information</a></li><li class="depth-1"><a href="#programme-3" data-for="programme-3">Programme</a></li><li class="depth-1"><a href="#cours-3" data-for="cours-3">Cours</a></li><li class="depth-2"><a href="#141-la-transition-numérique-des-entreprises" data-for="141-la-transition-numérique-des-entreprises">1.4.1 La transition numérique des entreprises</a></li><li class="depth-2"><a href="#142-les-entreprises-de-services-numériques-esn" data-for="142-les-entreprises-de-services-numériques-esn">1.4.2 Les entreprises de services numériques (ESN)</a></li><li class="depth-2"><a href="#143-les-enjeux-de-linternalisation-ou-de-lexternalisation-du-si" data-for="143-les-enjeux-de-linternalisation-ou-de-lexternalisation-du-si">1.4.3 Les enjeux de l’internalisation ou de l’externalisation du SI</a></li><li class="depth-1"><a href="#qcm-3" data-for="qcm-3">QCM</a></li><li class="depth-1"><a href="#synthèse-3" data-for="synthèse-3">Synthèse</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Créé avec <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://stratos-solutions.fr">Stratos Solutions</a></li><li><a href="mailto:contact@stratos-solutions.fr">Contact</a></li></ul></footer></div></div></body><script src="../../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript-9114441b.js" type="module" data-persist="true"></script></html>
