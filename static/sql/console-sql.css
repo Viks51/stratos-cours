@@ -1,0 +1,196 @@
+/* =====================================================================
+ *  Console SQL du cours — habillage
+ *
+ *  S'appuie sur les variables de theme de Quartz (--light, --lightgray,
+ *  --gray, --darkgray, --dark, --secondary, --tertiary), avec une
+ *  valeur de repli pour chacune : si le theme change ou si une variable
+ *  disparait, la console reste lisible.
+ * ===================================================================== */
+
+.console-sql {
+  margin: -0.6rem 0 1.6rem;
+  border: 1px solid var(--lightgray, #d8d8d8);
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background: var(--light, #fff);
+  font-size: 0.9rem;
+}
+
+/* --- la barre de boutons ------------------------------------------- */
+
+.console-sql-barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--lightgray, #d8d8d8);
+}
+
+.console-sql-bouton {
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--gray, #b8b8b8);
+  border-radius: 4px;
+  background: var(--light, #fff);
+  color: var(--darkgray, #4e4e4e);
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.console-sql-bouton:hover:not(:disabled) {
+  background: var(--lightgray, #eee);
+  border-color: var(--secondary, #2058a8);
+}
+
+.console-sql-bouton:focus-visible {
+  outline: 2px solid var(--secondary, #2058a8);
+  outline-offset: 1px;
+}
+
+.console-sql-bouton:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.console-sql-executer {
+  font-weight: 600;
+  color: var(--light, #fff);
+  background: var(--secondary, #2058a8);
+  border-color: var(--secondary, #2058a8);
+}
+
+.console-sql-executer:hover:not(:disabled) {
+  background: var(--tertiary, #17407c);
+  border-color: var(--tertiary, #17407c);
+  color: var(--light, #fff);
+}
+
+.console-sql-discret {
+  border-style: dashed;
+}
+
+.console-sql-alerte {
+  border-color: #b3541e;
+  color: #b3541e;
+}
+
+.console-sql-etiquette {
+  margin-left: auto;
+  color: var(--gray, #8a8a8a);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+/* --- l'editeur ------------------------------------------------------ */
+
+.console-sql-editeur {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem;
+  border: none;
+  border-bottom: 1px solid var(--lightgray, #d8d8d8);
+  background: var(--light, #fff);
+  color: var(--dark, #2b2b2b);
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  tab-size: 2;
+  resize: vertical;
+}
+
+.console-sql-editeur:focus {
+  outline: none;
+  box-shadow: inset 3px 0 0 var(--secondary, #2058a8);
+}
+
+/* --- la zone de resultat -------------------------------------------- */
+
+.console-sql-resultat {
+  padding: 0.7rem;
+}
+
+.console-sql-defilement {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.console-sql-table {
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.82rem;
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+}
+
+.console-sql-table th,
+.console-sql-table td {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--lightgray, #d8d8d8);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.console-sql-table th {
+  background: var(--lightgray, #eee);
+  font-weight: 600;
+}
+
+.console-sql-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--lightgray, #eee) 40%, transparent);
+}
+
+.console-sql-nombre {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.console-sql-null {
+  color: var(--gray, #8a8a8a);
+  font-style: italic;
+}
+
+.console-sql-decompte {
+  margin: 0.5rem 0 0;
+  color: var(--gray, #8a8a8a);
+  font-size: 0.78rem;
+}
+
+/* --- messages ------------------------------------------------------- */
+
+.console-sql-erreur,
+.console-sql-info {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.82rem;
+}
+
+.console-sql-erreur {
+  border-left: 3px solid #b3541e;
+  background: color-mix(in srgb, #b3541e 10%, transparent);
+  color: var(--dark, #2b2b2b);
+}
+
+.console-sql-info {
+  border-left: 3px solid var(--secondary, #2058a8);
+  background: color-mix(in srgb, var(--secondary, #2058a8) 10%, transparent);
+  color: var(--dark, #2b2b2b);
+}
+
+.console-sql-aide {
+  margin: 0.4rem 0 0;
+  color: var(--gray, #8a8a8a);
+  font-size: 0.8rem;
+}
+
+/* --- imprimer le cours : la console n'a pas de sens sur papier ------- */
+
+@media print {
+  .console-sql {
+    display: none;
+  }
+}
