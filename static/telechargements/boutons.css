@@ -1,0 +1,43 @@
+/* STRATOS — boutons de telechargement du cours.
+ *
+ * Deux usages : l'enonce PDF de chaque cas pratique (a.enonce-pdf), et le
+ * support de presentation en tete de partie (a.support-pdf).
+ *
+ * Couleurs tirees des variables de Quartz, comme les schemas SVG du cours :
+ * le bouton suit le theme clair ou sombre sans une ligne de plus.
+ * Installe par installer-telechargements.mjs dans quartz/static/telechargements/.
+ */
+a.enonce-pdf,
+a.support-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.42em 0.95em;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  background: var(--secondary);
+  color: var(--light) !important;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+a.enonce-pdf::before,
+a.support-pdf::before {
+  content: "\2193"; /* fleche vers le bas */
+  font-weight: 700;
+}
+
+a.enonce-pdf:hover,
+a.enonce-pdf:focus-visible,
+a.support-pdf:hover,
+a.support-pdf:focus-visible {
+  background: transparent;
+  color: var(--secondary) !important;
+}
+
+a.support-pdf {
+  margin: 0.2em 0 0.6em;
+  font-size: 1.02em;
+}
