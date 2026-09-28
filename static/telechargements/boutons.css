@@ -1,13 +1,27 @@
 /* STRATOS — boutons de telechargement du cours.
  *
- * Deux usages : l'enonce PDF de chaque cas pratique (a.enonce-pdf), et le
- * support de presentation en tete de partie (a.support-pdf).
+ * Trois usages : dans chaque cas pratique, l'enonce PDF (a.enonce-pdf) et, cote
+ * a cote, sa correction (a.correction-pdf) — celle-ci n'est en ligne qu'une
+ * fois ouverte, voir $CorrectionsOuvertes dans _commun.ps1 ; en tete de partie,
+ * le support de presentation (a.support-pdf).
  *
  * Couleurs tirees des variables de Quartz, comme les schemas SVG du cours :
- * le bouton suit le theme clair ou sombre sans une ligne de plus.
+ * le bouton suit le theme clair ou sombre.
  * Installe par installer-telechargements.mjs dans quartz/static/telechargements/.
  */
+
+/* Fond au repos, choisi pour le texte noir (valide par Baptiste le 2026-09-28) :
+   clair : --tertiary  #4a82d0 -> 5,4:1 (le --secondary #2058a8 ne donnait que 3,0:1)
+   sombre : --secondary #6fa0e8 -> 7,9:1 */
+:root {
+  --stratos-bouton-fond: var(--tertiary);
+}
+:root[saved-theme="dark"] {
+  --stratos-bouton-fond: var(--secondary);
+}
+
 a.enonce-pdf,
+a.correction-pdf,
 a.support-pdf {
   display: inline-flex;
   align-items: center;
@@ -15,7 +29,7 @@ a.support-pdf {
   padding: 0.42em 0.95em;
   border: 1px solid var(--secondary);
   border-radius: 6px;
-  background: var(--secondary);
+  background: var(--stratos-bouton-fond);
   /* Texte noir a la demande de Baptiste (2026-09-28), dans les deux themes. */
   color: #000 !important;
   font-weight: 600;
@@ -25,6 +39,7 @@ a.support-pdf {
 }
 
 a.enonce-pdf::before,
+a.correction-pdf::before,
 a.support-pdf::before {
   content: "\2193"; /* fleche vers le bas */
   font-weight: 700;
@@ -32,6 +47,8 @@ a.support-pdf::before {
 
 a.enonce-pdf:hover,
 a.enonce-pdf:focus-visible,
+a.correction-pdf:hover,
+a.correction-pdf:focus-visible,
 a.support-pdf:hover,
 a.support-pdf:focus-visible {
   /* Survol : texte blanc sur le bleu fonce Stratos (11,5:1), dans les deux
@@ -40,6 +57,13 @@ a.support-pdf:focus-visible {
      sombre. */
   background: #143a66;
   color: #fff !important;
+}
+
+/* Les deux boutons d'un cas partagent une ligne : un ecart entre eux, et le
+   meme quand l'ecran etroit les fait passer l'un sous l'autre. */
+a.enonce-pdf,
+a.correction-pdf {
+  margin: 0.15em 0.4em 0.15em 0;
 }
 
 a.support-pdf {
