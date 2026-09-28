@@ -16,7 +16,10 @@ a.support-pdf {
   border: 1px solid var(--secondary);
   border-radius: 6px;
   background: var(--secondary);
-  color: var(--light) !important;
+  /* Texte noir a la demande de Baptiste (2026-09-28), dans les deux themes.
+     Le survol, lui, garde var(--secondary) : un texte noir sur fond
+     transparent disparaitrait en theme sombre. */
+  color: #000 !important;
   font-weight: 600;
   line-height: 1.3;
   text-decoration: none !important;
