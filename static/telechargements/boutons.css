@@ -16,9 +16,7 @@ a.support-pdf {
   border: 1px solid var(--secondary);
   border-radius: 6px;
   background: var(--secondary);
-  /* Texte noir a la demande de Baptiste (2026-09-28), dans les deux themes.
-     Le survol, lui, garde var(--secondary) : un texte noir sur fond
-     transparent disparaitrait en theme sombre. */
+  /* Texte noir a la demande de Baptiste (2026-09-28), dans les deux themes. */
   color: #000 !important;
   font-weight: 600;
   line-height: 1.3;
@@ -36,8 +34,12 @@ a.enonce-pdf:hover,
 a.enonce-pdf:focus-visible,
 a.support-pdf:hover,
 a.support-pdf:focus-visible {
-  background: transparent;
-  color: var(--secondary) !important;
+  /* Survol : texte blanc sur le bleu fonce Stratos (11,5:1), dans les deux
+     themes. Couleur en dur : var(--dark) vaut presque blanc en theme sombre.
+     La bordure reste var(--secondary) et garde le contour visible sur fond
+     sombre. */
+  background: #143a66;
+  color: #fff !important;
 }
 
 a.support-pdf {
