@@ -1,0 +1,88 @@
+/* STRATOS — infobulles de definition tirees des glossaires (glossaire.js).
+ *
+ * Couleurs tirees des variables de Quartz : l'infobulle suit le theme clair ou
+ * sombre, comme les boutons et les schemas SVG du cours.
+ * Installe par installer-glossaire.mjs dans quartz/static/glossaire/.
+ */
+
+/* Le mot defini : ni fond ni couleur de lien, un souligne pointille — la
+   convention d'un terme qui porte une definition. Sans le script, la classe
+   n'est pas posee et le lien reste un lien ordinaire vers le glossaire. */
+article a.internal.terme-glossaire {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline dotted var(--secondary);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+article a.internal.terme-glossaire:hover,
+article a.internal.terme-glossaire:focus-visible {
+  color: var(--secondary);
+  text-decoration-style: solid;
+}
+
+.glossaire-bulle {
+  position: absolute;
+  z-index: 1000;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(24rem, calc(100vw - 16px));
+  padding: 0.65em 0.85em 0.55em;
+  border: 1px solid var(--lightgray);
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  background: var(--light);
+  color: var(--darkgray);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.glossaire-bulle[hidden] {
+  display: none;
+}
+
+.glossaire-bulle .glossaire-terme {
+  display: block;
+  margin-bottom: 0.2em;
+  color: var(--dark);
+}
+
+.glossaire-bulle .glossaire-definition {
+  display: block;
+}
+
+.glossaire-bulle .glossaire-lien {
+  display: inline-block;
+  margin-top: 0.4em;
+  font-size: 0.85em;
+  color: var(--secondary);
+}
+
+/* Sur la page du glossaire : la ligne du terme vise s'allume un instant. */
+@keyframes glossaire-vise {
+  from {
+    background: var(--highlight);
+    box-shadow: inset 4px 0 0 var(--secondary);
+  }
+  to {
+    background: transparent;
+    box-shadow: inset 4px 0 0 transparent;
+  }
+}
+
+article tr.glossaire-vise {
+  animation: glossaire-vise 2.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  article tr.glossaire-vise {
+    animation: none;
+    background: var(--highlight);
+  }
+}
