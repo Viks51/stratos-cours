@@ -1,9 +1,10 @@
 /* STRATOS — boutons de telechargement du cours.
  *
- * Trois usages : dans chaque cas pratique, l'enonce PDF (a.enonce-pdf) et, cote
+ * Quatre usages : dans chaque cas pratique, l'enonce PDF (a.enonce-pdf) et, cote
  * a cote, sa correction (a.correction-pdf) — celle-ci n'est en ligne qu'une
  * fois ouverte, voir $CorrectionsOuvertes dans _commun.ps1 ; en tete de partie,
- * le support de presentation (a.support-pdf).
+ * le support de presentation (a.support-pdf) ; en tete de chapitre, la version
+ * PDF du chapitre (a.version-pdf, voir versions-pdf.mjs).
  *
  * Couleurs tirees des variables de Quartz, comme les schemas SVG du cours :
  * le bouton suit le theme clair ou sombre.
@@ -22,7 +23,8 @@
 
 a.enonce-pdf,
 a.correction-pdf,
-a.support-pdf {
+a.support-pdf,
+a.version-pdf {
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
@@ -40,7 +42,8 @@ a.support-pdf {
 
 a.enonce-pdf::before,
 a.correction-pdf::before,
-a.support-pdf::before {
+a.support-pdf,
+a.version-pdf::before {
   content: "\2193"; /* fleche vers le bas */
   font-weight: 700;
 }
@@ -50,7 +53,9 @@ a.enonce-pdf:focus-visible,
 a.correction-pdf:hover,
 a.correction-pdf:focus-visible,
 a.support-pdf:hover,
-a.support-pdf:focus-visible {
+a.support-pdf:focus-visible,
+a.version-pdf:hover,
+a.version-pdf:focus-visible {
   /* Survol : texte blanc sur le bleu fonce Stratos (11,5:1), dans les deux
      themes. Couleur en dur : var(--dark) vaut presque blanc en theme sombre.
      La bordure reste var(--secondary) et garde le contour visible sur fond
@@ -66,7 +71,8 @@ a.correction-pdf {
   margin: 0.15em 0.4em 0.15em 0;
 }
 
-a.support-pdf {
+a.support-pdf,
+a.version-pdf {
   margin: 0.2em 0 0.6em;
   font-size: 1.02em;
 }
