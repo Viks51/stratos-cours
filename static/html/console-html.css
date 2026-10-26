@@ -1,0 +1,268 @@
+/* =====================================================================
+ *  Console HTML du cours — habillage
+ *
+ *  Meme parti que la console SQL : variables de theme de Quartz, avec
+ *  une valeur de repli pour chacune. Le rendu, lui, reste sur fond
+ *  blanc dans les deux themes : c'est une vraie page, affichee avec les
+ *  styles par defaut du navigateur — exactement ce que l'etudiant
+ *  obtiendrait en ouvrant son fichier.
+ * ===================================================================== */
+
+/* Les regles « display » ci-dessous l'emporteraient sur l'attribut
+   hidden, qui n'est qu'un display: none de la feuille du navigateur. */
+.console-html [hidden] {
+  display: none !important;
+}
+
+.console-html {
+  margin: -0.6rem 0 1.6rem;
+  border: 1px solid var(--lightgray, #d8d8d8);
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background: var(--light, #fff);
+  font-size: 0.9rem;
+}
+
+/* --- la barre de boutons ------------------------------------------- */
+
+.console-html-barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--lightgray, #d8d8d8);
+}
+
+.console-html-bouton {
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--gray, #b8b8b8);
+  border-radius: 4px;
+  background: var(--light, #fff);
+  color: var(--darkgray, #4e4e4e);
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.console-html-bouton:hover {
+  background: var(--lightgray, #eee);
+  border-color: var(--secondary, #2058a8);
+}
+
+.console-html-bouton:focus-visible {
+  outline: 2px solid var(--secondary, #2058a8);
+  outline-offset: 1px;
+}
+
+.console-html-afficher {
+  font-weight: 600;
+  color: var(--light, #fff);
+  background: var(--secondary, #2058a8);
+  border-color: var(--secondary, #2058a8);
+}
+
+.console-html-afficher:hover {
+  background: var(--tertiary, #17407c);
+  border-color: var(--tertiary, #17407c);
+  color: var(--light, #fff);
+}
+
+.console-html-discret {
+  border-style: dashed;
+}
+
+.console-html-etiquette {
+  margin-left: auto;
+  color: var(--gray, #8a8a8a);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+/* --- l'espace de travail : texte a gauche, page a droite ------------- */
+
+.console-html-espace {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.7rem;
+}
+
+.console-html-espace:has(> .console-html-fenetre[hidden]):has(> .console-html-editeur[hidden]) {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .console-html-edition .console-html-espace {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.console-html-editeur {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 8rem;
+  padding: 0.7rem;
+  border: 1px solid var(--lightgray, #d8d8d8);
+  border-radius: 4px;
+  background: var(--light, #fff);
+  color: var(--dark, #2b2b2b);
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  tab-size: 2;
+  white-space: pre;
+  overflow-x: auto;
+  resize: vertical;
+}
+
+.console-html-editeur:focus {
+  outline: none;
+  border-color: var(--secondary, #2058a8);
+  box-shadow: inset 3px 0 0 var(--secondary, #2058a8);
+}
+
+/* --- la fausse fenetre de navigateur ------------------------------- */
+
+.console-html-fenetre {
+  border: 1px solid var(--gray, #b8b8b8);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.console-html-chrome {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.35rem 0.6rem 0;
+  background: var(--lightgray, #e6e6e6);
+}
+
+.console-html-pastilles {
+  display: inline-flex;
+  gap: 0.3rem;
+  padding-bottom: 0.45rem;
+}
+
+.console-html-pastilles i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--gray, #b8b8b8);
+}
+
+.console-html-onglet {
+  max-width: 60%;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px 6px 0 0;
+  background: var(--light, #fff);
+  color: var(--dark, #2b2b2b);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: help;
+}
+
+.console-html-sans-titre {
+  color: var(--gray, #8a8a8a);
+  font-style: italic;
+}
+
+.console-html-adresse {
+  padding: 0.3rem 0.7rem;
+  border-bottom: 1px solid var(--lightgray, #d8d8d8);
+  background: var(--light, #fff);
+  color: var(--darkgray, #4e4e4e);
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.console-html-rendu {
+  display: block;
+  width: 100%;
+  height: 160px;
+  border: none;
+  background: #fff;
+  color-scheme: light;
+}
+
+/* --- les objectifs -------------------------------------------------- */
+
+.console-html-objectifs {
+  margin: 0;
+  padding: 0.2rem 0.7rem 0.4rem 0.7rem;
+  list-style: none;
+}
+
+.console-html-objectifs li {
+  position: relative;
+  margin: 0.25rem 0;
+  padding-left: 1.6rem;
+  color: var(--darkgray, #4e4e4e);
+}
+
+.console-html-objectifs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1.5px solid var(--gray, #b8b8b8);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.console-html-objectifs li.console-html-atteint {
+  color: var(--dark, #2b2b2b);
+}
+
+.console-html-objectifs li.console-html-atteint::before {
+  content: "✓";
+  border-color: var(--secondary, #2058a8);
+  background: var(--secondary, #2058a8);
+  color: var(--light, #fff);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 0.85rem;
+  text-align: center;
+}
+
+.console-html-bilan {
+  margin: 0 0.7rem 0.7rem;
+  padding: 0.4rem 0.6rem;
+  border-left: 3px solid var(--gray, #b8b8b8);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--gray, #b8b8b8) 12%, transparent);
+  color: var(--dark, #2b2b2b);
+  font-size: 0.82rem;
+}
+
+.console-html-bilan.console-html-reussi {
+  border-left-color: var(--secondary, #2058a8);
+  background: color-mix(in srgb, var(--secondary, #2058a8) 12%, transparent);
+  font-weight: 600;
+}
+
+/* --- imprimer le cours : la console n'a pas de sens sur papier ------- */
+
+@media print {
+  .console-html {
+    display: none;
+  }
+
+  /* En bac a sable, le bloc de code est masque au profit de l'editeur :
+     sur papier, c'est lui qui doit revenir, directives comprises. */
+  figure[data-rehype-pretty-code-figure][hidden]:has(> pre[data-console-html]),
+  pre[data-console-html][hidden] {
+    display: block !important;
+  }
+}
