@@ -38,14 +38,21 @@ const DELAI_RENDU = 250 // ms : le rendu suit la frappe sans clignoter
  *   <!-- adresse : www.x.fr -->    l'adresse affichee dans la fenetre
  *                                  (par defaut « page.html » : un fichier
  *                                  ouvert sur le poste de l'etudiant)
- *                                  (par defaut : « page.html », un fichier
- *                                  ouvert sur le poste de l'etudiant)
  *   <!-- objectif : texte | sel -->  une case qui se coche quand le
  *                                  selecteur CSS « sel » trouve un
  *                                  element dans le code de l'etudiant ;
- *                                  « sel ~ mot » exige en plus que cet
- *                                  element contienne « mot » (casse et
- *                                  accents compris)
+ *   <!-- objectif : texte | sel ~ a & b -->  exige en plus des elements
+ *                                  DISTINCTS contenant « a », « b »… :
+ *                                  « ol > li ~ métré & devis & pose »
+ *                                  veut trois <li>, une etape chacun.
+ *                                  La comparaison ignore la casse, les
+ *                                  accents et les espaces multiples : on
+ *                                  juge le HTML, pas la frappe.
+ *
+ *  Un bloc a objectifs exige aussi un code BIEN FORME (toute balise
+ *  ouverte est refermee, dans l'ordre) avant de dire « Bravo » : le
+ *  navigateur repare en silence, le cours enseigne a ne pas compter
+ *  dessus.
  */
 function lireDirectives(code) {
   const d = {
@@ -76,7 +83,11 @@ function lireDirectives(code) {
         d.objectifs.push({
           texte: corps.slice(0, i).trim(),
           selecteur: selecteur.trim(),
-          contient: mot.join("~").trim(),
+          termes: mot
+            .join("~")
+            .split("&")
+            .map(normaliser)
+            .filter(Boolean),
         })
       }
     }
@@ -86,6 +97,83 @@ function lireDirectives(code) {
   // les cases a cocher.
   d.corps = lignes.slice(n).join("\n")
   return d
+}
+
+/* ------------------------------------------------------------------ */
+/*  Les objectifs                                                      */
+/* ------------------------------------------------------------------ */
+
+/** « Le  Métré » et « le metre » se valent : seul compte le HTML. */
+function normaliser(s) {
+  return String(s)
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase()
+}
+
+/**
+ * Un objectif est atteint quand le selecteur trouve un element et, s'il
+ * exige des termes, quand chacun se trouve dans un element DIFFERENT :
+ * trois <li> vides, ou les trois etapes entassees dans un seul <li>, ne
+ * font pas une liste de trois etapes.
+ */
+function atteint(doc, objectif) {
+  const elements = [...doc.querySelectorAll(objectif.selecteur)]
+  if (!objectif.termes.length) return elements.length > 0
+  const textes = elements.map((el) => normaliser(el.textContent))
+  const pris = new Set()
+  return objectif.termes.every((t) => {
+    const k = textes.findIndex((x, j) => !pris.has(j) && x.includes(t))
+    if (k < 0) return false
+    pris.add(k)
+    return true
+  })
+}
+
+// Balises sans fermeture : la seule exception a la regle du cours.
+const VIDES = new Set([
+  "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
+  "source", "track", "wbr",
+])
+
+/**
+ * Toute balise ouverte est-elle refermee, et dans l'ordre ? Rend null si
+ * oui, sinon une phrase qui situe la PREMIERE faute (le reste en decoule
+ * souvent). Le controle porte sur le texte tape, pas sur le DOM : le
+ * DOMParser, comme le navigateur, aurait deja tout repare.
+ */
+function malForme(code) {
+  // Les commentaires ne comptent pas ; leurs retours a la ligne, si.
+  const texte = code.replace(/<!--[\s\S]*?-->/g, (m) => m.replace(/[^\n]/g, " "))
+  const ligne = (i) => texte.slice(0, i).split("\n").length
+  const pile = []
+  const balise = /<(\/?)([a-zA-Z][\w-]*)\b[^>]*?(\/?)>/g
+  let m
+  while ((m = balise.exec(texte))) {
+    const nom = m[2].toLowerCase()
+    if (VIDES.has(nom)) continue
+    const l = ligne(m.index)
+    if (!m[1]) {
+      if (!m[3]) pile.push({ nom, l })
+      continue
+    }
+    if (pile.length && pile[pile.length - 1].nom === nom) {
+      pile.pop()
+      continue
+    }
+    if (!pile.some((p) => p.nom === nom)) {
+      return `la balise </${nom}> (ligne ${l}) ferme une balise qui n’a pas été ouverte.`
+    }
+    const p = pile[pile.length - 1]
+    return `la balise <${p.nom}> (ligne ${p.l}) n’est pas refermée avant </${nom}> (ligne ${l}).`
+  }
+  if (pile.length) {
+    const p = pile[pile.length - 1]
+    return `la balise <${p.nom}> (ligne ${p.l}) n’est jamais refermée.`
+  }
+  return null
 }
 
 /* ------------------------------------------------------------------ */
@@ -218,7 +306,7 @@ function equiper(pre) {
       const li = document.createElement("li")
       li.textContent = o.texte
       liste.appendChild(li)
-      cases.push({ li, selecteur: o.selecteur, contient: o.contient })
+      cases.push({ li, objectif: o })
     }
   }
 
@@ -233,6 +321,38 @@ function equiper(pre) {
   /* --- comportement --- */
   const source = () => (editeur.hidden ? directives.corps : editeur.value)
 
+  /**
+   * Les objectifs se verifient a CHAQUE frappe, page affichee ou non :
+   * un etudiant qui masque le rendu doit voir ses cases se cocher quand
+   * meme (defaut corrige le 2026-10-26).
+   */
+  function verifier(html, doc) {
+    if (!cases.length || !doc) return
+    let atteints = 0
+    for (const c of cases) {
+      let ok = false
+      try {
+        ok = atteint(doc, c.objectif)
+      } catch {
+        ok = false // selecteur invalide : une faute de l'auteur, pas de l'etudiant
+      }
+      c.li.classList.toggle("console-html-atteint", ok)
+      if (ok) atteints++
+    }
+    const tous = atteints === cases.length
+    const faute = malForme(html)
+    const compte = `${atteints} objectif${atteints > 1 ? "s" : ""} sur ${cases.length}`
+    bilan.hidden = false
+    bilan.textContent =
+      tous && !faute
+        ? "Tous les objectifs sont atteints. Bravo !"
+        : faute
+          ? `${compte} — mais le code est mal formé : ${faute} Le navigateur affiche la page quand même ; un logiciel, lui, la rejetterait.`
+          : `${compte}.`
+    bilan.classList.toggle("console-html-reussi", tous && !faute)
+    bilan.classList.toggle("console-html-malforme", !!faute)
+  }
+
   function rendre() {
     const html = source()
     const doc = analyser(html)
@@ -240,28 +360,7 @@ function equiper(pre) {
     onglet.textContent = titre || "Sans titre"
     onglet.classList.toggle("console-html-sans-titre", !titre)
     iframe.srcdoc = preparer(html)
-
-    if (cases.length && doc) {
-      let atteints = 0
-      for (const c of cases) {
-        let ok = false
-        try {
-          ok = [...doc.querySelectorAll(c.selecteur)].some(
-            (el) => !c.contient || el.textContent.includes(c.contient),
-          )
-        } catch {
-          ok = false // selecteur invalide : une faute de l'auteur, pas de l'etudiant
-        }
-        c.li.classList.toggle("console-html-atteint", ok)
-        if (ok) atteints++
-      }
-      bilan.hidden = false
-      bilan.textContent =
-        atteints === cases.length
-          ? "Tous les objectifs sont atteints. Bravo !"
-          : `${atteints} objectif${atteints > 1 ? "s" : ""} sur ${cases.length}.`
-      bilan.classList.toggle("console-html-reussi", atteints === cases.length)
-    }
+    verifier(html, doc)
   }
 
   function afficher() {
@@ -303,6 +402,7 @@ function equiper(pre) {
     minuterie = setTimeout(() => {
       try {
         if (!fenetre.hidden) rendre()
+        else verifier(source(), analyser(source()))
       } catch {
         /* le rendu suivant retentera */
       }

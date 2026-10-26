@@ -246,6 +246,11 @@
   font-size: 0.82rem;
 }
 
+.console-html-bilan.console-html-malforme {
+  border-left-color: #b3541e;
+  background: color-mix(in srgb, #b3541e 10%, transparent);
+}
+
 .console-html-bilan.console-html-reussi {
   border-left-color: var(--secondary, #2058a8);
   background: color-mix(in srgb, var(--secondary, #2058a8) 12%, transparent);
