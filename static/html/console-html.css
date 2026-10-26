@@ -89,7 +89,7 @@
   padding: 0.7rem;
 }
 
-.console-html-espace:has(> .console-html-fenetre[hidden]):has(> .console-html-editeur[hidden]) {
+.console-html-espace:has(> .console-html-fenetre[hidden]):has(.console-html-editeur[hidden]) {
   display: none;
 }
 
@@ -100,14 +100,63 @@
   }
 }
 
+/* L'editeur et sa gouttiere de numeros de ligne : une seule boite. */
+.console-html-saisie {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid var(--lightgray, #d8d8d8);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--light, #fff);
+}
+
+.console-html-saisie:has(> .console-html-editeur[hidden]) {
+  display: none;
+}
+
+.console-html-saisie:focus-within {
+  border-color: var(--secondary, #2058a8);
+}
+
+/* Meme police, meme interligne, meme marge haute que l'editeur : c'est ce
+   qui aligne chaque numero sur sa ligne. La marge basse, plus large,
+   laisse defiler les derniers numeros au-dessus de la barre de defilement
+   horizontale de l'editeur. */
+.console-html-numeros {
+  flex: none;
+  /* Sans « contain », la gouttiere, haute de tous ses numeros, etirerait
+     la boite, et l'editeur avec elle : il ne defilerait plus jamais. Elle
+     prend ainsi la hauteur de l'editeur, et sa largeur du script. */
+  contain: size;
+  width: 2ch;
+  margin: 0;
+  padding: 0.7rem 0.45rem 2rem 0.6rem;
+  border: none;
+  border-right: 1px solid var(--lightgray, #d8d8d8);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--lightgray, #e6e6e6) 45%, transparent);
+  color: var(--gray, #8a8a8a);
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: right;
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
 .console-html-editeur {
   display: block;
+  flex: 1;
+  min-width: 0;
   width: 100%;
   box-sizing: border-box;
   min-height: 8rem;
+  margin: 0;
   padding: 0.7rem;
-  border: 1px solid var(--lightgray, #d8d8d8);
-  border-radius: 4px;
+  border: none;
+  border-radius: 0;
   background: var(--light, #fff);
   color: var(--dark, #2b2b2b);
   font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
@@ -121,7 +170,9 @@
 
 .console-html-editeur:focus {
   outline: none;
-  border-color: var(--secondary, #2058a8);
+}
+
+.console-html-saisie:focus-within .console-html-numeros {
   box-shadow: inset 3px 0 0 var(--secondary, #2058a8);
 }
 
@@ -255,6 +306,97 @@
   border-left-color: var(--secondary, #2058a8);
   background: color-mix(in srgb, var(--secondary, #2058a8) 12%, transparent);
   font-weight: 600;
+}
+
+/* --- la variante XML : le logiciel du destinataire ------------------- */
+
+/* Le fichier au-dessus, le logiciel en dessous : cote a cote, la colonne
+   du cours coupe les lignes du fichier et les chemins du tableau. */
+@media (min-width: 900px) {
+  .console-xml.console-html-edition .console-html-espace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Pas une page web : un ecran de logiciel, aux couleurs du theme. */
+.console-xml-logiciel {
+  background: var(--light, #fff);
+  border-left: 4px solid var(--gray, #b8b8b8);
+}
+
+.console-xml-entete {
+  padding: 0.35rem 0.7rem;
+  background: var(--lightgray, #e6e6e6);
+  color: var(--darkgray, #4e4e4e);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.console-xml-verdict {
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  color: var(--dark, #2b2b2b);
+  font-size: 0.85rem;
+}
+
+.console-xml-accepte {
+  border-left-color: var(--secondary, #2058a8);
+}
+
+.console-xml-accepte .console-xml-verdict {
+  background: color-mix(in srgb, var(--secondary, #2058a8) 12%, transparent);
+  font-weight: 600;
+}
+
+.console-xml-rejete {
+  border-left-color: #b3541e;
+}
+
+.console-xml-rejete .console-xml-verdict {
+  background: color-mix(in srgb, #b3541e 10%, transparent);
+}
+
+.console-xml-donnees {
+  width: calc(100% - 1.4rem);
+  margin: 0.5rem 0.7rem 0.7rem;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.console-xml-donnees caption {
+  padding-bottom: 0.3rem;
+  color: var(--gray, #8a8a8a);
+  font-size: 0.75rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.console-xml-donnees th,
+.console-xml-donnees td {
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid var(--lightgray, #d8d8d8);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.console-xml-donnees th {
+  width: 55%;
+  color: var(--darkgray, #4e4e4e);
+  font-family: var(--codeFont, ui-monospace, "IBM Plex Mono", monospace);
+  font-weight: 400;
+}
+
+.console-xml-donnees td {
+  color: var(--dark, #2b2b2b);
+  font-weight: 600;
+}
+
+.console-xml-donnees td.console-xml-vide {
+  color: var(--gray, #8a8a8a);
+  font-style: italic;
+  font-weight: 400;
 }
 
 /* --- imprimer le cours : la console n'a pas de sens sur papier ------- */
