@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr"><head><title>La base de données Menuiseries Vasseur</title><meta charset="utf-8"/><link rel="preload" href="../../index-2162c67d.css" as="style"/><link rel="preload" href="../../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Roboto:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/><meta name="og:site_name" content="Cours — Stratos Solutions"/><meta property="og:title" content="La base de données Menuiseries Vasseur"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="La base de données Menuiseries Vasseur"/><meta name="twitter:description" content="🗄️ La base de données Menuiseries Vasseur À quoi sert cette page Le chapitre 2.3 sur les requêtes SQL interroge cette base-ci, et rien d’autre."/><meta property="og:description" content="🗄️ La base de données Menuiseries Vasseur À quoi sert cette page Le chapitre 2.3 sur les requêtes SQL interroge cette base-ci, et rien d’autre."/><meta property="og:image:alt" content="🗄️ La base de données Menuiseries Vasseur À quoi sert cette page Le chapitre 2.3 sur les requêtes SQL interroge cette base-ci, et rien d’autre."/><meta property="twitter:domain" content="cours.stratos-solutions.fr"/><meta property="og:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur"/><meta property="twitter:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="🗄️ La base de données Menuiseries Vasseur À quoi sert cette page Le chapitre 2.3 sur les requêtes SQL interroge cette base-ci, et rien d’autre."/><meta name="generator" content="Quartz"/><link rel="stylesheet" href="/static/html/console-html.css" data-persist="true"/><script type="module" src="/static/html/console-html.js" data-persist="true"></script><link rel="stylesheet" href="/static/glossaire/glossaire.css" data-persist="true"/><script type="module" src="/static/glossaire/glossaire.js" data-persist="true"></script><link rel="stylesheet" href="/static/telechargements/boutons.css" data-persist="true"/><link rel="stylesheet" href="/static/sql/console-sql.css" data-persist="true"/><script type="module" src="/static/sql/console-sql.js" data-persist="true"></script><link href="../../index-2162c67d.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-589c1cea.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7f220492.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-e427079e.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-58d5ff56.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../component-7262b5a7.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-b208a628.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../static/resource-style-ed0fce9b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur-og-image.webp"/><meta property="og:image:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur-og-image.webp"/><meta name="twitter:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur" data-basepath><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">Cours — Stratos Solutions</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Recherche" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Recherche</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Rechercher quelque chose..." placeholder="Rechercher quelque chose..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Mode sombre"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Mode sombre"><title>Mode sombre</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Mode clair"><title>Mode clair</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Mode lecture"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Mode lecture"><title>Mode lecture</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-11" aria-label="Explorateur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorateur</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-11" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/">Technologies</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../technologies/systeme-d-information-de-gestion/">Système d’information de gestion</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>La base de données Menuiseries Vasseur</a></div></nav><h1 class="article-title">La base de données Menuiseries Vasseur</h1><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">1</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">aliases</td><td class="note-properties-value metadata-property-value"><span class="note-properties-list"><span class="note-properties-text">Base de donnees - Menuiseries Vasseur</span></span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-26T12:11:59.464Z">26 oct. 2026</time><span>5 min de lecture</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="️-la-base-de-données-menuiseries-vasseur">🗄️ La base de données Menuiseries Vasseur<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#️-la-base-de-données-menuiseries-vasseur" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<blockquote class="callout abstract" data-callout="abstract">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À quoi sert cette page </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le chapitre <a href="../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql">2.3 sur les requêtes SQL</a> interroge <strong>cette base-ci</strong>, et rien d’autre. Elle est reproduite ici en entier : six tables, une soixantaine de lignes.</p>
+<p><strong>Gardez cette page ouverte à côté du chapitre.</strong> Chaque requête du cours affiche son résultat ; vous pouvez le vérifier ligne à ligne sur les tables ci-dessous. C’est la façon la plus sûre d’apprendre : non pas croire le résultat, mais le <strong>retrouver</strong>.</p>
+<p><strong>Cette base est exécutable.</strong> Le moteur SQL tourne dans votre navigateur : rien à télécharger, rien à installer. Les blocs de requêtes du cours portent un bouton « Exécuter », et le bac à sable ci-dessous vous laisse écrire ce que vous voulez.</p>
+</div>
+</blockquote>
+<h2 id="le-schéma-relationnel">Le schéma relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-schéma-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<pre><code>CLIENT     (id_client, nom_client, categorie, ville, date_creation)
+CHANTIER   (id_chantier, #id_client, ville_chantier, date_debut, date_fin, montant_ht)
+PRODUIT    (ref_produit, designation, matiere, prix_ht)
+POSER      (#id_chantier, #ref_produit, quantite)
+SALARIE    (id_salarie, nom_salarie, prenom_salarie, fonction, site, date_embauche)
+INTERVENIR (#id_chantier, #id_salarie, date_intervention, nb_heures)
+</code></pre>
+<p><strong>Clés primaires composées :</strong> <code>POSER</code> → le couple (<code>#id_chantier</code>, <code>#ref_produit</code>) ; <code>INTERVENIR</code> → le triplet (<code>#id_chantier</code>, <code>#id_salarie</code>, <code>date_intervention</code>).</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Lisez le schéma avant d’écrire quoi que ce soit </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Les trois liens à repérer, parce que toutes les jointures du chapitre passent par eux :</p>
+<ul>
+<li><code>CHANTIER.id_client</code> → <code>CLIENT.id_client</code> — chaque chantier appartient à un client (<strong>1:n</strong>) ;</li>
+<li><code>POSER</code> relie <code>CHANTIER</code> et <code>PRODUIT</code> — un chantier reçoit plusieurs produits, un produit équipe plusieurs chantiers (<strong>n:n</strong>) ;</li>
+<li><code>INTERVENIR</code> relie <code>CHANTIER</code> et <code>SALARIE</code>, avec la date — un salarié intervient plusieurs fois sur le même chantier (<strong>n:n historisée</strong>).</li>
+</ul>
+<p>Et le réflexe qui vous fera gagner du temps : <strong>il n’existe aucun lien direct entre <code>CLIENT</code> et <code>PRODUIT</code></strong>. Pour savoir quels produits a commandés un client, il faut passer par <code>CHANTIER</code> puis par <code>POSER</code>. Trois jointures.</p>
+</div>
+</blockquote>
+<h2 id="client--8-lignes"><code>CLIENT</code> — 8 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#client--8-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>id_client</th><th>nom_client</th><th>categorie</th><th>ville</th><th>date_creation</th></tr></thead><tbody><tr><td>1</td><td>Rivière &amp; Fils</td><td>promoteur</td><td>Blois</td><td>2019-03-12</td></tr><tr><td>2</td><td>Mairie de Joué-lès-Tours</td><td>collectivité</td><td>Joué-lès-Tours</td><td>2020-06-02</td></tr><tr><td>3</td><td>Delaunay Hervé</td><td>particulier</td><td>Tours</td><td>2024-09-15</td></tr><tr><td>4</td><td>Constructions Ligéria</td><td>promoteur</td><td>Tours</td><td>2021-01-20</td></tr><tr><td>5</td><td>Nadaud Sylvie</td><td>particulier</td><td>Amboise</td><td>2025-02-03</td></tr><tr><td>6</td><td>Collège Balzac</td><td>collectivité</td><td>Saint-Avertin</td><td>2022-11-08</td></tr><tr><td>7</td><td>Belhadj Karim</td><td>particulier</td><td>Blois</td><td>2025-07-19</td></tr><tr><td>8</td><td>SCI Le Clos</td><td>promoteur</td><td>Vendôme</td><td>2026-01-05</td></tr></tbody></table></div>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une particularité à retenir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le client <strong>8, SCI Le Clos</strong>, vient d’être créé et <strong>n’a encore aucun chantier</strong>. Ce détail n’est pas décoratif : c’est lui qui fera apparaître la différence entre une jointure interne et une jointure externe.</p>
+</div>
+</blockquote>
+<h2 id="chantier--10-lignes"><code>CHANTIER</code> — 10 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chantier--10-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>id_chantier</th><th>id_client</th><th>ville_chantier</th><th>date_debut</th><th>date_fin</th><th>montant_ht</th></tr></thead><tbody><tr><td>101</td><td>1</td><td>Blois</td><td>2025-09-01</td><td>2025-11-28</td><td>84 500,00</td></tr><tr><td>102</td><td>1</td><td>Blois</td><td>2026-01-12</td><td><em>(vide)</em></td><td>61 200,00</td></tr><tr><td>103</td><td>2</td><td>Joué-lès-Tours</td><td>2025-10-06</td><td>2025-12-19</td><td>47 800,00</td></tr><tr><td>104</td><td>3</td><td>Tours</td><td>2025-11-03</td><td>2025-11-14</td><td>8 900,00</td></tr><tr><td>105</td><td>4</td><td>Tours</td><td>2025-06-16</td><td>2025-10-31</td><td>128 400,00</td></tr><tr><td>106</td><td>4</td><td>Chambray-lès-Tours</td><td>2026-02-02</td><td><em>(vide)</em></td><td>96 750,00</td></tr><tr><td>107</td><td>5</td><td>Amboise</td><td>2026-03-09</td><td><em>(vide)</em></td><td>12 300,00</td></tr><tr><td>108</td><td>6</td><td>Saint-Avertin</td><td>2025-08-25</td><td>2025-10-17</td><td>39 600,00</td></tr><tr><td>109</td><td>3</td><td>Tours</td><td>2026-04-06</td><td><em>(vide)</em></td><td>5 400,00</td></tr><tr><td>110</td><td>7</td><td>Blois</td><td>2026-02-16</td><td>2026-03-27</td><td>14 750,00</td></tr></tbody></table></div>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Les cases vides </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Quatre chantiers n’ont <strong>pas de date de fin</strong> : ils sont en cours. En SQL, cette absence porte un nom — <code>NULL</code> — et elle ne se traite pas comme une valeur ordinaire. Le chapitre y revient.</p>
+</div>
+</blockquote>
+<h2 id="produit--8-lignes"><code>PRODUIT</code> — 8 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#produit--8-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ref_produit</th><th>designation</th><th>matiere</th><th>prix_ht</th></tr></thead><tbody><tr><td>F-210</td><td>Fenêtre 2 vantaux</td><td>aluminium</td><td>420,00</td></tr><tr><td>F-315</td><td>Fenêtre 1 vantail</td><td>aluminium</td><td>310,00</td></tr><tr><td>P-120</td><td>Porte-fenêtre</td><td>aluminium</td><td>690,00</td></tr><tr><td>V-400</td><td>Véranda 12 m²</td><td>aluminium</td><td>8 400,00</td></tr><tr><td>F-510</td><td>Fenêtre 2 vantaux</td><td>PVC</td><td>265,00</td></tr><tr><td>F-520</td><td>Fenêtre 1 vantail</td><td>PVC</td><td>198,00</td></tr><tr><td>P-530</td><td>Porte d’entrée</td><td>PVC</td><td>540,00</td></tr><tr><td>C-900</td><td>Coulissant 3 rails</td><td>aluminium</td><td>1 250,00</td></tr></tbody></table></div>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une seconde particularité </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le produit <strong>C-900</strong> figure au catalogue mais <strong>n’a jamais été posé sur aucun chantier</strong>. C’est le pendant du client 8 : il servira à montrer ce qu’une jointure interne fait disparaître.</p>
+</div>
+</blockquote>
+<h2 id="poser--19-lignes"><code>POSER</code> — 19 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#poser--19-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Clé primaire : le couple (<code>#id_chantier</code>, <code>#ref_produit</code>).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>id_chantier</th><th>ref_produit</th><th>quantite</th></tr></thead><tbody><tr><td>101</td><td>F-210</td><td>38</td></tr><tr><td>101</td><td>P-120</td><td>6</td></tr><tr><td>102</td><td>F-210</td><td>24</td></tr><tr><td>102</td><td>F-510</td><td>12</td></tr><tr><td>103</td><td>F-510</td><td>45</td></tr><tr><td>103</td><td>P-530</td><td>4</td></tr><tr><td>104</td><td>F-210</td><td>5</td></tr><tr><td>104</td><td>V-400</td><td>1</td></tr><tr><td>105</td><td>F-315</td><td>62</td></tr><tr><td>105</td><td>F-210</td><td>30</td></tr><tr><td>105</td><td>P-120</td><td>14</td></tr><tr><td>106</td><td>F-510</td><td>40</td></tr><tr><td>106</td><td>P-530</td><td>6</td></tr><tr><td>107</td><td>V-400</td><td>1</td></tr><tr><td>108</td><td>F-520</td><td>28</td></tr><tr><td>108</td><td>P-530</td><td>3</td></tr><tr><td>109</td><td>F-210</td><td>4</td></tr><tr><td>110</td><td>F-510</td><td>16</td></tr><tr><td>110</td><td>P-530</td><td>2</td></tr></tbody></table></div>
+<h2 id="salarie--7-lignes"><code>SALARIE</code> — 7 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#salarie--7-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>id_salarie</th><th>nom_salarie</th><th>prenom_salarie</th><th>fonction</th><th>site</th><th>date_embauche</th></tr></thead><tbody><tr><td>1</td><td>Belkacem</td><td>Sofiane</td><td>responsable administratif</td><td>Tours</td><td>2015-04-01</td></tr><tr><td>2</td><td>Perrot</td><td>Nadia</td><td>responsable atelier</td><td>Tours</td><td>2011-09-12</td></tr><tr><td>3</td><td>Lemoine</td><td>Thomas</td><td>technicien informatique</td><td>Tours</td><td>2008-02-18</td></tr><tr><td>4</td><td>Fournier</td><td>Élodie</td><td>assistante commerciale</td><td>Blois</td><td>2021-06-07</td></tr><tr><td>5</td><td>Mercier</td><td>Yann</td><td>poseur</td><td>Tours</td><td>2018-03-05</td></tr><tr><td>6</td><td>Aubry</td><td>Léa</td><td>poseuse</td><td>Tours</td><td>2023-01-16</td></tr><tr><td>7</td><td>Vasseur</td><td>Camille</td><td>gérante</td><td>Tours</td><td>2005-09-01</td></tr></tbody></table></div>
+<h2 id="intervenir--12-lignes"><code>INTERVENIR</code> — 12 lignes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#intervenir--12-lignes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Clé primaire : le triplet (<code>#id_chantier</code>, <code>#id_salarie</code>, <code>date_intervention</code>).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>id_chantier</th><th>id_salarie</th><th>date_intervention</th><th>nb_heures</th></tr></thead><tbody><tr><td>101</td><td>5</td><td>2025-09-02</td><td>7,0</td></tr><tr><td>101</td><td>5</td><td>2025-09-03</td><td>7,0</td></tr><tr><td>101</td><td>6</td><td>2025-09-03</td><td>6,5</td></tr><tr><td>103</td><td>5</td><td>2025-10-07</td><td>8,0</td></tr><tr><td>103</td><td>6</td><td>2025-10-08</td><td>7,5</td></tr><tr><td>104</td><td>6</td><td>2025-11-04</td><td>4,0</td></tr><tr><td>105</td><td>5</td><td>2025-06-17</td><td>8,0</td></tr><tr><td>105</td><td>5</td><td>2025-06-18</td><td>8,0</td></tr><tr><td>105</td><td>6</td><td>2025-06-18</td><td>7,0</td></tr><tr><td>108</td><td>5</td><td>2025-08-26</td><td>6,0</td></tr><tr><td>110</td><td>6</td><td>2026-02-17</td><td>7,5</td></tr><tr><td>110</td><td>6</td><td>2026-02-18</td><td>5,0</td></tr></tbody></table></div>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Ce que ces douze lignes démontrent </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Yann Mercier est intervenu <strong>deux jours de suite</strong> sur le chantier 101, et deux jours de suite sur le 105. Si la table ne contenait que le couple (chantier, salarié), la seconde journée aurait écrasé la première, et l’entreprise ne saurait pas combien d’heures ont réellement été passées.</p>
+<p>C’est très exactement le cas 3 du chapitre <a href="../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance">2.2</a> : <strong>une date hors de la clé primaire s’écrase, une date dans la clé primaire s’empile.</strong></p>
+</div>
+</blockquote>
+<h2 id="le-bac-à-sable">Le bac à sable<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-bac-à-sable" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Écrivez ici la requête de votre choix, puis <strong>Exécuter</strong>. Vous pouvez tout casser : la base vit dans votre navigateur, elle n’est partagée avec personne, et le bouton « Réinitialiser la base » remet les données d’origine.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- bac à sable</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> *</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> client ;</span></span></code></pre></figure>
+<h2 id="trois-questions-pour-vérifier-que-vous-lisez-bien-le-schéma">Trois questions pour vérifier que vous lisez bien le schéma<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#trois-questions-pour-vérifier-que-vous-lisez-bien-le-schéma" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>1. Quel client a passé le chantier n° 105, et quel est son nom ? </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p>Le chantier 105 porte <code>id_client = 4</code>. Dans <code>CLIENT</code>, l’identifiant 4 correspond à <strong>Constructions Ligéria</strong>, promoteur installé à Tours.</p>
+<p>Notez le trajet : on part de la <strong>clé étrangère</strong> du chantier, on arrive à la <strong>clé primaire</strong> du client. C’est exactement ce que fait une jointure — vous venez d’en exécuter une à la main.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>2. Combien de fenêtres 2 vantaux en aluminium ont été posées en tout ? </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p>La référence est <code>F-210</code>. Dans <code>POSER</code>, elle apparaît cinq fois : 38 + 24 + 5 + 30 + 4 = <strong>101 fenêtres</strong>.</p>
+<p>Vous venez de faire un <code>SUM</code> avec un <code>WHERE</code>. Le chapitre vous apprendra à l’écrire ; vous savez déjà ce que cela veut dire.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>3. Le produit C-900 apparaît-il dans la table <code>POSER</code> ? Qu’est-ce que cela implique ?</p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p>Non, aucune ligne de <code>POSER</code> ne le mentionne.</p>
+<p>Conséquence, et elle est capitale : une requête qui rapproche <code>PRODUIT</code> et <code>POSER</code> par une <strong>jointure interne</strong> ne le fera jamais apparaître. Si l’on demande « la liste des produits avec les quantités posées », le C-900 sera absent — et personne ne saura qu’il existe un produit au catalogue qui ne se vend pas.</p>
+<p>C’est le genre d’omission silencieuse qui fausse un état de gestion. Les <strong>jointures externes</strong> existent pour cela.</p>
+</div>
+</blockquote>
+<hr/>
+<p><a href="../../technologies/systeme-d-information-de-gestion/fil-rouge---menuiseries-vasseur" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/fil-rouge---menuiseries-vasseur">◀ Fil rouge : Menuiseries Vasseur</a> · <a href="../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql">2.3 Les requêtes SQL ▶</a></p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Vue Graphique</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-8" aria-expanded="true"><h3>Table des Matières</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#️-la-base-de-données-menuiseries-vasseur" data-for="️-la-base-de-données-menuiseries-vasseur">🗄️ La base de données Menuiseries Vasseur</a></li><li class="depth-1"><a href="#le-schéma-relationnel" data-for="le-schéma-relationnel">Le schéma relationnel</a></li><li class="depth-1"><a href="#client--8-lignes" data-for="client--8-lignes">CLIENT — 8 lignes</a></li><li class="depth-1"><a href="#chantier--10-lignes" data-for="chantier--10-lignes">CHANTIER — 10 lignes</a></li><li class="depth-1"><a href="#produit--8-lignes" data-for="produit--8-lignes">PRODUIT — 8 lignes</a></li><li class="depth-1"><a href="#poser--19-lignes" data-for="poser--19-lignes">POSER — 19 lignes</a></li><li class="depth-1"><a href="#salarie--7-lignes" data-for="salarie--7-lignes">SALARIE — 7 lignes</a></li><li class="depth-1"><a href="#intervenir--12-lignes" data-for="intervenir--12-lignes">INTERVENIR — 12 lignes</a></li><li class="depth-1"><a href="#le-bac-à-sable" data-for="le-bac-à-sable">Le bac à sable</a></li><li class="depth-1"><a href="#trois-questions-pour-vérifier-que-vous-lisez-bien-le-schéma" data-for="trois-questions-pour-vérifier-que-vous-lisez-bien-le-schéma">Trois questions pour vérifier que vous lisez bien le schéma</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Créé avec <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://stratos-solutions.fr">Stratos Solutions</a></li><li><a href="mailto:contact@stratos-solutions.fr">Contact</a></li></ul></footer></div></div></body><script src="../../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript-9114441b.js" type="module" data-persist="true"></script></html>

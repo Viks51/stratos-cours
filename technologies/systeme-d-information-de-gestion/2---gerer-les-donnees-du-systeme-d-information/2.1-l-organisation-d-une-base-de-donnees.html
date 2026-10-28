@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr"><head><title>2.1 L’organisation d’une base de données : le modèle relationnel</title><meta charset="utf-8"/><link rel="preload" href="../../../index-2162c67d.css" as="style"/><link rel="preload" href="../../../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Roboto:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/><meta name="og:site_name" content="Cours — Stratos Solutions"/><meta property="og:title" content="2.1 L’organisation d’une base de données : le modèle relationnel"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="2.1 L’organisation d’une base de données : le modèle relationnel"/><meta name="twitter:description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Vérifier les règles du modèle relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationne..."/><meta property="og:description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Vérifier les règles du modèle relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationne..."/><meta property="og:image:alt" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Vérifier les règles du modèle relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationne..."/><meta property="twitter:domain" content="cours.stratos-solutions.fr"/><meta property="og:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees"/><meta property="twitter:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees"/><link rel="icon" href="../../../static/icon.png"/><meta name="description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Vérifier les règles du modèle relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationne..."/><meta name="generator" content="Quartz"/><link rel="stylesheet" href="/static/html/console-html.css" data-persist="true"/><script type="module" src="/static/html/console-html.js" data-persist="true"></script><link rel="stylesheet" href="/static/glossaire/glossaire.css" data-persist="true"/><script type="module" src="/static/glossaire/glossaire.js" data-persist="true"></script><link rel="stylesheet" href="/static/telechargements/boutons.css" data-persist="true"/><link rel="stylesheet" href="/static/sql/console-sql.css" data-persist="true"/><script type="module" src="/static/sql/console-sql.js" data-persist="true"></script><link href="../../../index-2162c67d.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-589c1cea.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-7f220492.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-e427079e.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-58d5ff56.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-7262b5a7.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-b208a628.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-ed0fce9b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../../static/contentIndex.json").then(data => data.json())</script><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees-og-image.webp"/><meta property="og:image:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees-og-image.webp"/><meta name="twitter:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees" data-basepath><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../../..">Cours — Stratos Solutions</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Recherche" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Recherche</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Rechercher quelque chose..." placeholder="Rechercher quelque chose..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Mode sombre"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Mode sombre"><title>Mode sombre</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Mode clair"><title>Mode clair</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Mode lecture"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Mode lecture"><title>Mode lecture</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-6" aria-label="Explorateur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorateur</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-6" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/">Technologies</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/systeme-d-information-de-gestion/">Système d’information de gestion</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/">2. Gérer les données du système d’information</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>2.1 L’organisation d’une base de données : le modèle relationnel</a></div></nav><h1 class="article-title">2.1 L’organisation d’une base de données : le modèle relationnel</h1><p show-comma="true" class="content-meta"><time datetime="2026-10-28T15:16:21.968Z">28 oct. 2026</time><span>37 min de lecture</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><p><a class="version-pdf internal internal-link alias" href="../../../static/versions-pdf/cours-2-1-l-organisation-d-une-base-de-donnees.pdf" target="_blank" rel="noopener" data-slug="static/versions-pdf/cours-2-1-l-organisation-d-une-base-de-donnees.pdf">Version PDF</a></p>
+<h2 id="programme">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote class="callout info" data-callout="info">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Pédagogie </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Vérifier les règles du modèle relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>Collecte et sélection de données</li>
+<li>Dépendances fonctionnelles</li>
+<li>Modèle relationnel</li>
+<li>Normalisation des relations et schéma relationnel</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout info" data-callout="info">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Plan </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li><strong>Cours</strong>
+2.1.1 Qu’est-ce qu’une base de données ?
+2.1.2 L’organisation des données
+2.1.3 Le modèle relationnel</li>
+<li><strong>Synthèse</strong></li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Mots clés </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Attribut</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Clé étrangère</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Clé primaire</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Dépendance fonctionnelle</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dictionnaire-des-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Dictionnaire des données</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#domaine-de-valeurs" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Domaine de valeurs</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#forme-normale" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Forme normale</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#modèle-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Modèle relationnel</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#normalisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Normalisation</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#paramètre" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Paramètre</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#redondance" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Redondance</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Relation</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sgbd--sgbdr" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SGBDR</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#schéma-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Schéma relationnel</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-de-liaison" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Table de liaison</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#tuple-n-uplet" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Tuple</a></p>
+</div>
+</blockquote>
+<p>Comment structurer une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">base de données</a> ? Comment retenir les données pertinentes ? Comment les relier ? L’étude des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dépendances fonctionnelles</a> par l’élaboration d’un graphe ou la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#normalisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">normalisation</a> des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">relations</a> permet de construire le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#modèle-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">modèle relationnel</a>, ossature de la future base de données.</p>
+<blockquote class="callout abstract" data-callout="abstract">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À quoi ça sert ? </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Un jour, on vous tendra un fichier de suivi — des ventes, des heures, des immobilisations — et on vous demandera d’en tirer un chiffre. Vous découvrirez qu’il contient trois fois le même client sous trois orthographes, une colonne « Total » que personne ne sait recalculer, et une adresse à jour à un endroit sur deux.</p>
+<p>Ce chapitre vous apprend <strong>pourquoi</strong> ce fichier est ainsi, et <strong>comment</strong> on construit une structure qui ne le devient pas. C’est le socle des deux chapitres suivants : on ne peut pas écrire une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#requête" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">requête</a> <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SQL</a> juste sur un modèle faux.</p>
+<p>À l’examen, l’exercice classique consiste à lire un <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#schéma-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">schéma relationnel</a>, à repérer ce qui cloche et à le corriger. C’est très exactement ce qui suit.</p>
+</div>
+</blockquote>
+<h2 id="cours">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="211-quest-ce-quune-base-de-données-">2.1.1 Qu’est-ce qu’une base de données ?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#211-quest-ce-quune-base-de-données-" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le suivi des chantiers de Menuiseries Vasseur tient dans un seul tableur. Une ligne par chantier : le client, son adresse, son téléphone, le poseur, le modèle de fenêtre, la quantité, le prix.</p>
+<p>Le promoteur Rivière &amp; Fils y apparaît sur 14 lignes. Quand il change d’adresse de facturation, Sofiane Belkacem doit la corriger 14 fois. Le mois dernier, il en a oublié une : une facture est partie à l’ancienne adresse, et elle a été payée avec six semaines de retard.</p>
+<p><strong>La question de cette section : qu’est-ce qu’une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">base de données</a>, et que sait-elle
+faire qu’un tableur ne sait pas ?</strong></p>
+</div>
+</blockquote>
+<h4 id="définition">Définition<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#définition" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Une base de données (ou BDD), c’est un <strong>système organisé</strong> qui permet de :
+<ul>
+<li><strong>Stocker</strong> de <strong>grandes quantités</strong> d’informations ;</li>
+<li><strong>Organiser</strong> ces informations de manière <strong>structurée</strong> ;</li>
+<li>Retrouver <strong>facilement</strong> et <strong>rapidement</strong> ce qu’on cherche ;</li>
+<li><strong>Modifier</strong> ou <strong>supprimer</strong> des données quand c’est nécessaire.</li>
+</ul>
+</li>
+</ul>
+<h4 id="vous-en-utilisez-tous-les-jours">Vous en utilisez tous les jours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vous-en-utilisez-tous-les-jours" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Vous utilisez des bases de données tous les jours sans le savoir :
+<ul>
+<li>Netflix : stocke vos films, séries, vos préférences ;</li>
+<li>Facebook/Instagram : vos profils, photos, amis, messages ;</li>
+<li>Amazon : produits, commandes, clients, stocks ;</li>
+<li>Le campus : notes, emplois du temps, informations des étudiants.</li>
+</ul>
+</li>
+</ul>
+<h4 id="deux-tables-et-un-lien">Deux tables et un lien<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#deux-tables-et-un-lien" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Prenons l’exemple d’une base de données pour un site e-commerce :
+Table <strong>CLIENTS</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID</th><th>Nom</th><th>Prenom</th><th>Email</th></tr></thead><tbody><tr><td>0051</td><td>Dupont</td><td>Marie</td><td><a href="mailto:marie.dupont@gmail.com" class="external external-link">marie.dupont@gmail.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></td></tr><tr><td>0127</td><td>Martin</td><td>Paul</td><td><a href="mailto:paulmartin@yahoo.fr" class="external external-link">paulmartin@yahoo.fr<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></td></tr></tbody></table></div>
+<p>Table <strong>COMMANDES</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID</th><th>ID_Client</th><th>Date</th><th>Montant</th></tr></thead><tbody><tr><td>0325</td><td>0051</td><td>15/01/2025</td><td>59 €</td></tr><tr><td>0326</td><td>0127</td><td>20/01/2025</td><td>120 €</td></tr></tbody></table></div>
+<ul>
+<li>Les tables sont <strong>reliées entre elles</strong> : ici l’ID_Client fait le lien entre une commande et le client qui l’a passé.</li>
+</ul>
+<h4 id="les-principaux-acteurs">Les principaux acteurs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-principaux-acteurs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Pour travailler avec une base de données, on a besoin de :
+<ul>
+<li><strong>Le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sgbd--sgbdr" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SGBD</a></strong> (Système de Gestion de Base de Données) : c’est le logiciel qui gère tout (exemples : MySQL, PostgreSQL, Oracle, SQLite, etc.) ;</li>
+<li><strong>Le langage <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SQL</a></strong> : pour communiquer avec la base (SELECT, INSERT, UPDATE, DELETE, etc.) ;</li>
+<li><strong>L’application</strong> : votre site web ou logiciel qui interroge la base.</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À retenir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Une <strong>base de données</strong>, c’est :</p>
+<ul>
+<li>Un entrepôt organisé pour vos données ;</li>
+<li>Rapide pour chercher et récupérer l’info ;</li>
+<li>Sécurisé et fiable ;</li>
+<li>Structuré avec des relations entre les données ;</li>
+<li>Indispensable pour toute application moderne.</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Imaginez une bibliothèque de milliers de livres. Vous pourriez les empiler en vrac dans une pièce : tout y serait, et rien ne serait trouvable. Alors vous les rangez par étagères, par catégories, avec un système de classement et un fichier qui dit où est quoi.</p>
+<p>Une base de données, c’est cette bibliothèque. Le tableur, c’est la pile — il fonctionne très bien jusqu’à ce qu’il y ait trop de livres.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le tableur de suivi des chantiers mélange en réalité <strong>quatre choses différentes</strong> : des clients, des chantiers, des produits et des poseurs. Tant qu’il y a douze lignes, personne ne s’en aperçoit. À 900 lignes, chaque information sur un client est recopiée autant de fois qu’il a de chantiers — et c’est cette recopie, et elle seule, qui a fait partir la facture à la mauvaise adresse.</p>
+<p>Une base de données range le client <strong>une fois</strong>, le chantier <strong>une fois</strong>, et se contente de dire lequel va avec lequel.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Qu’est-ce qu’une base de données, et que sait-elle faire qu’un tableur ne sait pas ?</strong></p>
+<p>C’est un système organisé qui <strong>stocke</strong>, <strong>structure</strong>, permet de <strong>retrouver</strong> et de <strong>modifier</strong> de grandes quantités d’informations — le tout géré par un logiciel spécialisé, le <strong>SGBD</strong>, qu’on interroge en <strong>SQL</strong>.</p>
+<p>Ce qu’elle sait faire et que le tableur ne sait pas tient en un mot : <strong>ne pas se répéter</strong>. Dans une base, l’adresse de Rivière &amp; Fils est écrite <strong>une seule fois</strong>, dans une table CLIENTS. Les 14 chantiers ne la contiennent pas : ils contiennent seulement le <em>numéro</em> du client. Corriger l’adresse est donc une opération unique, et les 14 chantiers sont à jour instantanément — il n’y a rien à oublier, parce qu’il n’y a rien à répéter.</p>
+<p>S’y ajoutent trois choses qu’un tableur partagé tient mal : plusieurs personnes qui écrivent <strong>en même temps</strong> sans s’écraser, des <strong>droits d’accès</strong> par utilisateur, et des <strong>contrôles de cohérence</strong> qui refusent une commande rattachée à un client qui n’existe pas.</p>
+<p>Ce n’est donc pas une question de taille de fichier, mais de <strong>structure</strong>. Toute la suite du chapitre consiste à savoir comment on la construit.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Un collègue affirme : « mon tableur fait la même chose qu’une base de données, il est
+juste moins joli. » Qu’est-ce qui, précisément, est faux ?</strong></p>
+<p>La séparation des données. Un tableur range tout dans <strong>une seule table</strong> : les informations sur le client sont recopiées à chaque ligne où il apparaît. Une base de données répartit l’information en <strong>plusieurs tables reliées</strong> : chaque fait est écrit à un seul endroit.</p>
+<p>C’est de là que découle tout le reste — pas de doublon, pas d’incohérence, mise à jour en un seul point. Ajoutez-y le travail simultané à plusieurs, les droits d’accès et les contrôles de cohérence, qu’un tableur ne sait pas assurer.</p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 1 : Le tableur des poseurs </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Vérifier les règles du modèle relationnel</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-1-cas-1-le-tableur-des-poseurs.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-1-cas-1-le-tableur-des-poseurs.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>En plus du tableur de suivi des chantiers, Nadia Perrot tient un second tableur pour les heures des poseurs. Chaque ligne correspond à <strong>une journée d’un poseur sur un chantier</strong>. En voici un extrait :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Date</th><th>Poseur</th><th>Tél. poseur</th><th>Adresse du chantier</th><th>Client</th><th>Heures</th><th>Coût (€)</th></tr></thead><tbody><tr><td>17/06/2025</td><td>Yann Mercier</td><td>06 12 34 56 78</td><td>5 rue Nationale, Tours</td><td>Constructions Ligéria</td><td>8</td><td>304,00</td></tr><tr><td>18/06/2025</td><td>Yann Mercier</td><td>07 55 44 33 22</td><td>5 r. Nationale, Tours</td><td>Constr. Ligéria</td><td>8</td><td>304,00</td></tr><tr><td>02/09/2025</td><td>Yann Mercier</td><td>06 12 34 56 78</td><td>14 rue de la Loire, Blois</td><td>Rivière &amp; Fils</td><td>7</td><td>266,00</td></tr><tr><td>03/09/2025</td><td>Léa Aubry</td><td>06 98 76 54 32</td><td>14 rue de la Loire, Blois</td><td>Rivière &amp; Fils</td><td>6,5</td><td>247,00</td></tr><tr><td>17/02/2026</td><td>Léa Aubry</td><td>06 98 76 54 32</td><td>3 allée des Pins, Blois</td><td>Belhadj Karim</td><td>7,5</td><td>307,50</td></tr></tbody></table></div>
+<p>Sofiane Belkacem relève trois problèmes :</p>
+<ul>
+<li>Yann Mercier a changé de numéro de portable, et l’ancien subsiste sur une partie des lignes : on ne sait plus lequel est le bon ;</li>
+<li>le coût horaire des poseurs est passé de 38 € à 41 € au 1er janvier 2026. La colonne « Coût » est calculée à la main, et personne ne sait quelles lignes ont été recalculées ;</li>
+<li>quand il filtre sur « 5 rue Nationale, Tours » pour totaliser les heures du chantier de Constructions Ligéria, il obtient 8 heures au lieu de 16.</li>
+</ul>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Identifiez les « choses » différentes que ce tableur mélange, et donnez à chacune un nom de table.</strong></li>
+<li><strong>Expliquez, pour chacun des trois problèmes relevés, en quoi il découle de la recopie de l’information.</strong></li>
+<li><strong>Le coût de la journée doit-il être stocké dans la table des interventions ? Justifiez votre réponse en distinguant le coût de la journée et le coût horaire.</strong></li>
+<li><strong>Dans la future base, comment Sofiane obtiendra-t-il les heures du chantier de la rue Nationale sans risque d’en oublier ? Répondez en une ou deux phrases, sans SQL.</strong></li>
+</ol>
+</div>
+</blockquote>
+<h3 id="212-lorganisation-des-données">2.1.2 L’organisation des données<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#212-lorganisation-des-données" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Camille Vasseur a tranché : l’entreprise aura une vraie base. La réunion de lancement tourne court.</p>
+<p>Nadia Perrot arrive avec les colonnes de l’atelier, Sofiane Belkacem avec celles de la compta. Tous deux ont une colonne « Réf » — chez l’une c’est la référence du profilé, chez l’autre le numéro de la facture. Élodie Fournier, elle, tient à sa colonne « Total TTC », que plus personne ne sait recalculer.</p>
+<p><strong>La question de cette section : quelles données faut-il garder, comment les nommer, et
+comment savoir lesquelles dépendent des autres ?</strong></p>
+</div>
+</blockquote>
+<h4 id="le-rôle-et-le-fonctionnement-des-bases-de-données">Le rôle et le fonctionnement des bases de données<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-rôle-et-le-fonctionnement-des-bases-de-données" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Une organisation doit pouvoir conserver de façon <strong>structurée</strong> les informations utiles aux différents traitements des processus ;</li>
+<li>Les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">bases de données</a> relationnelles (BDR), épines dorsales des SI actuels, jouent ce rôle et mémorisent les informations qui y sont décomposées, organisées sous forme de données et stockées ;</li>
+<li>Il est donc possible de <strong>compléter</strong>, de <strong>modifier</strong>, <strong>d’interroger</strong> et <strong>d’exploiter</strong> ces données en fonction des besoins des utilisateurs.</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le système de gestion de base de données relationnelle (SGBDR) prend en charge différentes bases de données qui interagissent.</p>
+</div>
+</blockquote>
+<h4 id="la-collecte-et-la-sélection-des-données">La collecte et la sélection des données<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#la-collecte-et-la-sélection-des-données" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="les-objectifs-de-la-collecte">Les objectifs de la collecte<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-objectifs-de-la-collecte" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>Il est inutile de stocker, dans une base de données, des informations qui ne seront pas mises en œuvre dans un processus ou qui n’interviendront pas dans un traitement ;</li>
+<li>Il faut donc choisir les données utiles en réalisant des entretiens, en analysant des documents ;</li>
+<li>Le travail d’analyse peut mettre en évidence des ambiguïtés à traiter par :
+<ul>
+<li>L’individualisation des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#polysème" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">polysèmes</a> (données qui ont le même nom mais pas la même signification) en attribuant deux libellés différents ;</li>
+<li>La conservation d’une donnée pour les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#synonyme" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">synonymes</a> (données qui ont la même signification mais des noms différents dans plusieurs documents).</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À savoir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le recensement des règles de gestion pour l’obtention des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#donnée-calculée" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">données calculées</a> est important : il permet de vous assurer que vous n’oubliez pas de <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#donnée-élémentaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">données élémentaires</a>.
+Vous pouvez éventuellement choisir de conserver une donnée calculée pour répondre à un impératif de gestion.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le code du client et celui du fournisseur ne peuvent être tous deux référencés par le nom « Code ».
+La référence et le code d’un produit représentent la même donnée que l’on peut nommer « référence_produit ».
+Les données doivent être élémentaires : elles doivent être utiles en l’état, sans être scindées et ne pas résulter d’un calcul à intégrer à un traitement.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Une adresse est le plus souvent séparée en trois éléments, l’adresse_rue (10 rue Amiral Courbet), l’adresse_ville (LORIENT) et le code_postal (56100).
+Le montant TTC d’un produit peut être retrouvé en appliquant un taux de TVA au montant HT.
+Ce taux ne sera pas conservé.</p>
+</div>
+</blockquote>
+<h5 id="le-recueil-des-informations-et-lélaboration-du-dictionnaire-des-données">Le recueil des informations et l’élaboration du dictionnaire des données<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-recueil-des-informations-et-lélaboration-du-dictionnaire-des-données" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définitions </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Un <strong>dictionnaire des données</strong> est un document qui regroupe les données élémentaires et constitue donc un référentiel pour élaborer la base, il la décrit ;</li>
+<li>Un <strong>paramètre</strong> est une donnée susceptible d’intervenir dans les calculs, dont la valeur est stable (à moyen terme) et unique.</li>
+</ul>
+</div>
+</blockquote>
+<ul>
+<li>Les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#paramètre" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">paramètres</a> peuvent être clairement identifiés dans le dictionnaire alors que les constantes (données permanentes) ne le sont pas.</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le dictionnaire reprend le taux de TVA (paramètre) mais pas l’adresse de l’entreprise ou sa désignation (constantes).</p>
+<ul>
+<li><strong>Forme</strong>
+<ul>
+<li>Le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dictionnaire-des-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dictionnaire des données</a> prend le plus souvent la forme d’un tableau à quatre colonnes contenant le nom, le code et le type de donnée ainsi que d’éventuels commentaires ;</li>
+<li>Le type décrit la nature des valeurs associées à une donnée ;</li>
+<li>Plusieurs typologies existent, il conviendra a minima de différencier les types numériques (réels, entiers, monétaires, dates…), alphabétiques (ou alphanumériques) et booléens (logiques).</li>
+</ul>
+</li>
+<li><strong>Établissement du dictionnaire</strong>
+<ul>
+<li>Il est créé en respectant trois étapes :
+<ul>
+<li>Le recensement des données. Il consiste à attribuer à chaque donnée un code et un nom significatif ;</li>
+<li>L’indication du type de chaque donnée et de la règle de calcul éventuelle ou de toute autre observation utile ;</li>
+<li>La sélection des données élémentaires par la résolution des ambiguïtés éventuelles et la suppression des données calculées et des paramètres.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<hr/>
+<p><strong>Exemple</strong></p>
+<p>La SARL Magadur a adressé à sa cliente la facture suivante.</p>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Facture MAR257 du 17/03/N </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>SARL Magadur</strong> — 31 rue des Goélands, 56340 Plouharnel</p>
+<p><strong>Cliente n° 411256</strong> : Zoé Huet, 10 rue Amiral Courbet, 56100 Lorient — tél. 02 97 27 56 43 — <a href="mailto:zoe.huet@bidule.bzh" class="external external-link">zoe.huet@bidule.bzh<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Référence</th><th>Désignation</th><th>Quantité</th><th>PU HT</th><th>Montant</th></tr></thead><tbody><tr><td>MG02</td><td>Mélange de graines et de fruits secs</td><td>50</td><td>15,00</td><td>750,00</td></tr><tr><td>LA03</td><td>Lait d’avoine</td><td>5</td><td>1,50</td><td>7,50</td></tr></tbody></table></div>
+<p><strong>Total HT</strong> : 757,50 € — <strong>TVA (5,5 %)</strong> : 41,66 € — <strong>Total TTC</strong> : 799,16 €</p>
+</div>
+</blockquote>
+<p>Le dictionnaire des données correspondant à la facture de l’entreprise Magadur est le suivant :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>Code donnée</strong></th><th><strong>Nom Donnée</strong></th><th><strong>Type</strong></th><th><strong>Commentaire</strong></th></tr></thead><tbody><tr><td>NumCli</td><td>Numéro du client</td><td>Numérique</td><td>Séquentiel</td></tr><tr><td>NomCli</td><td>Nom du client</td><td>Texte</td><td></td></tr><tr><td>PrenomCli</td><td>Prénom du client</td><td>Texte</td><td></td></tr><tr><td>AdrRueCli</td><td>Adresse rue du client</td><td>Texte</td><td></td></tr><tr><td>CPCli</td><td>Code postal du client</td><td>Texte</td><td>5 caractères</td></tr><tr><td>AdrVilleCli</td><td>Adresse ville du client</td><td>Texte</td><td></td></tr><tr><td>TelCli</td><td>Téléphone du client</td><td>Texte</td><td>Format 33-/—/—/—/—</td></tr><tr><td>MailCli</td><td>mail du client</td><td>Texte</td><td></td></tr><tr><td>NumFact</td><td>Numéro de la facture</td><td>Texte</td><td></td></tr><tr><td>DateFact</td><td>Date facture</td><td>Date</td><td>Format date jj/mm/aa</td></tr><tr><td>RefProd</td><td>Référence du produit</td><td>Texte</td><td></td></tr><tr><td>Désignation</td><td>Désignation du produit</td><td>Texte</td><td></td></tr><tr><td>Quantité</td><td>Quantité du produit</td><td>Numérique</td><td>Réel, deux décimales</td></tr><tr><td>PUHT</td><td>Prix unitaire HT du produit</td><td>Numérique</td><td>Réel, deux décimales</td></tr><tr><td>TauxTVA</td><td>Taux de TVA</td><td>Numérique</td><td>Réel, deux déci</td></tr></tbody></table></div>
+<p>Seules les données utilisables dans les calculs et les numéros séquentiels (relatifs à des éléments qui se suivent dans un ordre préétabli) sont de type numérique.
+Le taux de TVA est un paramètre, il n’est pas inclus dans le dictionnaire mais aurait pu l’être.
+Les montants par produits, la TVA et les totaux sont calculés.</p>
+<p><strong>Conformément à la règle, ils ne sont pas identifiés dans ce dictionnaire car ce ne sont pas des données à stocker.</strong></p>
+<h4 id="la-structuration-des-données">La structuration des données<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#la-structuration-des-données" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="les-objectifs-de-la-structuration">Les objectifs de la structuration<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-objectifs-de-la-structuration" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>Les données élémentaires doivent être organisées pour être traitées aisément ;</li>
+<li>Cette organisation doit être pertinente et mettre en évidence les liens entre les données pour obtenir les informations nécessaires à l’organisation ;</li>
+<li>Elles forment ensemble, quand elles se complètent, des objets matériels ou immatériels du système d’information ;</li>
+<li>L’utilisation d’une structure de données appropriée simplifie les bases qui en découlent, ce qui contribue à supprimer les erreurs et anomalies ;</li>
+<li>La future base, ainsi structurée, pourra alors traiter les données automatiquement de façon rapide et efficace.</li>
+</ul>
+<h5 id="les-attributs">Les attributs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-attributs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Un attribut correspond au plus petit élément d’information manipulable.</p>
+</div>
+</blockquote>
+<ul>
+<li>Un nom d’<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attribut</a> permet de décrire les données élémentaires, elles prennent alors des valeurs et un sens dans le système d’information (SI) étudié ;</li>
+<li>L’organisation des attributs permet donc de structurer les données.</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>L’attribut <code>NomCli</code> prend diverses valeurs comme ici « Huet », il caractérise le client et a donc une signification dans le SI de l’entreprise Magadur.</p>
+</div>
+</blockquote>
+<ul>
+<li>L’ensemble des valeurs possibles pour un attribut représente le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#domaine-de-valeurs" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">domaine de valeurs</a>.</li>
+</ul>
+<h5 id="les-dépendances-fonctionnelles">Les dépendances fonctionnelles<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-dépendances-fonctionnelles" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>Pourquoi parler de <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dépendances fonctionnelles</a> ?</strong>
+<ul>
+<li>Imaginez une base de données comme un tableau Excel géant où vous stockez des informations sur vos clients, vos produits ou vos commandes. Pour que cette base soit fiable et facile à utiliser, il faut organiser les données de manière logique ;</li>
+<li>Les dépendances fonctionnelles (DF) sont des règles qui permettent de :
+<ul>
+<li>Éviter les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#redondance" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">redondances</a> (ex. : répéter 10 fois l’adresse d’un même client) ;</li>
+<li>Garantir la cohérence (ex. : si le code postal change, il doit être mis à jour partout) ;</li>
+<li>Optimiser la structure de la base pour des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#requête" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">requêtes</a> plus rapides.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Une dépendance fonctionnelle est une relation entre deux attributs (colonnes) d’une table.
+On note : <strong>X</strong> → <strong>Y</strong> (se lit “X détermine Y” ou “Y dépend fonctionnellement de X”).</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Prenons une table <code>Clients</code> avec les colonnes :</p>
+<ul>
+<li><code>N°Client</code> (ex. : C001, C002)</li>
+<li><code>Nom</code> (ex. : Dupont, Martin)</li>
+<li><code>Ville</code> (ex. : Paris, Lyon)
+Ici, <code>N°Client → Nom</code> :</li>
+<li>Si je connais le <code>N°Client</code> (ex. : C001), je peux trouver un seul <code>Nom</code> associé (ex. : Dupont).</li>
+<li>À l’inverse, <code>Nom → N°Client</code> n’est pas valide : deux clients peuvent s’appeler “Dupont” !</li>
+</ul>
+</div>
+</blockquote>
+<ul>
+<li><strong>Règles clés à retenir</strong>
+<ul>
+<li>Pour qu’une dépendance <strong>X → Y</strong> soit valide :
+<ol>
+<li><strong>Unicité</strong> : à chaque valeur de <strong>X</strong> correspond <strong>une seule valeur de Y</strong> (pas d’ambiguïté).</li>
+</ol>
+<ul>
+<li><em>Exemple valide</em> : <code>N°Client → Ville</code> (un client a une seule ville) ;</li>
+<li><em>Exemple invalide</em> : <code>Ville → N°Client</code> (une ville peut avoir plusieurs clients).</li>
+</ul>
+<ol start="2">
+<li><strong>Stabilité dans le temps</strong> : la relation doit toujours être vraie, même si les données changent.</li>
+</ol>
+<ul>
+<li>*Exemple *: <code>CodePostal → Ville</code> est généralement stable (un code postal = une ville).</li>
+</ul>
+<ol start="3">
+<li><strong>Minimalité</strong> : <strong>X</strong> doit être le plus petit ensemble possible pour déterminer <strong>Y</strong>.</li>
+</ol>
+<ul>
+<li>*Exemple *: si <code>N°Client + Nom → Ville</code> mais que <code>N°Client → Ville</code> suffit, la première DF n’est pas minimale.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>A quoi ça sert ?</strong>
+<ul>
+<li>Les dépendances fonctionnelles sont utilisées pour normaliser une base de données, c’est-à-dire l’organiser en tables sans anomalies ;</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>N° Commande</th><th>N°Client</th><th>NomClient</th><th>Ville Client</th><th>Produit</th></tr></thead><tbody><tr><td>CMD1</td><td>C001</td><td>Dupont</td><td>Paris</td><td>Stylo</td></tr><tr><td>CMD2</td><td>C001</td><td>Dupont</td><td>Paris</td><td>Cahier</td></tr><tr><td>CMD3</td><td>C002</td><td>Martin</td><td>Lyon</td><td>Gomme</td></tr></tbody></table></div>
+<p><strong>Anomalies</strong> :</p>
+<ul>
+<li><strong>Redondance</strong> : “Dupont” et “Paris” sont répétés pour chaque commande du client C001 ;</li>
+<li><strong>Risque d’incohérence</strong> : si Dupont déménage à Marseille, il faut modifier toutes ses lignes.
+<strong>Solution : appliquer les DF</strong> :</li>
+</ul>
+<ol>
+<li>On identifie les DF :</li>
+</ol>
+<ul>
+<li><code>N°Client → NomClient, VilleClient</code> (un client a un nom et une ville uniques) ;</li>
+<li><code>N°Commande → N°Client</code>, Produit (une commande est liée à un client et un produit).</li>
+</ul>
+<ol start="2">
+<li>On sépare en <strong>2 tables</strong> :</li>
+</ol>
+<ul>
+<li>Table <code>Clients</code> :</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>N°Client</th><th>NomClient</th><th>VilleClient</th></tr></thead><tbody><tr><td>C001</td><td>Dupont</td><td>Paris</td></tr><tr><td>C002</td><td>Martin</td><td>Lyon</td></tr></tbody></table></div>
+<ul>
+<li>Table <code>Commandes</code> :</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>N°Commande</th><th>N°Client</th><th>Produit</th></tr></thead><tbody><tr><td>CMD1</td><td>C001</td><td>Stylo</td></tr><tr><td>CMD2</td><td>C001</td><td>Cahier</td></tr><tr><td>CMD3</td><td>C002</td><td>Gomme</td></tr></tbody></table></div>
+<p><strong>Avantages</strong> :</p>
+<ul>
+<li>Plus de redondance ;</li>
+<li>Mise à jour facile (ex. : changer la ville de Dupont en une seule fois).</li>
+</ul>
+</div>
+</blockquote>
+<ul>
+<li><strong>Résumé</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concept</th><th>Définition</th><th>Exemple</th></tr></thead><tbody><tr><td>Dépendance X → Y</td><td>Y est déterminé de manière unique par X</td><td><code>N°Client → Ville</code></td></tr><tr><td><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#normalisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Normalisation</a></td><td>Organisation des données pour éviter redondances et anomalies</td><td>Séparer Clients et Commandes.</td></tr><tr><td><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Clé primaire</a></td><td>Attribut (ou groupe) qui identifie uniquement une ligne</td><td><code>N°Client</code></td></tr></tbody></table></div>
+<h5 id="le-graphe-des-dépendances-fonctionnelles">Le graphe des dépendances fonctionnelles<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-graphe-des-dépendances-fonctionnelles" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>Une fois les dépendances repérées une à une, il faut les voir <strong>toutes ensemble</strong>. C’est le rôle du <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#graphe-des-dépendances-fonctionnelles" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">graphe des dépendances fonctionnelles</a></strong> (graphe des DF) : un simple dessin où chaque attribut est un point, et chaque dépendance une flèche.</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le <strong>graphe des dépendances fonctionnelles</strong> est la représentation, sous forme de flèches, de l’ensemble des dépendances fonctionnelles relevées entre les attributs du dictionnaire des données. C’est l’étape intermédiaire entre le dictionnaire et le modèle relationnel.</p>
+</div>
+</blockquote>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>C’est un plan de métro. Chaque station est un attribut ; chaque ligne indique qu’en partant d’ici, on arrive nécessairement là. Les stations d’où <strong>partent</strong> des lignes sans qu’aucune n’y arrive sont les têtes de réseau : ce sont elles qui deviendront les clés primaires. Les stations qui ne font que <strong>recevoir</strong> sont de simples attributs.</p>
+</div>
+</blockquote>
+<ul>
+<li><strong>Comment le construire</strong>, en quatre gestes :
+<ol>
+<li><strong>Poser les attributs</strong> du dictionnaire des données, chacun une fois, en les espaçant ;</li>
+<li><strong>Tracer une flèche</strong> de X vers Y chaque fois que connaître X suffit à connaître une seule valeur de Y. Se poser la question dans les deux sens : la flèche inverse est presque toujours fausse ;</li>
+<li><strong>Repérer les sources</strong> — les attributs d’où partent des flèches sans qu’aucune n’aboutisse sur eux. Ce sont les futures <strong>clés primaires</strong> ;</li>
+<li><strong>Traiter les cas à deux sources</strong> : quand un attribut n’est déterminé que par un <strong>couple</strong> d’attributs, la source est ce couple. On l’entoure : ce sera une <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire-composée-concaténée" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire composée</a></strong>.</li>
+</ol>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Sur le dictionnaire de l’entreprise Magadur vu ci-dessus, le graphe se lit ainsi :</p>
+<pre><code>NumCli  ──▶ NomCli, PrenomCli, AdrRueCli, CPCli, AdrVilleCli, TelCli, MailCli
+NumFact ──▶ DateFact
+NumFact ──▶ NumCli
+RefProd ──▶ Désignation, PUHT
+(NumFact, RefProd) ──▶ Quantité
+</code></pre>
+<p>Trois attributs sont <strong>sources</strong> et ne sont la cible d’aucune flèche depuis un attribut simple : <code>NumCli</code>, <code>NumFact</code> et <code>RefProd</code>. Ils deviendront trois clés primaires.</p>
+<p>La flèche <code>NumFact ──▶ NumCli</code> relie deux sources entre elles : elle annonce une <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé étrangère</a></strong>.</p>
+<p>Et <code>Quantité</code> n’est déterminée ni par la facture seule (il y a plusieurs produits dessus), ni par le produit seul (il figure sur plusieurs factures) : sa source est le <strong>couple</strong>. D’où une quatrième <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">relation</a>, à clé primaire composée.</p>
+</div>
+</blockquote>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>L’erreur classique </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Tracer une flèche parce que, dans les données du jour, la correspondance se vérifie. <code>NomCli ──▶ NumCli</code> est vraie tant qu’il n’y a qu’un seul Dupont. Une dépendance fonctionnelle doit être vraie <strong>par nature et pour toujours</strong>, pas seulement dans le jeu d’exemples qu’on a sous les yeux. Demandez-vous toujours : « pourrait-il un jour y en avoir deux ? »</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Quelles données faut-il garder, comment les nommer, et comment savoir lesquelles dépendent des autres ?</strong></p>
+<p><strong>Ce qu’on garde</strong> : les données <strong>élémentaires</strong> et utiles à un traitement. On écarte donc la colonne « Total TTC » d’Élodie — c’est une <strong>donnée calculée</strong>, qui se retrouve à partir de la quantité, du prix unitaire et du taux de TVA. La stocker, c’est créer un chiffre qui pourra un jour contredire les autres. Le taux de TVA, lui, est un <strong>paramètre</strong> : stable, unique, il ne va pas dans le dictionnaire.</p>
+<p><strong>Comment on les nomme</strong> : en levant les ambiguïtés. Les deux colonnes « Réf » de Nadia et Sofiane sont un <strong>polysème</strong> — même nom, sens différents : elles deviennent <code>RefProfile</code> et <code>NumFacture</code>. À l’inverse, si l’atelier dit « référence » là où la compta dit « code article » pour la même chose, c’est un <strong>synonyme</strong> : on n’en garde qu’un. Tout cela se consigne dans le <strong>dictionnaire des données</strong> : code, nom, type, commentaire.</p>
+<p><strong>Comment on sait ce qui dépend de quoi</strong> : par les <strong>dépendances fonctionnelles</strong>, rassemblées dans un <strong>graphe</strong>. Connaître le numéro de chantier suffit-il à connaître son adresse ? Oui — flèche. Connaître l’adresse suffit-il à connaître le chantier ? Non, il peut y en avoir eu deux au même endroit — pas de flèche.</p>
+<p>La réunion aurait dû commencer par là : non pas « quelles colonnes veux-tu ? », mais <strong>« de quoi part-on pour connaître le reste ? »</strong>.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Faut-il faire figurer l’attribut « âge du salarié » dans le dictionnaire des données ?</strong></p>
+<p>Non. L’âge est une <strong>donnée calculée</strong> : il se déduit de la date de naissance et de la date du jour. Le stocker obligerait à le recalculer chaque année pour chaque salarié — et à vivre avec des âges faux entre deux recalculs.</p>
+<p>On conserve la <strong>date de naissance</strong>, qui est élémentaire et stable, et l’âge se calcule au moment où on en a besoin. C’est la règle générale : <em>on ne stocke jamais ce qu’on sait recalculer.</em></p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique-1">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 2 : Le devis d’Élodie </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Vérifier les règles du modèle relationnel</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-1-cas-2-le-devis-d-elodie.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-1-cas-2-le-devis-d-elodie.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>Avant de construire la base, l’équipe recense les données des documents existants. Voici un devis établi par Élodie Fournier à l’agence de Blois :</p>
+<pre><code>MENUISERIES VASSEUR — Agence de Blois           Devis n° D-2026-0412
+Date : 14/04/2026                               Validité : 30 jours
+Établi par : Élodie Fournier
+Client : M. Karim Belhadj — 3 allée des Pins, 41000 Blois — 06 21 43 65 87
+Réf. : CL-0007
+Adresse du chantier : 3 allée des Pins, 41000 Blois
+
+ Réf.    Désignation          Matière   Qté    P.U. HT    Total HT
+ F-510   Fenêtre 2 vantaux    PVC         4     265,00    1 060,00
+ F-520   Fenêtre 1 vantail    PVC         3     198,00      594,00
+ P-530   Porte d’entrée       PVC         1     540,00      540,00
+                                               Total HT    2 194,00
+                                               TVA 10 %      219,40
+                                               Total TTC   2 413,40
+</code></pre>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Établissez le dictionnaire des données de ce devis</strong> (code, désignation, type, commentaire), en écartant les données calculées et les paramètres. Justifiez chaque exclusion.</li>
+<li><strong>Une des mentions du devis pose un problème de polysémie. Repérez-la et proposez une correction.</strong></li>
+<li><strong>Relevez les dépendances fonctionnelles et représentez le graphe des DF.</strong></li>
+<li><strong>Un attribut n’est déterminé que par un couple d’attributs. Lequel, et pourquoi ?</strong></li>
+<li><strong>Élodie accorde parfois une remise sur un produit, pour un devis donné. Qu’est-ce que cela change à la dépendance du prix unitaire ?</strong></li>
+</ol>
+</div>
+</blockquote>
+<h3 id="213-le-modèle-relationnel">2.1.3 Le modèle relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#213-le-modèle-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le dictionnaire est prêt, le graphe aussi. Reste à décider ce qu’on construit vraiment : combien de tables, contenant quoi, et reliées comment.</p>
+<p>Une question bloque l’équipe. Un chantier comporte plusieurs modèles de fenêtres, et un même modèle équipe plusieurs chantiers. Où écrit-on alors « 14 fenêtres du modèle F-210 pour le chantier de Saint-Avertin » ? Dans la table des chantiers, il faudrait 14 colonnes. Dans celle des produits, autant que de chantiers.</p>
+<p><strong>La question de cette section : comment passe-t-on d’une liste de données à un jeu de
+tables reliées, et à quoi reconnaît-on qu’un découpage est bon ?</strong></p>
+</div>
+</blockquote>
+<h4 id="dabord-une-table">D’abord, une table<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dabord-une-table" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#modèle-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">modèle relationnel</a>, c’est <strong>une méthode d’organisation des données</strong> inventée en 1970 par <strong>Edgar Frank Codd</strong>, informaticien chez IBM ;</li>
+<li>L’idée principale ? <strong>Organiser les données dans des tables, et créer des relations entre ces tables</strong>.</li>
+</ul>
+<ol>
+<li><strong>Les tables</strong> (ou <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">relations</a>)</li>
+</ol>
+<ul>
+<li>Une table, c’est comme un tableau avec :
+<ul>
+<li>Des <strong>lignes</strong> (appelées <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#tuple-n-uplet" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">tuples</a> ou enregistrements) : 1 ligne = 1 entité ;</li>
+<li>Des <strong>colonnes</strong> (appelées <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attributs</a> ou champs) : les caractéristiques.</li>
+</ul>
+<hr/>
+<strong>Exemple : table ETUDIANTS</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID_Etudiant</th><th>Nom</th><th>Prenom</th><th>Date_Naissance</th><th>Classe</th></tr></thead><tbody><tr><td>1</td><td>Dubois</td><td>Julie</td><td>12/03/2004</td><td>ENGDE 1</td></tr><tr><td>2</td><td>Mercier</td><td>Thomas</td><td>25/07/2003</td><td>ENGDE 1</td></tr><tr><td>3</td><td>Bernard</td><td>Lisa</td><td>18/11/2004</td><td>ENGDE 2</td></tr></tbody></table></div>
+<ol start="2">
+<li><strong>Les clés</strong></li>
+</ol>
+<ul>
+<li>La <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire</a> :
+<ul>
+<li>C’est <strong>l’identifiant unique</strong> de chaque ligne. Pas de doublon possible !</li>
+<li>Dans notre table ETUDIANTS, c’est <strong>ID_Etudiant</strong>. Deux étudiants peuvent avoir le même nom, mais jamais le même ID.</li>
+</ul>
+</li>
+<li>La <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé étrangère</a> :
+<ul>
+<li>C’est une colonne qui <strong>fait référence à la clé primaire d’une autre table</strong>. C’est elle qui crée les <strong>relations</strong> entre les tables.</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>Les relations</strong></li>
+</ol>
+<ul>
+<li>C’est le cœur du modèle ! Les tables ne sont pas isolées, elles communiquent entre elles.
+<strong>Exemple : un système scolaire</strong>
+❌ MAUVAISE approche (tout dans une table)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID</th><th>Nom</th><th>Prenom</th><th>Matière</th><th>Note</th><th>Coef</th></tr></thead><tbody><tr><td>1</td><td>Dubois</td><td>Julie</td><td>Mathématiques</td><td>15</td><td>3</td></tr><tr><td>2</td><td>Dubois</td><td>Julie</td><td>Informatique</td><td>17</td><td>4</td></tr><tr><td>3</td><td>Dubois</td><td>Julie</td><td>Anglais</td><td>12</td><td>2</td></tr><tr><td>4</td><td>Mercier</td><td>Thomas</td><td>Mathématiques</td><td>10</td><td>3</td></tr><tr><td>5</td><td>Mercier</td><td>Thomas</td><td>Informatique</td><td>4</td><td>4</td></tr></tbody></table></div>
+<ul>
+<li><strong>Problèmes</strong> :
+<ul>
+<li>Répétition des noms (<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#redondance" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">redondance</a>) ;</li>
+<li>Si Julie change de nom → modifier plein de lignes ;</li>
+<li>Perte d’espace disque ;</li>
+<li>Risque d’erreurs (incohérence).
+✅ BONNE approche (modèle relationnel)
+Table <strong>ETUDIANTS</strong></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID_Etudiant</th><th>Nom</th><th>Prenom</th><th>Classe</th></tr></thead><tbody><tr><td>1</td><td>Dubois</td><td>Julie</td><td>ENGDE 1</td></tr><tr><td>2</td><td>Mercier</td><td>Thomas</td><td>ENGDE 1</td></tr></tbody></table></div>
+<p>Table <strong>MATIERES</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID_Matiere</th><th>Nom_Matiere</th><th>Coefficient</th></tr></thead><tbody><tr><td>1</td><td>Mathématiques</td><td>3</td></tr><tr><td>2</td><td>Informatique</td><td>4</td></tr><tr><td>3</td><td>Anglais</td><td>2</td></tr></tbody></table></div>
+<p>Table <strong>NOTES</strong> (<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-de-liaison" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">table de liaison</a>)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID_Note</th><th>ID_Etudiant</th><th>ID_Matiere</th><th>Note</th><th>Date</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>1</td><td>15</td><td>10/01/2025</td></tr><tr><td>2</td><td>1</td><td>2</td><td>17</td><td>12/01/2025</td></tr><tr><td>3</td><td>1</td><td>3</td><td>12</td><td>15/01/2025</td></tr><tr><td>4</td><td>2</td><td>1</td><td>10</td><td>10/01/2025</td></tr><tr><td>5</td><td>2</td><td>2</td><td>14</td><td>12/01/2025</td></tr></tbody></table></div>
+<ul>
+<li><strong>Avantages :</strong>
+<ul>
+<li>Pas de répétition ;</li>
+<li>Modification facile (un seul endroit) ;</li>
+<li>Gain d’espace ;</li>
+<li>Cohérence garantie.</li>
+</ul>
+</li>
+</ul>
+<h4 id="les-grands-principes">Les grands principes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-grands-principes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Deux vocabulaires pour les mêmes objets </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Vous rencontrerez les deux, souvent dans la même copie d’examen. Ils désignent exactement la même chose : le premier est celui de la théorie, le second celui des logiciels.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Théorie (modèle relationnel)</th><th>Pratique (SGBD, tableur)</th></tr></thead><tbody><tr><td>Relation</td><td>Table</td></tr><tr><td>Tuple, n-uplet</td><td>Ligne, enregistrement</td></tr><tr><td>Attribut</td><td>Colonne, champ</td></tr><tr><td><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#domaine-de-valeurs" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Domaine de valeurs</a></td><td>Type de la colonne</td></tr><tr><td><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#degré" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Degré</a></td><td>Nombre de colonnes</td></tr></tbody></table></div>
+<p>Les pages qui suivent emploient le vocabulaire de la théorie, parce que c’est celui du programme et celui de l’énoncé d’examen.</p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définitions </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Un <strong>modèle</strong> est une simplification de la réalité qui facilite sa compréhension. Le modèle doit être clair, rigoureux et aisément interprétable ; il intègre les éléments fondamentaux qui expliquent un phénomène ou une situation ;</li>
+<li>Développé par l’informaticien britannique Edgar Frank Codd (1923-2003), le <strong>modèle relationnel</strong> représente l’ensemble des relations d’un système d’information.</li>
+</ul>
+</div>
+</blockquote>
+<ul>
+<li>Le modèle relationnel peut être élaboré à partir du <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#graphe-des-dépendances-fonctionnelles" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">graphe des dépendances fonctionnelles</a>.</li>
+</ul>
+<h5 id="les-relations">Les relations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-relations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>
+<p>Un ensemble d’attributs ayant la même source de <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dépendance fonctionnelle</a>, et donc associés de façon significative, constitue une relation ;</p>
+</li>
+<li>
+<p>Élément du système d’information, une relation peut être représentée par un tableau à deux dimensions ou par un <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#schéma-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">schéma relationnel</a></strong> ;</p>
+</li>
+<li>
+<p>L’attribut source de dépendance fonctionnelle est appelé « <strong>clé primaire</strong> » ; il est positionné en première position et souligné dans la présentation schématique ;</p>
+</li>
+<li>
+<p><strong>Représentation sous forme de tableau</strong> :</p>
+<ul>
+<li>Le tableau comporte un nombre non défini de colonnes qui correspondent, chacune, à un attribut, chacun étant associé à un nom unique ;</li>
+<li>Chaque ligne du tableau est un tuple ou n-uplet, c’est-à-dire une occurrence de valeurs d’attribut ;</li>
+<li>Une valeur de clé primaire permet d’identifier, de façon certaine, le tuple correspondant, sachant qu’elle est unique.</li>
+</ul>
+<hr/>
+<p><strong>Exemple</strong>
+Relation PRODUIT</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>RefProd</th><th>Désignation</th><th>PUHT</th></tr></thead><tbody><tr><td>AV01</td><td>Avoine</td><td>6,50</td></tr><tr><td>…</td><td></td><td></td></tr><tr><td>LA03</td><td>Lait d’avoine</td><td>1,50</td></tr><tr><td>…</td><td></td><td></td></tr><tr><td>MG02</td><td>Mélange de graines et de fruits secs</td><td>15,00</td></tr><tr><td>…</td><td></td><td></td></tr></tbody></table></div>
+<hr/>
+<ul>
+<li><strong>Représentation sous forme de schéma</strong> :
+<ul>
+<li>Le schéma est composé du nom de la relation, suivi de la liste des <strong>attributs</strong> qui la composent.</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le schéma de la relation précédente devient, en notation fonctionnelle :
+<code>PRODUIT (RefProd, Désignation, PUHT)</code></p>
+</div>
+</blockquote>
+<ul>
+<li>Si la clé primaire d’une relation est en dépendance fonctionnelle avec la clé primaire d’une autre relation, la clé primaire « BUT » devient une clé étrangère dans la relation dont la clé primaire est la « SOURCE » de la dépendance fonctionnelle ;</li>
+<li>Chaque clé étrangère est le plus souvent signalée par un dièse (#) ;</li>
+<li>Elle est reprise dans la relation SOURCE, généralement à la suite des autres attributs.</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Comment lire les modèles de ce cours </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Dans les manuels, la clé primaire est <strong>soulignée</strong>. Le soulignement passe mal à l’écran et n’est pas restitué par les lecteurs d’écran : ce cours emploie donc une notation explicite.</p>
+<ul>
+<li>la <strong>clé primaire</strong> est le ou les attributs de tête ; quand elle est composée, elle est <strong>rappelée en toutes lettres sous le modèle</strong> ;</li>
+<li>un attribut précédé d’un <strong><code>#</code></strong> est une <strong>clé étrangère</strong> ;</li>
+<li>un attribut peut être <strong>à la fois</strong> clé étrangère et membre de la clé primaire.</li>
+</ul>
+<p><strong>Sur votre copie d’examen, soulignez.</strong> C’est la notation attendue par le correcteur.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>La reprise de la clé étrangère dans la relation SOURCE donne :</p>
+<pre><code>FACTURE (NumFact, DateFact, #NumCli)
+</code></pre>
+<p><code>NumFact</code> est la <strong>clé primaire</strong> de FACTURE. <code>#NumCli</code> est la <strong>clé étrangère</strong> : c’est la clé primaire de CLIENT, recopiée dans FACTURE pour relier les deux relations.</p>
+</div>
+</blockquote>
+<h5 id="les-caractéristiques-du-modèle-relationnel">Les caractéristiques du modèle relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-caractéristiques-du-modèle-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>Le modèle relationnel regroupe toutes les relations du système d’information étudié ;</li>
+<li>Il possède diverses caractéristiques et contraintes :
+<ul>
+<li>Le nom de chaque relation est unique ;</li>
+<li>Le degré de la relation représente son nombre d’attributs ;</li>
+</ul>
+</li>
+<li>Une relation répond à différentes contraintes :
+<ul>
+<li>Elle possède une clé dite primaire qui permet d’identifier les différents tuples, celle-ci peut correspondre à un seul attribut ou être composée de plusieurs attributs (concaténés) ;</li>
+<li>Chaque tuple est unique ;</li>
+<li>Aucune clé primaire ne peut être nulle.</li>
+</ul>
+</li>
+<li>Toutes les relations doivent être liées, c’est le rôle des clés étrangères.</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le modèle relationnel de gestion des factures client, construit à partir du graphe des dépendances fonctionnelles, donne :</p>
+<pre><code>PRODUIT  (RefProd, Désignation, PUHT)
+FACTURE  (NumFact, DateFact, #NumCli)
+CLIENT   (NumCli, NomCli, PrenomCli, AdrRueCli, AdrVilleCli, CPCli, TelCli, MailCli)
+FACTURER (#NumFact, #RefProd, Quantité)
+</code></pre>
+<p>La relation <code>FACTURER</code> possède une <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire-composée-concaténée" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire composée</a></strong>, qui découle des dépendances fonctionnelles : l’attribut « Quantité » ne peut être rattaché à une source unique — une quantité n’a de sens que pour un produit <em>donné</em> sur une facture <em>donnée</em>.</p>
+<p>C’est cette relation qui relie <code>FACTURE</code> et <code>PRODUIT</code>, puisque sa clé primaire est formée du regroupement (concaténation) des clés primaires de ces deux relations.</p>
+</div>
+</blockquote>
+<ul>
+<li><strong>Représentation sous forme de graphique</strong> :
+<ul>
+<li>Les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sgbd--sgbdr" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SGBDR</a> permettent d’implanter le modèle relationnel dans une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">base de données</a> sous forme graphique.</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Représenté sous forme graphique, le <strong>modèle relationnel</strong> de gestion des factures client donne :</p>
+<svg viewBox="0 0 560 456" role="img" aria-labelledby="mf-t" style="width:100%;height:auto;max-width:560px;color:inherit;">
+  <title id="mf-t">Le modèle relationnel de gestion des factures : chaque flèche va d’une clé étrangère à la clé primaire qu’elle désigne</title>
+  <defs>
+    <marker id="mf-fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="14" y="44" width="186" height="206" rx="5"></rect>
+    <path d="M14,74 L200,74"></path>
+    <path d="M14,102 L200,102" stroke-dasharray="4 3"></path>
+    <rect x="330" y="44" width="186" height="106" rx="5"></rect>
+    <path d="M330,74 L516,74"></path>
+    <path d="M330,102 L516,102" stroke-dasharray="4 3"></path>
+    <rect x="14" y="300" width="186" height="106" rx="5"></rect>
+    <path d="M14,330 L200,330"></path>
+    <path d="M14,358 L200,358" stroke-dasharray="4 3"></path>
+    <rect x="330" y="300" width="186" height="106" rx="5"></rect>
+    <path d="M330,330 L516,330"></path>
+    <path d="M330,378 L516,378" stroke-dasharray="4 3"></path>
+    <path d="M330,135 L272,135 L272,85 L202,85" marker-end="url(#mf-fl)"></path>
+    <path d="M330,361 L258,361 L258,341 L202,341" marker-end="url(#mf-fl)"></path>
+    <path d="M516,341 L542,341 L542,85 L518,85" marker-end="url(#mf-fl)"></path>
+  </g>
+  <g fill="currentColor" font-family="inherit" font-size="14">
+    <text x="14" y="24" font-size="13" font-weight="bold">Chaque flèche va d’une clé étrangère (#) à la clé primaire qu’elle désigne</text>
+    <text x="107" y="64" text-anchor="middle" font-weight="bold" letter-spacing="1">CLIENT</text>
+    <text x="26" y="90" font-weight="bold">NumCli</text>
+    <text x="26" y="120">NomCli</text>
+    <text x="26" y="140">PrenomCli</text>
+    <text x="26" y="160">AdrRueCli</text>
+    <text x="26" y="180">AdrVilleCli</text>
+    <text x="26" y="200">CPCli</text>
+    <text x="26" y="220">TelCli</text>
+    <text x="26" y="240">MailCli</text>
+    <text x="423" y="64" text-anchor="middle" font-weight="bold" letter-spacing="1">FACTURE</text>
+    <text x="342" y="90" font-weight="bold">NumFact</text>
+    <text x="342" y="120">DateFact</text>
+    <text x="342" y="140">#NumCli</text>
+    <text x="107" y="320" text-anchor="middle" font-weight="bold" letter-spacing="1">PRODUIT</text>
+    <text x="26" y="346" font-weight="bold">RefProd</text>
+    <text x="26" y="376">Désignation</text>
+    <text x="26" y="396">PUHT</text>
+    <text x="423" y="320" text-anchor="middle" font-weight="bold" letter-spacing="1">FACTURER</text>
+    <text x="342" y="346" font-weight="bold">#NumFact</text>
+    <text x="342" y="366" font-weight="bold">#RefProd</text>
+    <text x="342" y="396">Quantité</text>
+    <text x="314" y="130" font-size="14" font-weight="bold">∞</text>
+    <text x="209" y="79" font-size="14" font-weight="bold">1</text>
+    <text x="314" y="356" font-size="14" font-weight="bold">∞</text>
+    <text x="209" y="335" font-size="14" font-weight="bold">1</text>
+    <text x="522" y="336" font-size="14" font-weight="bold">∞</text>
+    <text x="526" y="78" font-size="14" font-weight="bold">1</text>
+    <text x="14" y="426" font-size="12.5" font-style="italic">En gras, au-dessus du pointillé : la clé primaire.</text>
+    <text x="14" y="444" font-size="12.5" font-style="italic">1 … ∞ : un client a plusieurs factures, une facture n’a qu’un client.</text>
+  </g>
+</svg>
+<blockquote class="callout abstract is-collapsible is-collapsed" data-callout="abstract" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Description du schéma, en toutes lettres </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p>Quatre tables. <code>FACTURE</code> porte la clé étrangère <code>#NumCli</code>, qui désigne la clé primaire <code>NumCli</code> de <code>CLIENT</code> : un client a plusieurs factures (∞), une facture n’a qu’un client (1).</p>
+<p><code>FACTURER</code> a pour clé primaire le couple (<code>#NumFact</code>, <code>#RefProd</code>), dont chaque membre est une clé étrangère : <code>#NumFact</code> désigne <code>FACTURE</code>, <code>#RefProd</code> désigne <code>PRODUIT</code>. Une facture porte plusieurs produits, un produit figure sur plusieurs factures.</p>
+</div>
+</blockquote>
+<p>Un logiciel de bases de données comme Access dessine le même schéma dans sa fenêtre « Relations » : une petite clé devant chaque clé primaire, et sur chaque lien un <strong>1</strong> du côté de la clé primaire et un <strong>∞</strong> du côté de la clé étrangère.</p>
+</div>
+</blockquote>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>La clé étrangère, c’est le numéro de dossier qu’on porte sur un document. La facture ne recopie pas l’identité complète du client : elle porte son <em>numéro</em>, et c’est ce numéro qui permet d’aller chercher le reste. Si le client déménage, on change son adresse dans un seul dossier — toutes les factures qui portent son numéro pointent désormais vers la bonne.</p>
+<p>C’est précisément ce qui manquait au tableur de suivi de chantiers.</p>
+</div>
+</blockquote>
+<h4 id="les-types-de-relations">Les types de relations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-types-de-relations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Relation <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#association-1n" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">1:n</a> (Un vers Plusieurs)
+<ul>
+<li><strong>Un</strong> étudiant peut avoir <strong>plusieurs</strong> notes, mais <strong>une</strong> note appartient à un <strong>seul</strong> étudiant ;</li>
+<li><code>ETUDIANTS (1) ----&lt; (N) NOTES</code></li>
+</ul>
+</li>
+<li>Relation <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#association-nn" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">n:n</a> (Plusieurs vers Plusieurs)
+<ul>
+<li><strong>Plusieurs</strong> étudiants peuvent suivre <strong>plusieurs</strong> matières ;</li>
+<li><code>ETUDIANTS (N) ----&lt; INSCRIPTIONS >---- (M) MATIERES</code></li>
+<li>On crée alors une <strong>table intermédiaire</strong> (table de liaison).</li>
+</ul>
+</li>
+<li>Relation <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#association-11" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">1:1</a> (Un vers Un)
+<ul>
+<li><strong>Un</strong> étudiant a <strong>un seul</strong> dossier médical, et <strong>un</strong> dossier appartient à <strong>un seul</strong> étudiant ;</li>
+<li><code>ETUDIANTS (1) ---- (1) DOSSIERS_MEDICAUX</code></li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Les trois cas se lisent directement dans l’entreprise :</p>
+<ul>
+<li><strong>1:1</strong> — un salarié a un seul contrat de travail en cours, et un contrat concerne un seul salarié ;</li>
+<li><strong>1:n</strong> — un client passe plusieurs commandes, mais une commande donnée appartient à un seul client. La clé étrangère <code>#NumClient</code> se met dans COMMANDE, du côté « plusieurs » ;</li>
+<li><strong>n:n</strong> — un chantier comporte plusieurs modèles de fenêtres, et un modèle équipe plusieurs chantiers. Impossible de loger le lien d’un côté ou de l’autre : il faut une <strong>table de liaison</strong>.</li>
+</ul>
+<p>C’est la réponse à la question qui bloquait l’équipe. On crée <code>POSER (#NumChantier, #RefProduit, Quantité)</code>. Sa clé primaire est le <strong>couple</strong> — un chantier <em>et</em> un produit — et la quantité y trouve enfin sa place, parce qu’elle ne dépend ni de l’un ni de l’autre pris isolément.</p>
+</div>
+</blockquote>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Le réflexe à acquérir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Toute association n:n donne naissance à une table.</strong> C’est la règle la plus rentable de ce chapitre : dès qu’un énoncé dit « plusieurs … peuvent … plusieurs », vous savez qu’il manque une table, et vous savez que sa clé primaire sera composée des deux clés étrangères.</p>
+</div>
+</blockquote>
+<h4 id="du-graphe-au-modèle-relationnel">Du graphe au modèle relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#du-graphe-au-modèle-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Trois règles permettent de passer du graphe des DF au modèle relationnel :
+<ul>
+<li>L’existence d’un attribut source de dépendances fonctionnelles indique une relation dont cet attribut est la clé primaire ;</li>
+<li>Une dépendance fonctionnelle composée indique une relation dont la clé primaire est concaténée. Elle sera formée de tous les attributs combinés dans la source de DF. Elle contiendra éventuellement d’autres attributs ;</li>
+<li>Une dépendance fonctionnelle entre deux attributs source de DF révèle une clé étrangère (attribut but) dans la relation dont l’attribut source est la clé primaire.</li>
+</ul>
+</li>
+</ul>
+<h4 id="les-formes-normales">Les formes normales<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-formes-normales" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#forme-normale" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">formes normales</a> sont des règles pour organiser les tables et éviter les anomalies ;</li>
+<li>Elles s’appuient sur les dépendances fonctionnelles.</li>
+<li><strong>Première forme normale (1FN)</strong> :
+<ul>
+<li><strong>Règle</strong> :
+<ul>
+<li>Chaque <strong>colonne</strong> doit contenir <strong>une seule valeur</strong> (pas de listes ou de valeurs multiples) ;</li>
+<li>Chaque <strong>ligne</strong> doit être <strong>unique</strong> (identifiée par une clé primaire).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><em><strong>Non-conforme</strong></em> :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDClient</th><th>NomsEnfants</th></tr></thead><tbody><tr><td>C001</td><td>“Lucas, Emma”</td></tr></tbody></table></div>
+<p><strong>Conforme (1FN)</strong> :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDClient</th><th>NomsEnfants</th></tr></thead><tbody><tr><td>C001</td><td>Lucas</td></tr><tr><td>C001</td><td>Emma</td></tr></tbody></table></div>
+</div>
+</blockquote>
+<ul>
+<li><strong>Deuxième forme normale (2FN)</strong> :
+<ul>
+<li><strong>Conditions</strong> :
+<ul>
+<li>La table est en <strong>1FN</strong> ;</li>
+<li><strong>Tous les attributs non-clés dépendent de la totalité de la clé primaire</strong> (pas de dépendance partielle) ;</li>
+<li>Cela signifie essentiellement qu’il doit y avoir une relation directe entre chaque colonne et la clé primaire, et non entre les autres colonnes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Tables avec <strong>clé primaire composée</strong> (plusieurs colonnes).
+<em><strong>Non-conforme</strong></em> :
+Table <code>Commandes</code> (clé primaire : <code>IDCommande + IDProduit</code>) :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDCommande</th><th>IDProduit</th><th>Quantite</th><th>NomClient</th><th>AdresseClient</th></tr></thead><tbody><tr><td>CMD1</td><td>P1</td><td>2</td><td>Dupont</td><td>Paris</td></tr><tr><td>CMD1</td><td>P2</td><td>1</td><td>Dupont</td><td>Paris</td></tr></tbody></table></div>
+<p><strong>Problème</strong> :</p>
+<ul>
+<li><code>NomClient</code> et <code>AdresseClient</code> dépendent uniquement de <code>IDCommande</code> (pas de <code>IDProduit</code>) ;</li>
+<li><strong>Dépendance partielle</strong> : <code>IDCommande → NomClient</code> (mais la clé primaire est <code>IDCommande + IDProduit</code>).
+<em><strong>Conforme (2FN)</strong></em> :</li>
+</ul>
+<ol>
+<li>Table <code>Commandes</code> (clé : <code>IDCommande + IDProduit</code>) :</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDCommande</th><th>IDProduit</th><th>Quantite</th><th>IDClient</th></tr></thead><tbody><tr><td>CMD1</td><td>P1</td><td>2</td><td>C001</td></tr><tr><td>CMD2</td><td>P2</td><td>1</td><td>C001</td></tr></tbody></table></div>
+<ol start="2">
+<li>Table <code>Clients</code> (clé : <code>IDCommande</code>) :</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDClient</th><th>NomClient</th><th>AdresseClient</th></tr></thead><tbody><tr><td>C001</td><td>Dupont</td><td>1 Rue de Paris</td></tr></tbody></table></div>
+</div>
+</blockquote>
+<ul>
+<li><strong>Troisième forme normale (3FN)</strong> :
+<ul>
+<li><strong>Conditions</strong> :
+<ul>
+<li>La table est en <strong>2FN</strong> ;</li>
+<li><strong>Aucune dépendance fonctionnelle transitive</strong> entre attributs non-clés.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Exemple </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><em><strong>Non-conforme</strong></em> :
+Table <code>Etudiants</code> (clé primaire : <code>IDEtudiant</code>) :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDEtudiant</th><th>Nom</th><th>IDDepartement</th><th>NomDepartement</th></tr></thead><tbody><tr><td>E1</td><td>Martin</td><td>D10</td><td>Comptabilité</td></tr><tr><td>E2</td><td>Durand</td><td>D10</td><td>Comptabilité</td></tr></tbody></table></div>
+<p><strong>Problème</strong> :</p>
+<ul>
+<li><code>NomDépartement</code> dépend de <code>IDDépartement</code>, pas directement de <code>IDEtudiant</code> ;</li>
+<li><strong>Redondance</strong> : “Comptabilité” est répété pour tous les étudiants de D10.
+<em><strong>Conforme (3FN)</strong></em> :</li>
+</ul>
+<ol>
+<li>Table <code>Etudiants</code> :</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDEtudiant</th><th>Nom</th><th>IDDepartement</th></tr></thead><tbody><tr><td>E1</td><td>Martin</td><td>D10</td></tr><tr><td>E2</td><td>Durand</td><td>D10</td></tr></tbody></table></div>
+<ol start="2">
+<li>Table <code>Departements</code> :</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>IDDepartement</th><th>NomDepartement</th></tr></thead><tbody><tr><td>D10</td><td>Comptabilité</td></tr></tbody></table></div>
+</div>
+</blockquote>
+<ul>
+<li><strong>Résumé des formes normales</strong></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Forme normale</th><th>Règle principale</th><th>Exemple de correction</th></tr></thead><tbody><tr><td>1FN</td><td>Pas de valeurs multiples par cellule</td><td>Séparer “Lucas, Emma” en 2 lignes</td></tr><tr><td>2FN</td><td>Pas de dépendance partielle à la clé</td><td>Séparer <code>NomClient</code> de <code>N°Commande+Produit</code></td></tr><tr><td>3FN</td><td>Pas de dépendance transitive</td><td>Séparer <code>NomDépartement</code> de <code>N°Étudiant</code></td></tr></tbody></table></div>
+<h4 id="lintégrité-référentielle">L’intégrité référentielle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#lintégrité-référentielle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>Une clé étrangère n’est pas une simple colonne : elle engage la base. Si un chantier porte le numéro de client 9 alors qu’aucun client 9 n’existe, ce chantier n’appartient à personne, et toutes les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#requête" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">requêtes</a> qui rapprochent chantiers et clients le feront disparaître.</p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>L’<strong>intégrité référentielle</strong> est la règle selon laquelle <strong>toute valeur d’une clé étrangère doit exister comme clé primaire</strong> dans la table à laquelle elle renvoie. Le SGBD la fait respecter de lui-même.</p>
+</div>
+</blockquote>
+<p>Sur la base de Menuiseries Vasseur, que vous interrogerez au <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql">chapitre 2.3</a>, le chantier porte le numéro de son client. Le SGBD <strong>refuse</strong> donc :</p>
+<ul>
+<li>d’<strong>enregistrer un chantier pour un client qui n’existe pas</strong> ;</li>
+<li>de <strong>supprimer un client qui a encore des chantiers</strong> : Constructions Ligéria porte les chantiers 105 et 106, qui deviendraient orphelins.</li>
+</ul>
+<p>Il <strong>accepte</strong> en revanche de supprimer SCI Le Clos, qui n’a aucun chantier.</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À savoir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Ces refus ne sont pas des pannes : ils protègent la cohérence des données. Vous les verrez se produire pour de bon dans la console <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">SQL</a> du chapitre 2.3, avec les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#requête-de-mise-à-jour" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">requêtes de mise à jour</a>.</p>
+</div>
+</blockquote>
+<h4 id="les-règles-dune-base-bien-conçue">Les règles d’une base bien conçue<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#les-règles-dune-base-bien-conçue" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Pour qu’une base soit bien conçue, elle doit respecter certaines règles :
+<ul>
+<li>Chaque table a une clé primaire unique ;</li>
+<li>Pas de valeurs multiples dans une cellule :
+<ul>
+<li>“Math, Info, Anglais” dans une seule case ;</li>
+<li>Une ligne par matière.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pas de répétition de groupes de colonnes :
+<ul>
+<li>Note1, Note2, Note3… ;</li>
+<li>Une table NOTES séparée.</li>
+</ul>
+</li>
+<li>Les données dépendent de la clé primaire (<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#normalisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">normalisation</a>)</li>
+</ul>
+<p><strong>Modèle récapitulatif</strong></p>
+<pre><code>ETUDIANTS (ID_Etudiant, Nom, Prenom, Classe)
+MATIERES  (ID_Matiere, Nom_Matiere, Coefficient)
+NOTES     (ID_Note, #ID_Etudiant, #ID_Matiere, Note, Date)
+</code></pre>
+<h4 id="lintérêt-du-modèle-relationnel">L’intérêt du modèle relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#lintérêt-du-modèle-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Le modèle relationnel permet de :
+<ul>
+<li>Éviter les redondances (pas de répétition) ;</li>
+<li>Garantir l’intégrité (les données restent cohérentes) ;</li>
+<li>Rechercher efficacement (grâce aux liens entre tables) ;</li>
+<li>Modifier facilement (un changement à un seul endroit) ;</li>
+<li>Croiser les informations (requêtes SQL complexes).</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À retenir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Le modèle relationnel, c’est :</p>
+<ul>
+<li>Des tables structurées ;</li>
+<li>Des clés pour identifier et relier ;</li>
+<li>Des relations entre tables ;</li>
+<li>Une organisation logique et efficace.</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Comment passe-t-on d’une liste de données à un jeu de tables reliées, et à quoi reconnaît-on qu’un découpage est bon ?</strong></p>
+<p><strong>Le passage</strong> se fait par le graphe des dépendances fonctionnelles, selon trois règles :</p>
+<ul>
+<li>chaque <strong>attribut source</strong> de dépendances donne une relation, dont il est la clé primaire ;</li>
+<li>une <strong>source composée</strong> donne une relation à clé primaire concaténée ;</li>
+<li>une dépendance <strong>entre deux sources</strong> donne une clé étrangère.</li>
+</ul>
+<p>Pour Menuiseries Vasseur, cela produit <code>CLIENT</code>, <code>CHANTIER</code>, <code>PRODUIT</code>, <code>POSEUR</code> — et <code>POSER (#NumChantier, #RefProduit, Quantité)</code>, née de l’association n:n qui bloquait la réunion.</p>
+<p><strong>On reconnaît un bon découpage</strong> à trois contrôles, dans cet ordre :</p>
+<ul>
+<li><strong>1FN</strong> — une seule valeur par case. Pas de colonne « Modèles posés » contenant « F-210, F-315 » ;</li>
+<li><strong>2FN</strong> — tout attribut non-clé dépend de la <strong>totalité</strong> de la clé. Dans <code>POSER</code>, la quantité dépend bien du couple ; le nom du client, lui, n’y aurait rien à faire ;</li>
+<li><strong>3FN</strong> — pas de dépendance transitive. Si <code>CHANTIER</code> portait le code postal <em>et</em> la ville, la ville dépendrait du code postal et non du chantier : il faudrait la sortir.</li>
+</ul>
+<p>Et le test de bon sens, qui vaut tous les formalismes : <strong>chaque fait doit être écrit à un seul endroit.</strong> Si vous devez corriger la même information à deux endroits pour qu’elle reste vraie, le modèle est faux — c’est exactement le tableur du début du chapitre, et la facture partie à la mauvaise adresse.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Un étudiant propose la relation <code>CHANTIER (NumChantier, DateDebut, #NumClient, NomClient, VilleClient)</code>. Que lui répondez-vous ?</strong></p>
+<p>Qu’elle viole la <strong>troisième forme normale</strong>. <code>NomClient</code> et <code>VilleClient</code> ne dépendent pas de <code>NumChantier</code> : ils dépendent de <code>#NumClient</code>, qui n’est pas la clé primaire de cette relation. C’est une <strong>dépendance transitive</strong>.</p>
+<p>La conséquence est concrète : l’identité du client serait recopiée sur chacun de ses chantiers, et il faudrait la corriger partout à chaque changement. La correction consiste à ne garder que <code>#NumClient</code> dans <code>CHANTIER</code>, le nom et la ville restant dans <code>CLIENT</code>.</p>
+<p>Retenez le raisonnement, pas la formule : dès qu’un attribut non-clé en détermine un autre, il manque une table.</p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique-2">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 3 : Le modèle de Thomas </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Vérifier les règles du modèle relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-1-cas-3-le-modele-de-thomas.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-1-cas-3-le-modele-de-thomas.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>Thomas Lemoine a pris de l’avance : il propose le modèle suivant pour la future base.</p>
+<pre><code>CLIENT     (NumClient, NomClient, Categorie, VilleClient)
+CHANTIER   (NumChantier, DateDebut, VilleChantier, #NumClient, NomClient,
+            Poseurs, MontantHT, MontantTTC)
+LIGNE_POSE (NumChantier, RefProduit, Designation, Matiere, Quantite)
+</code></pre>
+<p>Dans <code>CHANTIER</code>, l’attribut <code>Poseurs</code> contient les noms des poseurs intervenus, séparés par des virgules (« Mercier, Aubry »). La clé primaire de <code>LIGNE_POSE</code> est le couple (<code>NumChantier</code>, <code>RefProduit</code>).</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Relevez les manquements aux trois formes normales.</strong> Pour chacun, nommez la forme normale en cause, expliquez la dépendance fautive et décrivez l’anomalie concrète qu’elle provoque.</li>
+<li><strong>Proposez un modèle relationnel corrigé</strong>, en respectant la notation vue en cours (clé primaire en tête, clé étrangère précédée d’un <code>#</code>).</li>
+<li><strong>Dans votre modèle, quelle est la clé primaire de la table qui enregistre les produits posés ? Pourquoi la quantité s’y trouve-t-elle, et nulle part ailleurs ?</strong></li>
+<li><strong>Camille Vasseur veut suivre la facturation : un chantier donne lieu à une ou plusieurs factures (un acompte à la commande, le solde à la fin du chantier), chacune avec un numéro, une date, un type et un montant. Adaptez votre modèle.</strong></li>
+</ol>
+</div>
+</blockquote>
+<h2 id="synthèse">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Recensement des données élémentaires</strong> :</li>
+</ol>
+<ul>
+<li>Celui-ci peut se faire dans un dictionnaire de données qui précisera le type, la règle de calcul éventuelle ou toute autre observation utile ;</li>
+<li>Les ambiguïtés sont résolues par l’attribution d’un nom unique pour chaque donnée ;</li>
+<li>Les données élémentaires retenues sont des attributs (plus petit élément d’information manipulable).</li>
+</ul>
+<ol start="2">
+<li><strong>Mise en évidence des relations entre les données</strong> :</li>
+</ol>
+<ul>
+<li>Mise en évidence des dépendances fonctionnelles à travers la construction d’un graphe des dépendances fonctionnelles ;</li>
+<li>Élaboration du modèle relationnel à partir du graphe ;</li>
+<li>Construction d’une relation universelle (RU), qui regroupe les données du dictionnaire et donc tous les attributs de la base ;</li>
+<li>Normalisation des relations en trois étapes pour arriver à la représentation du modèle relationnel en troisième forme normale.</li>
+</ul>
+<ol start="3">
+<li><strong>Synthèse de toutes les relations dans un modèle relationnel</strong> :</li>
+</ol>
+<pre><code>RELATION1 (ClePrimaire1, Attribut1A, Attribut1B, …, #CleEtrangere1)
+RELATION2 (ClePrimaire2, Attribut2A, Attribut2B, …)
+</code></pre>
+<ul>
+<li><code>#CleEtrangere1</code> est la reprise de <code>ClePrimaire2</code> dans <code>RELATION1</code> : c’est elle qui assure le lien entre les deux relations ;</li>
+<li>La représentation du modèle peut également se faire sous forme de tables.</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Les cinq réflexes à emporter </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ol>
+<li><strong>Un fait, un endroit.</strong> Toute information écrite deux fois finira par se contredire.</li>
+<li><strong>On ne stocke pas ce qu’on sait recalculer.</strong> Les totaux, la TVA, l’âge : ce sont des résultats, pas des données.</li>
+<li><strong>Une dépendance fonctionnelle est vraie pour toujours</strong>, pas seulement dans l’exemple qu’on a sous les yeux.</li>
+<li><strong>Toute association n:n crée une table</strong>, dont la clé primaire est composée des deux clés étrangères.</li>
+<li><strong>Un attribut non-clé qui en détermine un autre</strong> signale une table manquante — c’est la 3FN.</li>
+</ol>
+</div>
+</blockquote>
+<hr/>
+<p><a href="../../../partie-2---gerer-les-donnees-du-systeme-d-information" class="internal internal-link alias" data-slug="partie-2---gerer-les-donnees-du-systeme-d-information">◀ Partie 2 : Gérer les données du système d’information</a> · <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance">2.2 Le modèle relationnel avancé ▶</a></p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Vue Graphique</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-4" aria-expanded="true"><h3>Table des Matières</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#programme" data-for="programme">Programme</a></li><li class="depth-0"><a href="#cours" data-for="cours">Cours</a></li><li class="depth-1"><a href="#211-quest-ce-quune-base-de-données-" data-for="211-quest-ce-quune-base-de-données-">2.1.1 Qu’est-ce qu’une base de données ?</a></li><li class="depth-1"><a href="#212-lorganisation-des-données" data-for="212-lorganisation-des-données">2.1.2 L’organisation des données</a></li><li class="depth-1"><a href="#213-le-modèle-relationnel" data-for="213-le-modèle-relationnel">2.1.3 Le modèle relationnel</a></li><li class="depth-0"><a href="#synthèse" data-for="synthèse">Synthèse</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Liens retour</h3><ul id="list-0" class="overflow"><li><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance" class="internal">2.2 Le modèle relationnel avancé</a></li><li><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/" class="internal">2. Gérer les données du système d’information</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Créé avec <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://stratos-solutions.fr">Stratos Solutions</a></li><li><a href="mailto:contact@stratos-solutions.fr">Contact</a></li></ul></footer></div></div></body><script src="../../../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../../postscript-9114441b.js" type="module" data-persist="true"></script></html>

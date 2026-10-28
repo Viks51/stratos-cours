@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr"><head><title>2.2 Le modèle relationnel avancé</title><meta charset="utf-8"/><link rel="preload" href="../../../index-2162c67d.css" as="style"/><link rel="preload" href="../../../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;family=Roboto:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/><meta name="og:site_name" content="Cours — Stratos Solutions"/><meta property="og:title" content="2.2 Le modèle relationnel avancé"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="2.2 Le modèle relationnel avancé"/><meta name="twitter:description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationnel Plan Cours 2.2.1 Prendre en compte le te..."/><meta property="og:description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationnel Plan Cours 2.2.1 Prendre en compte le te..."/><meta property="og:image:alt" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationnel Plan Cours 2.2.1 Prendre en compte le te..."/><meta property="twitter:domain" content="cours.stratos-solutions.fr"/><meta property="og:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance"/><meta property="twitter:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance"/><link rel="icon" href="../../../static/icon.png"/><meta name="description" content="Version PDF Programme Pédagogie Compétences attendues Interpréter un schéma relationnel Adapter un schéma relationnel à un besoin d’évolution d’une base de données Savoirs associés Collecte et sélection de données Dépendances fonctionnelles Modèle relationnel Plan Cours 2.2.1 Prendre en compte le te..."/><meta name="generator" content="Quartz"/><link rel="stylesheet" href="/static/html/console-html.css" data-persist="true"/><script type="module" src="/static/html/console-html.js" data-persist="true"></script><link rel="stylesheet" href="/static/glossaire/glossaire.css" data-persist="true"/><script type="module" src="/static/glossaire/glossaire.js" data-persist="true"></script><link rel="stylesheet" href="/static/telechargements/boutons.css" data-persist="true"/><link rel="stylesheet" href="/static/sql/console-sql.css" data-persist="true"/><script type="module" src="/static/sql/console-sql.js" data-persist="true"></script><link href="../../../index-2162c67d.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-589c1cea.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-7f220492.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-e427079e.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-58d5ff56.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../component-7262b5a7.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-b208a628.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../../../static/resource-style-ed0fce9b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../../static/contentIndex.json").then(data => data.json())</script><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance-og-image.webp"/><meta property="og:image:url" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance-og-image.webp"/><meta name="twitter:image" content="https://cours.stratos-solutions.fr/technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.2-le-modele-relationnel-avance" data-basepath><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../../..">Cours — Stratos Solutions</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Recherche" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Recherche</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Rechercher quelque chose..." placeholder="Rechercher quelque chose..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Mode sombre"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Mode sombre"><title>Mode sombre</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Mode clair"><title>Mode clair</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Mode lecture"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Mode lecture"><title>Mode lecture</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-7" aria-label="Explorateur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorateur</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-7" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/">Technologies</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/systeme-d-information-de-gestion/">Système d’information de gestion</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/">2. Gérer les données du système d’information</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>2.2 Le modèle relationnel avancé</a></div></nav><h1 class="article-title">2.2 Le modèle relationnel avancé</h1><p show-comma="true" class="content-meta"><time datetime="2026-10-28T15:16:21.972Z">28 oct. 2026</time><span>23 min de lecture</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><p><a class="version-pdf internal internal-link alias" href="../../../static/versions-pdf/cours-2-2-le-modele-relationnel-avance.pdf" target="_blank" rel="noopener" data-slug="static/versions-pdf/cours-2-2-le-modele-relationnel-avance.pdf">Version PDF</a></p>
+<h2 id="programme">Programme<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#programme" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote class="callout info" data-callout="info">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Pédagogie </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Compétences attendues</strong></p>
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+<p><strong>Savoirs associés</strong></p>
+<ul>
+<li>Collecte et sélection de données</li>
+<li>Dépendances fonctionnelles</li>
+<li>Modèle relationnel</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout info" data-callout="info">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Plan </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li><strong>Cours</strong>
+2.2.1 Prendre en compte le temps dans un modèle relationnel
+2.2.2 Gérer les attributs non renseignés
+2.2.3 Déterminer la clé primaire dans des situations particulières</li>
+<li><strong>Synthèse</strong></li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Mots clés </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Clé étrangère</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Clé primaire</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire-composée-concaténée" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Concaténation</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#héritage" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Héritage</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#historisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Historisation</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#identification-relative" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Identification relative</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-complémentaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Table complémentaire</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-générique" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Table générique</a> • <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#historisation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">Temps</a></p>
+</div>
+</blockquote>
+<p>Le chapitre précédent a posé les règles générales. Celui-ci traite les trois situations où elles ne suffisent plus : quand il faut <strong>dater</strong> un fait, quand une table se remplit de <strong>cases vides</strong>, et quand la <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire</a></strong> ne peut pas être un simple numéro. Ce sont, dans cet ordre, les trois pièges les plus fréquents des sujets d’examen.</p>
+<blockquote class="callout abstract" data-callout="abstract">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>À quoi ça sert ? </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Les modèles du chapitre 2.1 décrivent un état : voici les clients, voici les produits. Or la gestion ne travaille jamais sur un état — elle travaille sur un <strong>historique</strong>. Combien de fois ce client a-t-il été visité ? Quel était le tarif appliqué en mars ? Depuis quand ce salarié occupe-t-il ce poste ?</p>
+<p>Ce chapitre vous apprend à modéliser le temps, et à ne pas construire une base qui écrase son propre passé. C’est le défaut le plus coûteux qu’on rencontre en entreprise : une base qui ne sait dire que « aujourd’hui », et qui ne peut donc justifier aucun chiffre d’hier.</p>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Comment lire les modèles de ce cours </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Dans les manuels, la clé primaire est <strong>soulignée</strong>. Le soulignement se transmet mal à l’écran et n’est pas restitué par les lecteurs d’écran : ce cours utilise donc une notation explicite, et vous devez pouvoir passer de l’une à l’autre.</p>
+<pre><code>FACTURE (NumFact, DateFact, #NumCli)
+</code></pre>
+<ul>
+<li>la <strong>clé primaire</strong> est le ou les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attributs</a> de tête ; quand elle est composée, ou quand elle inclut des <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clés étrangères</a>, elle est <strong>rappelée en toutes lettres sous le modèle</strong> ;</li>
+<li>un attribut précédé d’un <strong><code>#</code></strong> est une <strong>clé étrangère</strong> ;</li>
+<li>un attribut peut être <strong>à la fois</strong> clé étrangère et membre de la clé primaire : c’est même le cas le plus fréquent dans ce chapitre ;</li>
+<li>dans les <strong>tables d’exemple</strong>, l’en-tête des colonnes qui forment la clé primaire est <strong>en gras</strong>.</li>
+</ul>
+<p><strong>Sur votre copie d’examen, soulignez.</strong> C’est la notation attendue par le correcteur.</p>
+</div>
+</blockquote>
+<h2 id="cours">Cours<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cours" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="221-prendre-en-compte-le-temps-dans-un-modèle-relationnel">2.2.1 Prendre en compte le temps dans un modèle relationnel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#221-prendre-en-compte-le-temps-dans-un-modèle-relationnel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Menuiseries Vasseur veut savoir combien de fois ses commerciaux ont rendu visite au promoteur Rivière &amp; Fils avant de décrocher le marché. La base actuelle ne contient qu’une colonne « dernière visite », écrasée à chaque passage.</p>
+<p>La réponse est donc perdue — non pas mal rangée : <strong>perdue</strong>. Personne ne l’a jamais enregistrée.</p>
+<p><strong>La question de cette section : comment un <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#modèle-relationnel" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">modèle relationnel</a> garde-t-il la trace de
+ce qui s’est passé, au lieu de ne connaître que le dernier état ?</strong></p>
+</div>
+</blockquote>
+<ul>
+<li>Modéliser le temps, c’est répondre à une seule question : <strong>de quoi la date dépend-elle ?</strong> Trois cas se présentent, et chacun conduit à une structure différente.</li>
+</ul>
+<h4 id="cas-1--la-date-est-propre-à-un-objet">Cas 1 — la date est propre à un objet<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cas-1--la-date-est-propre-à-un-objet" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Pour un objet précis, une seule date est possible ;</li>
+<li>Il en résulte une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dépendance fonctionnelle</a> entre la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire</a> de la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">relation</a> et l’<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attribut</a> date.</li>
+</ul>
+<p><strong>Exemple — la commande n° 1253.</strong> La commande n° 1253 a été passée le 12 janvier 2019. La date de la commande ne se rapporte qu’à cette seule commande.</p>
+<pre><code>COMMANDE (NumCommande, DateCommande, #NumClient)
+</code></pre>
+<p>La date est un <strong>attribut ordinaire</strong> : <code>NumCommande ──▶ DateCommande</code>. Il n’y a rien de particulier à faire.</p>
+<h4 id="cas-2--la-date-concerne-plusieurs-objets-et-lévénement-ne-survient-quune-fois">Cas 2 — la date concerne plusieurs objets, et l’événement ne survient qu’une fois<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cas-2--la-date-concerne-plusieurs-objets-et-lévénement-ne-survient-quune-fois" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>La date résulte de la mise en relation d’au moins deux objets différents ;</li>
+<li>Cette mise en relation ne peut survenir <strong>qu’une seule fois</strong> — ou, si elle survient plusieurs fois, l’historique n’est pas conservé.</li>
+</ul>
+<p><strong>Exemple — les diplômes de l’école DSCG+.</strong> Les <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">bases de données</a> de l’école DSCG+ gèrent les étudiants (numéro, nom, prénom) et les diplômes (code, nom du diplôme). Pour chaque étudiant, on veut connaître la date d’obtention de ses diplômes.</p>
+<p>Un étudiant peut obtenir plusieurs diplômes, un diplôme peut être obtenu par plusieurs étudiants — mais <strong>un étudiant ne passe le même diplôme qu’une fois</strong>. La date d’obtention ne dépend donc que du couple (étudiant, diplôme) :</p>
+<pre><code>ETUDIANT       (NumEtu, NomEtu, PrenomEtu)
+DIPLOME        (NumDip, NomDip)
+OBTENIRDIPLOME (#NumEtu, #NumDip, DateObtention)
+</code></pre>
+<p><strong>Clé primaire de <code>OBTENIRDIPLOME</code> : le couple (<code>#NumEtu</code>, <code>#NumDip</code>).</strong> La date reste un attribut ordinaire.</p>
+<svg viewBox="0 0 537 218" role="img" aria-labelledby="dfd-t" style="width:100%;height:auto;max-width:537px;color:inherit;">
+  <title id="dfd-t">Graphe des dépendances fonctionnelles de l’obtention des diplômes</title>
+  <defs>
+    <marker id="dfd-fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker>
+    <marker id="dfd-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--secondary, #284b63)"></path></marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="14" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M32,72 L32,115"></path>
+    <path d="M32,91 L56,91" marker-end="url(#dfd-fl)"></path>
+    <path d="M32,115 L56,115" marker-end="url(#dfd-fl)"></path>
+    <rect x="167" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M185,72 L185,91"></path>
+    <path d="M185,91 L209,91" marker-end="url(#dfd-fl)"></path>
+    <rect x="14" y="146" width="152" height="32" rx="7"></rect>
+    <path d="M32,178 L32,197"></path>
+    <path d="M32,197 L56,197" marker-end="url(#dfd-fl)"></path>
+  </g>
+  <g fill="currentColor" font-family="inherit" font-size="14">
+    <text x="14" y="22" font-size="13" font-weight="bold">Graphe des dépendances fonctionnelles de l’obtention des diplômes</text>
+    <text x="56" y="61" text-anchor="middle" font-weight="bold">NumEtu</text>
+    <text x="62" y="96">NomEtu</text>
+    <text x="62" y="120">PrenomEtu</text>
+    <text x="209" y="61" text-anchor="middle" font-weight="bold">NumDip</text>
+    <text x="215" y="96">NomDip</text>
+    <text x="90" y="167" text-anchor="middle" font-weight="bold">NumEtu + NumDip</text>
+    <text x="62" y="202">DateObtention</text>
+  </g>
+</svg>
+<blockquote class="callout abstract is-collapsible is-collapsed" data-callout="abstract" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Description du schéma, en toutes lettres </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<pre><code>NumEtu ──▶ NomEtu, PrenomEtu
+NumDip ──▶ NomDip
+(NumEtu, NumDip) ──▶ DateObtention
+</code></pre>
+<p>Deux sources simples, <code>NumEtu</code> et <code>NumDip</code>, et une source composée : la date d’obtention ne dépend ni de l’étudiant seul (il peut avoir plusieurs diplômes) ni du diplôme seul (plusieurs étudiants l’obtiennent), mais du couple.</p>
+</div>
+</blockquote>
+<p>Une représentation sous forme de table permet de vérifier que les clés primaires jouent bien leur rôle : aucun couple (étudiant, diplôme) n’apparaît deux fois.</p>
+<p><strong>ETUDIANT</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>NumEtu</strong></th><th>NomEtu</th><th>PrenomEtu</th></tr></thead><tbody><tr><td>E1</td><td>GASPROT</td><td>Martin</td></tr><tr><td>E2</td><td>VALRU</td><td>Quentin</td></tr><tr><td>E3</td><td>BUREEZSA</td><td>Sonia</td></tr><tr><td>E4</td><td>POURAE</td><td>Valentine</td></tr></tbody></table></div>
+<p><strong>DIPLOME</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>NumDip</strong></th><th>NomDip</th></tr></thead><tbody><tr><td>D1</td><td>DCG</td></tr><tr><td>D2</td><td>DCG-INTEC</td></tr><tr><td>D3</td><td>Licence gestion</td></tr></tbody></table></div>
+<p><strong>OBTENIRDIPLOME</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong><code>#NumEtu</code></strong></th><th><strong><code>#NumDip</code></strong></th><th>DateObtention</th></tr></thead><tbody><tr><td>E1</td><td>D1</td><td>29/08/N</td></tr><tr><td>E2</td><td>D2</td><td>10/10/N</td></tr><tr><td>E3</td><td>D2</td><td>09/12/N-1</td></tr><tr><td>E4</td><td>D1</td><td>24/08/N-1</td></tr><tr><td>E4</td><td>D3</td><td>30/06/N</td></tr></tbody></table></div>
+<p>E4 figure deux fois dans <code>OBTENIRDIPLOME</code>, mais avec deux diplômes différents. Un étudiant n’obtenant le même diplôme qu’une fois, aucun couple (<code>#NumEtu</code>, <code>#NumDip</code>) ne peut s’y répéter.</p>
+<h4 id="cas-3--la-date-concerne-plusieurs-objets-et-lévénement-peut-survenir-plusieurs-fois">Cas 3 — la date concerne plusieurs objets, et l’événement peut survenir plusieurs fois<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cas-3--la-date-concerne-plusieurs-objets-et-lévénement-peut-survenir-plusieurs-fois" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>La date résulte de la mise en relation d’au moins deux objets différents ;</li>
+<li>Cette mise en relation peut survenir <strong>plusieurs fois</strong> ;</li>
+<li>Si l’on veut conserver l’historique, il faut distinguer les différentes réalisations du même couple d’objets ;</li>
+<li><strong>La date doit alors être intégrée à la clé primaire.</strong></li>
+</ul>
+<p><strong>Exemple — les visites des représentants.</strong> Un représentant visite les clients d’une entreprise. Il peut visiter plusieurs fois le même client, mais toujours à des dates différentes. Un client n’est pas forcément toujours visité par le même représentant. La base conserve les coordonnées des clients et des représentants, ainsi que l’<strong>historique des visites</strong> et leur durée.</p>
+<svg viewBox="0 0 412 218" role="img" aria-labelledby="dfv-t" style="width:100%;height:auto;max-width:412px;color:inherit;">
+  <title id="dfv-t">Graphe des dépendances fonctionnelles des visites</title>
+  <defs>
+    <marker id="dfv-fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker>
+    <marker id="dfv-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--secondary, #284b63)"></path></marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="14" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M32,72 L32,115"></path>
+    <path d="M32,91 L56,91" marker-end="url(#dfv-fl)"></path>
+    <path d="M32,115 L56,115" marker-end="url(#dfv-fl)"></path>
+    <rect x="167" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M185,72 L185,115"></path>
+    <path d="M185,91 L209,91" marker-end="url(#dfv-fl)"></path>
+    <path d="M185,115 L209,115" marker-end="url(#dfv-fl)"></path>
+    <rect x="14" y="146" width="261" height="32" rx="7"></rect>
+    <path d="M32,178 L32,197"></path>
+    <path d="M32,197 L56,197" marker-end="url(#dfv-fl)"></path>
+  </g>
+  <g fill="currentColor" font-family="inherit" font-size="14">
+    <text x="14" y="22" font-size="13" font-weight="bold">Graphe des dépendances fonctionnelles des visites</text>
+    <text x="56" y="61" text-anchor="middle" font-weight="bold">NumCli</text>
+    <text x="62" y="96">NomCli</text>
+    <text x="62" y="120">PrenomCli</text>
+    <text x="209" y="61" text-anchor="middle" font-weight="bold">NumRep</text>
+    <text x="215" y="96">NomRep</text>
+    <text x="215" y="120">PrenomRep</text>
+    <text x="145" y="167" text-anchor="middle" font-weight="bold">NumCli + NumRep + DateVisite</text>
+    <text x="62" y="202">DureeVisite</text>
+  </g>
+</svg>
+<blockquote class="callout abstract is-collapsible is-collapsed" data-callout="abstract" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Description du schéma, en toutes lettres </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<pre><code>NumCli ──▶ NomCli, PrenomCli
+NumRep ──▶ NomRep, PrenomRep
+(NumCli, NumRep, DateVisite) ──▶ DureeVisite
+</code></pre>
+<p>La durée d’une visite ne dépend pas du seul couple (client, représentant) : le même représentant peut revenir chez le même client. Il faut la date pour désigner une visite précise.</p>
+</div>
+</blockquote>
+<pre><code>CLIENT        (NumCli, NomCli, PrenomCli)
+REPRESENTANT  (NumRep, NomRep, PrenomRep)
+VISITERCLIENT (#NumCli, #NumRep, DateVisite, DureeVisite)
+</code></pre>
+<p><strong>Clé primaire de <code>VISITERCLIENT</code> : le triplet (<code>#NumCli</code>, <code>#NumRep</code>, <code>DateVisite</code>).</strong> C’est la date qui, ajoutée au couple, rend chaque visite unique.</p>
+<p><strong>CLIENT</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>NumCli</strong></th><th>NomCli</th><th>PrenomCli</th></tr></thead><tbody><tr><td>C1</td><td>DUJARDIN</td><td>Bertrand</td></tr><tr><td>C2</td><td>CANET</td><td>Chantal</td></tr><tr><td>C3</td><td>TAUTOU</td><td>Philippe</td></tr><tr><td>C4</td><td>ADJANI</td><td>Catherine</td></tr></tbody></table></div>
+<p><strong>REPRESENTANT</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>NumRep</strong></th><th>NomRep</th><th>PrenomRep</th></tr></thead><tbody><tr><td>R1</td><td>SAND</td><td>Aurore</td></tr><tr><td>R2</td><td>CAMUS</td><td>Michel</td></tr><tr><td>R3</td><td>DURAS</td><td>Valentine</td></tr></tbody></table></div>
+<p><strong>VISITERCLIENT</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong><code>#NumCli</code></strong></th><th><strong><code>#NumRep</code></strong></th><th><strong>DateVisite</strong></th><th>DureeVisite</th></tr></thead><tbody><tr><td>C1</td><td>R1</td><td>25/09/N-1</td><td>1</td></tr><tr><td>C1</td><td>R1</td><td>02/01/N</td><td>1,5</td></tr><tr><td>C2</td><td>R2</td><td>10/09/N-1</td><td>0,5</td></tr><tr><td>C2</td><td>R2</td><td>10/12/N-1</td><td>1</td></tr><tr><td>C3</td><td>R2</td><td>09/12/N-1</td><td>0,5</td></tr><tr><td>C4</td><td>R1</td><td>25/09/N-1</td><td>1</td></tr><tr><td>C4</td><td>R3</td><td>12/12/N-1</td><td>0,5</td></tr><tr><td>C4</td><td>R3</td><td>15/03/N</td><td>1</td></tr><tr><td>C4</td><td>R3</td><td>30/06/N</td><td>0,5</td></tr></tbody></table></div>
+<p>Le couple (C1, R1) apparaît deux fois, le couple (C4, R3) trois fois : sans la date, la clé primaire aurait des doublons. C’est <code>DateVisite</code>, ajoutée au couple, qui rend chaque ligne unique.</p>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Le test à faire systématiquement </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Posez-vous la question : <strong>« cela peut-il se produire deux fois ? »</strong></p>
+<ul>
+<li>Non → la date est un attribut ordinaire (cas 1 ou 2) ;</li>
+<li>Oui, et je veux garder la trace → la date <strong>entre dans la clé primaire</strong> (cas 3) ;</li>
+<li>Oui, mais je ne garde que le dernier → la date reste un attribut, et <strong>vous acceptez explicitement de perdre l’historique</strong>. Ce n’est pas une erreur si c’est un choix — c’en est une si c’est un oubli.</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Un attribut date, c’est la mention « dernière révision » écrite au crayon sur le carnet d’entretien d’une voiture : on l’efface et on la réécrit à chaque passage. Une date dans la clé primaire, c’est le carnet lui-même, avec une ligne par intervention. Le premier tient sur un post-it ; seul le second permet de revendre la voiture.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Comment un modèle relationnel garde-t-il la trace de ce qui s’est passé, au lieu de ne connaître que le dernier état ?</strong></p>
+<p>En faisant entrer le <strong>temps dans la clé primaire</strong>. Tant que la date est un simple attribut, chaque nouvel événement écrase le précédent : il n’y a de place que pour une valeur. Dès que la date fait partie de la clé, chaque occurrence devient une <strong>ligne distincte</strong>, et l’historique existe.</p>
+<p>Le choix se fait en une question — <em>cela peut-il se produire deux fois ?</em> — et se décline en trois cas :</p>
+<ul>
+<li>la date ne dépend que d’un objet → attribut ordinaire (<code>COMMANDE</code>) ;</li>
+<li>elle dépend d’un couple, non répétable → attribut de la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-de-liaison" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">table de liaison</a> (<code>OBTENIRDIPLOME</code>) ;</li>
+<li>elle dépend d’un couple, répétable → <strong>elle rejoint la clé primaire</strong> (<code>VISITERCLIENT</code>).</li>
+</ul>
+<p>Chez Vasseur, la colonne « dernière visite » — le crayon du carnet d’entretien — relevait du troisième cas traité comme le premier : un commercial visite plusieurs fois le même prospect, et c’est précisément cette répétition qui a de la valeur commerciale. Le modèle correct est donc :</p>
+<pre><code>VISITER (#NumCommercial, #NumClient, DateVisite, DureeVisite, CompteRendu)
+</code></pre>
+<p><strong>Clé primaire : le triplet (<code>#NumCommercial</code>, <code>#NumClient</code>, <code>DateVisite</code>).</strong></p>
+<p>L’erreur n’était pas une maladresse d’écriture : c’était une <strong>perte d’information définitive</strong>, qu’aucune <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#requête" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">requête</a>, aucun tableau croisé, aucun consultant ne récupérera. Sans historique, l’entreprise ne peut ni évaluer le nombre de visites nécessaires pour signer, ni comparer ses commerciaux, ni justifier un budget de déplacement.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Une salle de sport enregistre les passages de ses adhérents. Faut-il mettre la date
+dans la clé primaire de la table <code>PASSAGE</code> ?</strong></p>
+<p>Oui. Un même adhérent passe plusieurs fois dans la même salle, et c’est justement ce qu’on veut compter. La clé primaire est le couple (<code>#NumAdherent</code>, <code>DateHeurePassage</code>).</p>
+<p>Attention au piège : la <strong>date seule</strong> ne suffit pas si un adhérent peut venir deux fois dans la journée. Il faut la date <strong>et l’heure</strong> — ou, plus sûr, un numéro de passage séquentiel. Retenez-en le principe : la clé primaire doit garantir l’unicité pour <em>tous</em> les cas possibles, pas seulement pour les cas habituels.</p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 1 : Les heures des poseurs </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-2-cas-1-les-heures-des-poseurs.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-2-cas-1-les-heures-des-poseurs.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>Pour suivre le temps passé sur les chantiers, Thomas Lemoine a créé les tables suivantes :</p>
+<pre><code>SALARIE    (NumSalarie, NomSalarie, Fonction, CoutHoraire)
+CHANTIER   (NumChantier, VilleChantier, #NumClient)
+INTERVENIR (#NumChantier, #NumSalarie, NbHeures)
+</code></pre>
+<p>La clé primaire de <code>INTERVENIR</code> est le couple (<code>#NumChantier</code>, <code>#NumSalarie</code>).</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Que permet cette clé primaire, et qu’interdit-elle ? Illustrez avec Yann Mercier, qui a travaillé sur le chantier 105 le 17 juin puis le 18 juin 2025.</strong></li>
+<li><strong>Le 18 juin, Yann Mercier pose les fenêtres le matin, puis revient l’après-midi régler une porte-fenêtre, ce que l’entreprise appelle une intervention de SAV. Camille Vasseur veut distinguer les heures de pose des heures de SAV. Le modèle le supporte-t-il ? Corrigez-le.</strong></li>
+<li><strong>Camille veut valoriser ces heures. Le coût horaire des poseurs est passé de 38 € à 41 € au 1er janvier 2026. En l’état, que donnerait le calcul pour une intervention de 2025 ? Proposez une correction.</strong></li>
+<li><strong>Le modèle corrigé permet-il de connaître, pour chaque chantier, le poseur qui y a passé le plus d’heures ? Expliquez comment.</strong></li>
+</ol>
+</div>
+</blockquote>
+<h3 id="222-gérer-les-attributs-non-renseignés">2.2.2 Gérer les attributs non renseignés<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#222-gérer-les-attributs-non-renseignés" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>La table des clients de Menuiseries Vasseur porte 22 colonnes. Pour un particulier, les colonnes <code>SIRET</code>, <code>NumMarchePublic</code>, <code>ServiceFacturation</code> et <code>DelaiPaiementNegocie</code> restent vides. Pour une collectivité, ce sont <code>DateNaissance</code> et <code>TypeLogement</code> qui le sont.</p>
+<p>Résultat : plus de la moitié des cases du fichier sont vides, et personne ne sait plus si une case vide signifie « sans objet » ou « on ne l’a pas saisi ».</p>
+<p><strong>La question de cette section : que faire quand une table rassemble des objets qui ne
+se ressemblent qu’à moitié ?</strong></p>
+</div>
+</blockquote>
+<h4 id="le-principe-de-lhéritage">Le principe de l’héritage<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#le-principe-de-lhéritage" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Une table possède de nombreux <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attributs</a> non renseignés lorsqu’elle est constituée d’objets qui ne sont <strong>pas parfaitement homogènes</strong> — par exemple des catégories de clients aux caractéristiques différentes ;</li>
+<li>À partir d’une <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-générique" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">table générique</a></strong> contenant les données communes à tous les objets, il faut créer des <strong><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#table-complémentaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">tables complémentaires</a></strong> conservant les données propres à chaque catégorie ;</li>
+<li>Les tables complémentaires « héritent » de la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire</a> de la table générique.</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Définition </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>La notion d’<strong>héritage</strong> consiste à attacher systématiquement aux données communes d’une table générique des données spécifiques contenues dans des tables complémentaires, réduisant ainsi la présence d’attributs non renseignés.</p>
+</div>
+</blockquote>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>C’est le dossier administratif d’une entreprise. Tout le monde a une chemise « identité » : nom, matricule, coordonnées. Seuls les salariés ont en plus la chemise « contrat et salaire » ; seuls les stagiaires ont la chemise « convention et école ».</p>
+<p>Personne ne se promène avec un formulaire unique de 40 lignes dont 25 barrées. Une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#base-de-données" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">base de données</a> bien conçue ne le fait pas non plus.</p>
+</div>
+</blockquote>
+<p><strong>Exemple — le personnel d’une entreprise.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>Matricule</strong></th><th>NomPers</th><th>PrenPers</th><th>NomDiplome</th><th>Année</th><th>Salaire</th><th>DateEmb</th></tr></thead><tbody><tr><td>Mat1</td><td>Garden</td><td>Franck</td><td></td><td></td><td>60 000</td><td>25/09/N-10</td></tr><tr><td>Mat2</td><td>Duck</td><td>Yves</td><td></td><td></td><td>42 000</td><td>12/10/N-3</td></tr><tr><td>Mat3</td><td>Tot</td><td>Léa</td><td></td><td></td><td>28 000</td><td>15/02/N-10</td></tr><tr><td>Mat4</td><td>Gilles</td><td>Eve</td><td></td><td></td><td>32 000</td><td>23/07/N-2</td></tr><tr><td>Mat5</td><td>Gain</td><td>Fred</td><td>DCG</td><td>1</td><td></td><td></td></tr><tr><td>Mat6</td><td>Oelo</td><td>Reine</td><td>DCG</td><td>2</td><td></td><td></td></tr></tbody></table></div>
+<p>Le personnel travaillant dans une entreprise est soit salarié, soit étudiant. Pour tous, on enregistre le matricule, le nom et le prénom. Pour les salariés, on conserve en plus le montant du salaire et la date d’embauche. Pour les stagiaires, le nom du diplôme préparé et le nombre d’années de formation.</p>
+<p>Une table <code>PERSONNEL</code> unique devrait comporter <code>Matricule, Nom, Prénom, Salaire, DateEmbauche, NomDiplôme, Année</code> — et resterait, comme ci-dessus, à moitié vide.</p>
+<p>La solution est une table générique et deux tables complémentaires :</p>
+<pre><code>PERSONNEL (Matricule, NomPers, PrenomPers)
+ETUDIANT  (#MatriculeETU, NomDiplome, AnneeFormation)
+SALARIE   (#MatriculeSAL, Salaire, DateEmbauche)
+</code></pre>
+<p><strong>Clés primaires : <code>Matricule</code> pour <code>PERSONNEL</code> ; <code>#MatriculeETU</code> pour <code>ETUDIANT</code> ; <code>#MatriculeSAL</code> pour <code>SALARIE</code>.</strong> Dans les tables complémentaires, la clé primaire <strong>est</strong> la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé étrangère</a> : c’est la signature de l’<a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#héritage" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">héritage</a>.</p>
+<p>Renommer la clé dans les tables filles (<code>MatriculeETU</code> = matricule de l’étudiant, <code>MatriculeSAL</code> = matricule du salarié) rend le modèle plus lisible ; ce n’est pas obligatoire.</p>
+<p><strong>PERSONNEL</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>Matricule</strong></th><th>NomPers</th><th>PrenomPers</th></tr></thead><tbody><tr><td>Mat1</td><td>Garden</td><td>Franck</td></tr><tr><td>Mat2</td><td>Duck</td><td>Yves</td></tr><tr><td>Mat3</td><td>Tot</td><td>Léa</td></tr><tr><td>Mat4</td><td>Gilles</td><td>Eve</td></tr><tr><td>Mat5</td><td>Gain</td><td>Fred</td></tr><tr><td>Mat6</td><td>Oelo</td><td>Reine</td></tr></tbody></table></div>
+<p><strong>ETUDIANT</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong><code>#MatriculeETU</code></strong></th><th>NomDiplome</th><th>AnneeFormation</th></tr></thead><tbody><tr><td>Mat5</td><td>DCG</td><td>1</td></tr><tr><td>Mat6</td><td>DCG</td><td>2</td></tr></tbody></table></div>
+<p><strong>SALARIE</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong><code>#MatriculeSAL</code></strong></th><th>Salaire</th><th>DateEmbauche</th></tr></thead><tbody><tr><td>Mat1</td><td>60 000</td><td>25/09/N-10</td></tr><tr><td>Mat2</td><td>42 000</td><td>12/10/N-3</td></tr><tr><td>Mat3</td><td>28 000</td><td>15/02/N-10</td></tr><tr><td>Mat4</td><td>32 000</td><td>23/07/N-2</td></tr></tbody></table></div>
+<p>Plus aucune case vide : chacun figure dans <code>PERSONNEL</code>, puis dans <code>ETUDIANT</code> <strong>ou</strong> dans <code>SALARIE</code>, selon sa catégorie.</p>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Attention à ne pas confondre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Héritage</strong> et <strong>association <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#association-11" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">1:1</a></strong> se ressemblent, et le correcteur attend que vous les distinguiez.</p>
+<p>Dans l’héritage, la table fille <strong>ne peut pas exister sans</strong> la table mère, et sa clé primaire <em>est</em> celle de la mère : un étudiant est un membre du personnel. Dans une association 1:1 ordinaire — un salarié et son véhicule de fonction —, les deux objets existent indépendamment.</p>
+<p>Le test : <em>« l’objet de la table fille est-il un cas particulier de celui de la table mère ? »</em> Si oui, héritage.</p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Que faire quand une table rassemble des objets qui ne se ressemblent qu’à moitié ?</strong></p>
+<p>On applique l’<strong>héritage</strong> : une table générique pour ce que tous les clients ont en commun, et une table complémentaire par catégorie.</p>
+<pre><code>CLIENT        (NumClient, NomClient, AdrClient, CPClient, VilleClient, TelClient)
+PARTICULIER   (#NumClientPART, DateNaissance, TypeLogement)
+PROFESSIONNEL (#NumClientPRO, SIRET, ServiceFacturation, DelaiPaiementNegocie)
+COLLECTIVITE  (#NumClientCOL, NumMarchePublic, ServiceFacturation)
+</code></pre>
+<p>Les 22 colonnes à moitié vides deviennent quatre tables pleines. Trois bénéfices concrets :</p>
+<ul>
+<li><strong>plus de cases vides</strong>, donc plus d’ambiguïté entre « sans objet » et « non saisi » ;</li>
+<li>les <strong>contrôles deviennent possibles</strong> : le SIRET peut être rendu obligatoire pour un professionnel, ce qui était impossible tant que la colonne servait aussi aux particuliers ;</li>
+<li>le modèle <strong>absorbe l’évolution</strong> : le jour où les collectivités exigeront un identifiant supplémentaire, une seule table bouge.</li>
+</ul>
+<p>Et la nuance à savoir défendre : un client qui serait à la fois particulier et professionnel n’est pas interdit par ce modèle — il aurait simplement une ligne dans chacune des deux tables filles.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Une case vide dans une base de données, est-ce grave ?</strong></p>
+<p>Pas en soi — c’est son <strong>ambiguïté</strong> qui l’est. Une case vide peut signifier trois choses très différentes : la valeur n’existe pas (un particulier n’a pas de SIRET), elle existe mais n’a pas été saisie, ou elle est inconnue.</p>
+<p>Aucune requête ne sait faire la différence, et un calcul de moyenne les traitera toutes de la même façon. L’héritage supprime le premier cas — le plus fréquent — en n’ouvrant la colonne qu’aux objets qu’elle concerne.</p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique-1">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 2 : Le catalogue </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-2-cas-2-le-catalogue.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-2-cas-2-le-catalogue.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>Le catalogue de Menuiseries Vasseur tient dans une table unique :</p>
+<pre><code>PRODUIT (RefProduit, Designation, Matiere, PrixHT,
+         Largeur, Hauteur, NbVantaux, TypeVitrage,
+         SensOuverture, NbPointsFermeture,
+         SurfaceM2, TypeToiture)
+</code></pre>
+<p>Le catalogue comprend des <strong>fenêtres</strong> (largeur, hauteur, nombre de vantaux, type de vitrage), des <strong>portes</strong> (largeur, hauteur, sens d’ouverture, nombre de points de fermeture) et des <strong>vérandas</strong> (surface, type de toiture). Sur la plupart des lignes, plus de la moitié des colonnes sont vides.</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Nommez le défaut de ce modèle et proposez une structure corrigée</strong>, en précisant les clés primaires.</li>
+<li><strong><code>Largeur</code> et <code>Hauteur</code> doivent-elles rester dans la table générique ? Discutez le cas de la véranda.</strong></li>
+<li><strong>Chaque modèle existe en plusieurs coloris, numérotés à partir de 1 pour chaque modèle (coloris n° 1, 2, 3 de la F-210 ; coloris n° 1, 2 de la P-530), avec un supplément de prix propre à chacun. Complétez le modèle.</strong> (Cette question anticipe la section suivante.)</li>
+<li><strong>Un même produit peut être acheté auprès de plusieurs fournisseurs de profilés, et un fournisseur en fournit plusieurs. Le prix d’achat est négocié produit par produit avec chaque fournisseur. Adaptez votre modèle et justifiez la structure retenue.</strong></li>
+</ol>
+</div>
+</blockquote>
+<h3 id="223-déterminer-la-clé-primaire-dans-des-situations-particulières">2.2.3 Déterminer la clé primaire dans des situations particulières<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#223-déterminer-la-clé-primaire-dans-des-situations-particulières" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la situation </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Sur le chantier de Saint-Avertin, l’atelier a fabriqué 14 fenêtres du modèle F-210. Elles sont numérotées de 1 à 14 — et sur le chantier suivant, la numérotation repart à 1.</p>
+<p>Quand un poseur signale « la n° 7 est fêlée », le numéro 7 ne veut rien dire tout seul : il en existe une par chantier.</p>
+<p><strong>La question de cette section : que fait-on quand un numéro n’est unique qu’à
+l’intérieur de quelque chose d’autre ?</strong></p>
+</div>
+</blockquote>
+<h4 id="distinguer-les-différents-exemplaires-dun-objet--lidentification-relative">Distinguer les différents exemplaires d’un objet : l’identification relative<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#distinguer-les-différents-exemplaires-dun-objet--lidentification-relative" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>La <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire</a> d’une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#relation" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">relation</a> peut, dans certaines situations, être définie <strong>par référence</strong> à la clé primaire d’une autre relation ;</li>
+<li>Ainsi, lorsqu’un objet comporte plusieurs exemplaires, la clé primaire de l’exemplaire se réfère à celle de l’objet ;</li>
+<li>Elle ne peut exister seule : pour être unique, elle est <strong>concaténée</strong> avec celle de l’objet.</li>
+</ul>
+<p><strong>Exemple — les exemplaires de la bibliothèque Atout Lire.</strong> La bibliothèque Atout Lire acquiert plusieurs exemplaires d’un même livre afin de les prêter à ses adhérents. La numérotation des exemplaires <strong>redémarre à 1 pour chaque livre</strong>.</p>
+<p>Un exemplaire ne correspond qu’à un seul livre ; un livre peut être acheté en plusieurs exemplaires. Du fait de la numérotation, plusieurs exemplaires portent le même numéro.</p>
+<pre><code>LIVRE           (CodeLiv, TitreLiv)
+EXEMPLAIRELIVRE (NumExp, #CodeLiv, EtatExp)
+</code></pre>
+<p><strong>Clé primaire de <code>EXEMPLAIRELIVRE</code> : le couple (<code>NumExp</code>, <code>#CodeLiv</code>).</strong> <code>NumExp</code> seul ne suffit pas — il existe un exemplaire n° 1 pour chaque titre du fonds.</p>
+<p><strong>LIVRE</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>CodeLiv</strong></th><th>TitreLiv</th></tr></thead><tbody><tr><td>L1</td><td>Le livre des Baltimore</td></tr><tr><td>L2</td><td>La disparition de Stéphanie Mailer</td></tr></tbody></table></div>
+<p><strong>EXEMPLAIRELIVRE</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>NumExp</strong></th><th><strong><code>#CodeLiv</code></strong></th><th>EtatExp</th></tr></thead><tbody><tr><td>1</td><td>L1</td><td>Usagé</td></tr><tr><td>2</td><td>L1</td><td>État correct</td></tr><tr><td>1</td><td>L2</td><td>État correct</td></tr><tr><td>2</td><td>L2</td><td>Neuf</td></tr></tbody></table></div>
+<p>Le numéro 1 apparaît deux fois dans <code>NumExp</code>, jamais pour le même livre : c’est le couple (<code>NumExp</code>, <code>#CodeLiv</code>) qui est unique.</p>
+<blockquote class="callout quote" data-callout="quote">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Une image pour comprendre </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>C’est l’adresse. « Appartement 3 » ne désigne rien : il faut « appartement 3 <strong>du</strong> 12 rue Pasteur ». Le numéro d’appartement n’est unique qu’à l’intérieur de l’immeuble, et c’est la combinaison des deux qui identifie le logement.</p>
+<p>Une <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#identification-relative" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">identification relative</a>, c’est exactement cela : un numéro qui n’a de sens que rapporté à son contenant.</p>
+</div>
+</blockquote>
+<h4 id="dépendance-fonctionnelle-entre-une-clé-primaire-concaténée-et-une-clé-étrangère">Dépendance fonctionnelle entre une clé primaire concaténée et une clé étrangère<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dépendance-fonctionnelle-entre-une-clé-primaire-concaténée-et-une-clé-étrangère" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Lorsque trois objets sont en relation, l’un d’eux peut dépendre du <strong>couple</strong> constitué par les deux autres ;</li>
+<li>La <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-primaire-composée-concaténée" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clé primaire concaténée</a> du couple est alors la <strong>source</strong> de la <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#dépendance-fonctionnelle-df" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">dépendance fonctionnelle</a> pointant vers le troisième objet.</li>
+</ul>
+<p><strong>Exemple — les affectations de l’entreprise CMonChoix.</strong> Dans l’entreprise CMonChoix, des employés sont affectés à des projets et peuvent y remplir <strong>plusieurs fonctions</strong>. Les trois objets en interaction entraînent la création de quatre relations :</p>
+<pre><code>PROJET   (NumPr, TitrePr, DateDebut)
+EMPLOYE  (NumEmp, NomEmp, PrenomEmp)
+FONCTION (NumF, DescrF)
+AFFECTER (#NumPr, #NumEmp, #NumF)
+</code></pre>
+<p><strong>Clé primaire de <code>AFFECTER</code> : le triplet (<code>#NumPr</code>, <code>#NumEmp</code>, <code>#NumF</code>)</strong> — les trois <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#attribut" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">attributs</a>, puisqu’un employé peut tenir plusieurs fonctions sur le même projet.</p>
+<p>À ce stade, aucun attribut ne dépend du couple (<code>NumPr</code>, <code>NumEmp</code>) : <code>AFFECTER</code> ne contient que ses trois <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#clé-étrangère" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">clés étrangères</a>, qui forment ensemble sa clé primaire.</p>
+<p><strong>Les règles de gestion évoluent : sur un projet donné, un employé n’a désormais qu’une seule fonction possible.</strong></p>
+<svg viewBox="0 0 544 218" role="img" aria-labelledby="dfa-t" style="width:100%;height:auto;max-width:544px;color:inherit;">
+  <title id="dfa-t">Graphe des dépendances fonctionnelles après le changement de règle</title>
+  <defs>
+    <marker id="dfa-fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker>
+    <marker id="dfa-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--secondary, #284b63)"></path></marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="14" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M32,72 L32,115"></path>
+    <path d="M32,91 L56,91" marker-end="url(#dfa-fl)"></path>
+    <path d="M32,115 L56,115" marker-end="url(#dfa-fl)"></path>
+    <rect x="167" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M185,72 L185,115"></path>
+    <path d="M185,91 L209,91" marker-end="url(#dfa-fl)"></path>
+    <path d="M185,115 L209,115" marker-end="url(#dfa-fl)"></path>
+    <rect x="321" y="40" width="84" height="32" rx="7"></rect>
+    <path d="M339,72 L339,91"></path>
+    <path d="M339,91 L363,91" marker-end="url(#dfa-fl)"></path>
+    <rect x="14" y="146" width="144" height="32" rx="7"></rect>
+    <path d="M32,178 L32,197"></path>
+    <path d="M32,197 L56,197" marker-end="url(#dfa-acc)" stroke="var(--secondary, #284b63)" stroke-width="2.2"></path>
+  </g>
+  <g fill="currentColor" font-family="inherit" font-size="14">
+    <text x="14" y="22" font-size="13" font-weight="bold">Graphe des dépendances fonctionnelles après le changement de règle</text>
+    <text x="56" y="61" text-anchor="middle" font-weight="bold">NumPr</text>
+    <text x="62" y="96">TitrePr</text>
+    <text x="62" y="120">DateDebut</text>
+    <text x="209" y="61" text-anchor="middle" font-weight="bold">NumEmp</text>
+    <text x="215" y="96">NomEmp</text>
+    <text x="215" y="120">PrenomEmp</text>
+    <text x="363" y="61" text-anchor="middle" font-weight="bold">NumF</text>
+    <text x="369" y="96">DescrF</text>
+    <text x="86" y="167" text-anchor="middle" font-weight="bold">NumPr + NumEmp</text>
+    <text x="62" y="202" fill="var(--secondary, #284b63)" font-weight="bold">NumF</text>
+    <text x="110" y="202" font-size="12.5" font-style="italic" fill="var(--secondary, #284b63)">← dépendance née de la nouvelle règle</text>
+  </g>
+</svg>
+<blockquote class="callout abstract is-collapsible is-collapsed" data-callout="abstract" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Description du schéma, en toutes lettres </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<pre><code>NumPr ──▶ TitrePr, DateDebut
+NumEmp ──▶ NomEmp, PrenomEmp
+NumF ──▶ DescrF
+(NumPr, NumEmp) ──▶ NumF      ← nouvelle dépendance
+</code></pre>
+<p>Les trois premières dépendances existaient déjà. La quatrième naît de la nouvelle règle : connaissant le projet et l’employé, on connaît sa fonction.</p>
+</div>
+</blockquote>
+<p>Le <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2#graphe-des-dépendances-fonctionnelles" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/glossaire-de-la-partie-2">graphe des dépendances fonctionnelles</a> fait apparaître une dépendance nouvelle : le couple (<code>#NumPr</code>, <code>#NumEmp</code>) suffit à déterminer <code>NumF</code>. Les attributs de la relation ne changent pas — mais <strong>sa clé primaire, si</strong> :</p>
+<pre><code>AFFECTER (#NumPr, #NumEmp, #NumF)
+</code></pre>
+<p><strong>Clé primaire de <code>AFFECTER</code> : désormais le couple (<code>#NumPr</code>, <code>#NumEmp</code>) seul.</strong> <code>#NumF</code> devient un attribut ordinaire, qui reste une clé étrangère vers <code>FONCTION</code>.</p>
+<p><strong>AFFECTER</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong><code>#NumPr</code></strong></th><th><strong><code>#NumEmp</code></strong></th><th><code>#NumF</code></th></tr></thead><tbody><tr><td>P1</td><td>E1</td><td>F1</td></tr><tr><td>P1</td><td>E2</td><td>F1</td></tr><tr><td>P1</td><td>E3</td><td>F2</td></tr><tr><td>P2</td><td>E1</td><td>F1</td></tr><tr><td>P2</td><td>E2</td><td>F2</td></tr></tbody></table></div>
+<p>Un employé intervient sur plusieurs projets et un projet réunit plusieurs employés : la clé est bien un couple. Comme l’employé n’a qu’une fonction par projet, aucun couple (<code>#NumPr</code>, <code>#NumEmp</code>) ne se répète, et c’est lui qui détermine la fonction : E2 est F1 sur le projet P1, F2 sur le projet P2.</p>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>L’exemple à ne surtout pas survoler </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Ci-dessus, <strong>les deux modèles s’écrivent avec les mêmes attributs</strong> : <code>AFFECTER (#NumPr, #NumEmp, #NumF)</code>. Seule la clé primaire change — et c’est là toute la différence de sens :</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Clé primaire</th><th>Ce que le modèle autorise</th></tr></thead><tbody><tr><td>(<code>#NumPr</code>, <code>#NumEmp</code>, <code>#NumF</code>)</td><td>Dupont est <strong>chef de projet et développeur</strong> sur le projet Alpha : deux lignes</td></tr><tr><td>(<code>#NumPr</code>, <code>#NumEmp</code>)</td><td>Dupont n’a <strong>qu’une fonction</strong> sur Alpha : la seconde ligne serait refusée</td></tr></tbody></table></div>
+<p>C’est exactement pour cela qu’on souligne la clé primaire, et pourquoi une copie où elle ne l’est pas est incorrigible. Sur votre copie : <strong>soulignez.</strong></p>
+</div>
+</blockquote>
+<blockquote class="callout example" data-callout="example">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Chez Vasseur — la réponse </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Que fait-on quand un numéro n’est unique qu’à l’intérieur de quelque chose d’autre ?</strong></p>
+<p>On pratique une <strong>identification relative</strong> : la clé primaire de l’exemplaire est <strong>concaténée</strong> avec celle de l’objet auquel il se rattache.</p>
+<pre><code>CHANTIER   (NumChantier, AdrChantier, DateDebut, #NumClient)
+MENUISERIE (NumMenuiserie, #NumChantier, #RefProduit, EtatPose)
+</code></pre>
+<p><strong>Clé primaire de <code>MENUISERIE</code> : le couple (<code>NumMenuiserie</code>, <code>#NumChantier</code>).</strong></p>
+<p>La fenêtre « n° 7 » du poseur devient alors identifiable sans ambiguïté : c’est la n° 7 <strong>du chantier de Saint-Avertin</strong>. Le numéro seul ne désigne rien, le couple désigne une menuiserie et une seule — et l’atelier peut enfin tracer une pièce défectueuse jusqu’à son chantier.</p>
+<p>Le réflexe à retenir dépasse ce cas : <strong>dès qu’une numérotation repart à 1</strong>, elle est relative, et sa clé primaire est composée. C’est vrai des exemplaires d’un livre, des lignes d’une facture, des lots d’une commande, des appartements d’un immeuble.</p>
+</div>
+</blockquote>
+<blockquote class="callout success is-collapsible is-collapsed" data-callout="success" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Vérifiez que vous avez compris </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<p><strong>Les lignes d’une facture sont numérotées 1, 2, 3… et la numérotation repart à 1 sur
+la facture suivante. Quelle est la clé primaire de la table <code>LIGNEFACTURE</code> ?</strong></p>
+<p>Le couple (<code>NumLigne</code>, <code>#NumFacture</code>). C’est une identification relative : <code>NumLigne</code> n’est unique qu’à l’intérieur d’une facture donnée.</p>
+<p>Notez que ce n’est pas la seule solution possible : on pourrait aussi identifier la ligne par le couple (<code>#NumFacture</code>, <code>#RefProduit</code>) — mais ce choix interdirait de faire figurer deux fois le même produit sur une facture, ce qui arrive (deux tarifs, deux dates de livraison). Le choix d’une clé primaire est toujours une <strong>décision de gestion</strong>, pas seulement une décision technique.</p>
+</div>
+</blockquote>
+<h4 id="mise-en-pratique-2">Mise en pratique<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mise-en-pratique-2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote class="callout question is-collapsible is-collapsed" data-callout="question" data-callout-fold>
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Cas pratique 3 : L’outillage partagé </p></div>
+                  <div class="fold-callout-icon callout-fold"></div>
+                </div>
+<div class="callout-content">
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Compétences attendues </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>Interpréter un schéma relationnel</li>
+<li>Adapter un schéma relationnel à un besoin d’évolution d’une base de données</li>
+</ul>
+</div>
+</blockquote>
+<p><a class="enonce-pdf internal internal-link alias" href="../../../static/enonces/enonce-2-2-cas-3-l-outillage-partage.pdf" target="_blank" rel="noopener" data-slug="static/enonces/enonce-2-2-cas-3-l-outillage-partage.pdf">Télécharger l’énoncé (PDF)</a></p>
+<p>Menuiseries Vasseur dispose d’outillage lourd sur ses deux sites : nacelles, échafaudages, monte-charges. Chaque site numérote son outillage <strong>à partir de 1</strong> : il existe une nacelle n° 1 à Tours et une nacelle n° 1 à Blois. Les numéros sont peints sur le matériel.</p>
+<p>Les cinq équipes de poseurs, numérotées de 1 à 5, <strong>réservent</strong> un outil pour une période (date de début, date de fin). Une même équipe réserve régulièrement le même outil, à des dates différentes.</p>
+<p>Une partie de l’outillage appartient à l’entreprise (date d’achat, valeur d’achat). L’autre partie est louée à l’année auprès d’un loueur (nom du loueur, numéro de contrat, tarif journalier).</p>
+<p><strong>Missions</strong></p>
+<ol>
+<li><strong>Proposez le modèle relationnel complet</strong>, en précisant explicitement chaque clé primaire.</li>
+<li><strong>Justifiez la clé primaire de la table de l’outillage. Quel serait le défaut d’un numéro unique pour tout l’outillage de l’entreprise ?</strong></li>
+<li><strong>Une équipe peut réserver deux fois le même outil à deux périodes différentes. Votre modèle le supporte-t-il ? Quelle est la clé primaire de la réservation ?</strong></li>
+<li><strong>Distinguez l’outillage possédé de l’outillage loué. Adaptez votre modèle</strong> et nommez la technique employée.</li>
+</ol>
+</div>
+</blockquote>
+<h2 id="synthèse">Synthèse<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#synthèse" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="prendre-en-compte-le-temps">Prendre en compte le temps<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#prendre-en-compte-le-temps" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Tout se joue sur une seule question : <strong>de quoi la date dépend-elle ?</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Situation</th><th>Où va la date</th><th>Exemple</th></tr></thead><tbody><tr><td>La date ne dépend que d’<strong>un objet</strong></td><td>Attribut ordinaire de la relation<br/><em>Historique : sans objet — il n’y a qu’une date</em></td><td><code>COMMANDE (NumCommande, DateCommande, #NumClient)</code></td></tr><tr><td>La date dépend d’un <strong>couple d’objets</strong>, l’événement ne survient <strong>qu’une fois</strong></td><td>Attribut de la table de liaison<br/><em>Historique conservé, par construction</em></td><td><code>OBTENIRDIPLOME (#NumEtu, #NumDip, DateObtention)</code> — clé : le couple</td></tr><tr><td>La date dépend d’un <strong>couple d’objets</strong>, l’événement peut survenir <strong>plusieurs fois</strong></td><td><strong>Dans la clé primaire</strong><br/><em>Historique conservé si et seulement si la date est dans la clé</em></td><td><code>VISITERCLIENT (#NumCli, #NumRep, DateVisite, DureeVisite)</code> — clé : le triplet</td></tr></tbody></table></div>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>La phrase à retenir </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>Une date hors de la clé primaire s’écrase ; une date dans la clé primaire s’empile.</strong> Tout le reste en découle.</p>
+</div>
+</blockquote>
+<h3 id="gérer-les-attributs-non-renseignés">Gérer les attributs non renseignés<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gérer-les-attributs-non-renseignés" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Cette opération met en œuvre l’<strong>héritage</strong> :
+<ul>
+<li>à partir d’une <strong>table générique</strong> contenant les données communes à tous les objets, on crée des <strong>tables complémentaires</strong> conservant les données propres à chaque catégorie ;</li>
+<li>les tables complémentaires <strong>héritent de la clé primaire</strong> de la table générique — leur clé primaire <em>est</em> leur clé étrangère.</li>
+</ul>
+</li>
+<li>Le bénéfice ne se limite pas à l’esthétique du modèle : il supprime l’ambiguïté de la case vide et rend possibles des contrôles de saisie par catégorie.</li>
+</ul>
+<h3 id="déterminer-la-clé-primaire-dans-des-situations-particulières">Déterminer la clé primaire dans des situations particulières<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#déterminer-la-clé-primaire-dans-des-situations-particulières" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Situation</th><th>Reconnaissance</th><th>Clé primaire</th></tr></thead><tbody><tr><td><strong>Identification relative</strong></td><td>Une numérotation qui <strong>repart à 1</strong> dans chaque objet parent</td><td>Concaténation du numéro et de la clé du parent : <code>EXEMPLAIRELIVRE (NumExp, #CodeLiv, …)</code> — clé : (<code>NumExp</code>, <code>#CodeLiv</code>)</td></tr><tr><td><strong>Trois objets en relation, sans contrainte</strong></td><td>Un employé peut tenir <strong>plusieurs</strong> fonctions sur un projet</td><td>Le <strong>triplet</strong> des trois clés étrangères</td></tr><tr><td><strong>Trois objets, avec dépendance du couple vers le troisième</strong></td><td>Un employé n’a <strong>qu’une</strong> fonction par projet</td><td>Le <strong>couple</strong> source ; le troisième attribut devient ordinaire</td></tr></tbody></table></div>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Ce que le correcteur regarde en premier </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>La clé primaire. Un modèle dont les attributs sont justes mais la clé fausse ne décrit pas la bonne réalité de gestion — et il est sanctionné comme tel. <strong>Soulignez-la, et vérifiez qu’elle garantit l’unicité dans tous les cas de figure</strong>, pas seulement dans l’exemple de l’énoncé.</p>
+</div>
+</blockquote>
+<hr/>
+<p><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees">◀ 2.1 L’organisation d’une base de données</a> · <a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql" class="internal internal-link alias" data-slug="technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql">2.3 Les requêtes SQL ▶</a></p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Vue Graphique</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-5" aria-expanded="true"><h3>Table des Matières</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#programme" data-for="programme">Programme</a></li><li class="depth-0"><a href="#cours" data-for="cours">Cours</a></li><li class="depth-1"><a href="#221-prendre-en-compte-le-temps-dans-un-modèle-relationnel" data-for="221-prendre-en-compte-le-temps-dans-un-modèle-relationnel">2.2.1 Prendre en compte le temps dans un modèle relationnel</a></li><li class="depth-1"><a href="#222-gérer-les-attributs-non-renseignés" data-for="222-gérer-les-attributs-non-renseignés">2.2.2 Gérer les attributs non renseignés</a></li><li class="depth-1"><a href="#223-déterminer-la-clé-primaire-dans-des-situations-particulières" data-for="223-déterminer-la-clé-primaire-dans-des-situations-particulières">2.2.3 Déterminer la clé primaire dans des situations particulières</a></li><li class="depth-0"><a href="#synthèse" data-for="synthèse">Synthèse</a></li><li class="depth-1"><a href="#prendre-en-compte-le-temps" data-for="prendre-en-compte-le-temps">Prendre en compte le temps</a></li><li class="depth-1"><a href="#gérer-les-attributs-non-renseignés" data-for="gérer-les-attributs-non-renseignés">Gérer les attributs non renseignés</a></li><li class="depth-1"><a href="#déterminer-la-clé-primaire-dans-des-situations-particulières" data-for="déterminer-la-clé-primaire-dans-des-situations-particulières">Déterminer la clé primaire dans des situations particulières</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Liens retour</h3><ul id="list-0" class="overflow"><li><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.1-l-organisation-d-une-base-de-donnees" class="internal">2.1 L’organisation d’une base de données : le modèle relationnel</a></li><li><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/2.3-les-requetes-sql" class="internal">2.3 Les requêtes SQL</a></li><li><a href="../../../technologies/systeme-d-information-de-gestion/2---gerer-les-donnees-du-systeme-d-information/" class="internal">2. Gérer les données du système d’information</a></li><li><a href="../../../technologies/systeme-d-information-de-gestion/base-de-donnees---menuiseries-vasseur" class="internal">La base de données Menuiseries Vasseur</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Créé avec <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://stratos-solutions.fr">Stratos Solutions</a></li><li><a href="mailto:contact@stratos-solutions.fr">Contact</a></li></ul></footer></div></div></body><script src="../../../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../../../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../../postscript-9114441b.js" type="module" data-persist="true"></script></html>
