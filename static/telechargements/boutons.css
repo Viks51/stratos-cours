@@ -23,6 +23,7 @@
 
 a.enonce-pdf,
 a.correction-pdf,
+a.correction-html,
 a.support-pdf,
 a.version-pdf {
   display: inline-flex;
@@ -52,6 +53,8 @@ a.enonce-pdf:hover,
 a.enonce-pdf:focus-visible,
 a.correction-pdf:hover,
 a.correction-pdf:focus-visible,
+a.correction-html:hover,
+a.correction-html:focus-visible,
 a.support-pdf:hover,
 a.support-pdf:focus-visible,
 a.version-pdf:hover,
@@ -75,4 +78,17 @@ a.support-pdf,
 a.version-pdf {
   margin: 0.2em 0 0.6em;
   font-size: 1.02em;
+}
+
+/* Correction animee d'un cas : sous les boutons de l'enonce, sur sa propre
+   ligne ; elle s'ouvre dans un nouvel onglet, d'ou la fleche oblique. */
+a.correction-html {
+  display: flex;
+  width: fit-content;
+  margin: 0.35em 0 0.15em;
+}
+
+a.correction-html::before {
+  content: "\2197";
+  font-weight: 700;
 }

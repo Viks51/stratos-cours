@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Le tableur des poseurs</title>
+<script>document.documentElement.classList.add('js')</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --encre: #1a2430; --gris: #5b6472; --filet: #c5d0de; --papier: #f8fafd; --blanc: #ffffff;
+    --pale: #eef3fa; --bleu: #2058a8; --nuit: #143a66; --stylo: #b03a2e; --vert: #2e7d4f;
+    --sal: #cfe0f7; --sal-e: #143a66;
+    --cli: #fbe3ae; --cli-e: #684608;
+    --cha: #cdeccd; --cha-e: #1d5a36;
+    --int: #e4d7f6; --int-e: #4a2f7c;
+    --plus: #e7ebf1; --plus-e: #3f4957;
+    --sans: 'Noto Sans', system-ui, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-size: clamp(16px, 1.25vw, 20px); -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--papier); color: var(--encre); font: 400 1rem/1.55 var(--sans); padding-bottom: 4.5rem; }
+  h1, h2, h3, h4, p { margin: 0; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible, [tabindex]:focus-visible, input:focus-visible { outline: 3px solid var(--bleu); outline-offset: 2px; }
+  strong { font-weight: 600; }
+
+  .bandeau { display: flex; align-items: center; gap: 1rem; padding: .75rem 1rem; max-width: 66rem; margin: 0 auto; color: var(--gris); font-size: .84rem; }
+  .bandeau img { height: 2.1rem; width: auto; display: block; }
+  main { max-width: 66rem; margin: 0 auto; padding: 0 1rem; }
+  .js body[data-f^="m"] .bandeau { display: none; }
+  .js body[data-f^="m"] main { padding-top: .8rem; }
+  .js [data-feuille] { display: none; }
+  .js [data-feuille].active { display: block; }
+  [data-feuille] > * + * { margin-top: .7rem; }
+
+  /* Accueil */
+  .barre-fx { display: flex; align-items: stretch; border: 1px solid var(--filet); background: var(--blanc); border-bottom: 0; font-family: var(--mono); }
+  .barre-fx span { padding: .4rem .8rem; color: var(--gris); border-right: 1px solid var(--filet); font-style: italic; }
+  .barre-fx h1 { flex: 1; font: 300 clamp(1.7rem, 4.6vw, 3.1rem)/1.15 var(--sans); letter-spacing: -.02em; padding: .55rem .9rem; color: var(--nuit); }
+  .ouverture { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  .ouverture ol { margin: .5rem 0 0; padding-left: 1.3rem; }
+  .ouverture li + li { margin-top: .45rem; }
+  .avertissement { color: var(--gris); }
+
+  /* Le tableur */
+  .cadre { overflow-x: auto; border: 1px solid var(--filet); background: var(--blanc); }
+  .feuille { border-collapse: separate; border-spacing: 0; width: 100%; font: 400 .84rem/1.3 var(--mono); }
+  .feuille th, .feuille td { padding: .36rem .65rem; border-right: 1px solid var(--filet); border-bottom: 1px solid var(--filet); white-space: nowrap; text-align: left; }
+  .feuille tr > :last-child { border-right: 0; }
+  .feuille tbody tr:last-child > * { border-bottom: 0; }
+  .feuille th { font-family: var(--sans); font-weight: 600; background: var(--pale); }
+  .feuille .lettre, .feuille .num, .feuille .coin { color: var(--gris); font-weight: 400; text-align: center; font-size: .78rem; width: 2.4rem; }
+  .feuille td, .feuille thead tr + tr th { transition: background-color .5s ease calc(var(--r, 0) * 70ms), color .5s ease calc(var(--r, 0) * 70ms); }
+  .sur-sal { background: var(--sal); color: var(--sal-e); }
+  .sur-cli { background: var(--cli); color: var(--cli-e); }
+  .sur-cha { background: var(--cha); color: var(--cha-e); }
+  .sur-int { background: var(--int); color: var(--int-e); }
+  .sur-plus { background: var(--plus); color: var(--plus-e); }
+  .feuille th.sur-sal { background: var(--sal); } .feuille th.sur-cli { background: var(--cli); }
+  .feuille th.sur-cha { background: var(--cha); } .feuille th.sur-int { background: var(--int); }
+  .feuille th.sur-plus { background: var(--plus); }
+  .cel { display: block; width: 100%; padding: .25rem .4rem; margin: -.25rem -.4rem; background: none; border: 1px dashed var(--filet); border-radius: 2px; text-align: left; font: inherit; min-height: 2.2rem; }
+  .cel:hover { border-color: var(--bleu); background: var(--pale); }
+  .cel.vu { border: 2px solid var(--stylo); background: #fbe9e6; color: var(--stylo); font-weight: 600; }
+  tr.ecarte > * { opacity: .35; }
+  tr.garde > td { background: var(--pale); }
+  tr.retrouve > td { background: var(--cha); }
+  mark { background: #fbe9e6; color: var(--stylo); font-weight: 600; padding: 0 .15em; }
+  .demasque { background: var(--nuit); color: #fff; border: 0; border-radius: 3px; padding: .35rem .7rem; font: 500 .8rem var(--sans); min-height: 2.2rem; }
+  .demasque:hover { background: var(--bleu); }
+  .taux { font-weight: 600; }
+
+  /* Mission */
+  .m-tete { position: relative; padding-right: 7rem; }
+  .m-tete h2 { font: 300 clamp(1.45rem, 2.6vw, 2rem)/1.2 var(--sans); letter-spacing: -.015em; color: var(--nuit); }
+  .m-consigne { margin-top: .2rem; max-width: 58rem; color: var(--gris); }
+  .tampon { position: absolute; top: .1rem; right: 0; padding: .25rem .8rem; border: 3px solid var(--vert); color: var(--vert); font-weight: 700; font-size: 1.1rem; border-radius: 4px; transform: rotate(-7deg); animation: tamponner .35s cubic-bezier(.2,1.4,.4,1); }
+  @keyframes tamponner { from { opacity: 0; transform: rotate(-7deg) scale(2.2); } }
+  .pas { display: flex; flex-wrap: wrap; gap: .25rem 1.1rem; list-style: none; margin: .5rem 0 0; padding: 0; border-bottom: 1px solid var(--filet); }
+  .pas button { background: none; border: 0; border-bottom: 3px solid transparent; padding: .3rem 0; min-height: 2.75rem; color: var(--gris); }
+  .pas button[aria-current="step"] { color: var(--nuit); border-bottom-color: var(--bleu); font-weight: 600; }
+  .pas .ok::after { content: " ✓"; color: var(--vert); font-weight: 700; }
+  .etape { margin-top: .7rem; } .etape > * + * { margin-top: .7rem; }
+  .tache { font-size: 1.05rem; font-weight: 500; max-width: 60rem; }
+
+  .message { min-height: 0; padding: 0; }
+  .message:not(:empty) { position: sticky; bottom: 4rem; z-index: 3; padding: .65rem .9rem; background: var(--nuit); color: #fff; border-radius: 4px; }
+  .message.non { background: var(--stylo); }
+  .message.oui { background: var(--vert); }
+
+  /* Colonnes a ranger et classeurs */
+  .plateau { display: flex; flex-wrap: wrap; gap: .5rem; min-height: 3rem; align-items: center; }
+  .plateau:empty { display: none; }
+  .jeton { background: var(--blanc); border: 1.5px solid var(--nuit); border-radius: 3px; padding: .5rem .85rem; font: 500 .9rem var(--mono); min-height: 2.75rem; touch-action: none; user-select: none; }
+  .jeton:hover { background: var(--pale); }
+  .jeton[aria-pressed="true"] { background: var(--nuit); color: #fff; }
+  .jeton.leve { opacity: .3; }
+  .fantome { position: fixed; z-index: 20; pointer-events: none; transform: translate(-50%, -50%) rotate(-3deg); box-shadow: 0 6px 14px rgba(20,58,102,.3); }
+  .classeurs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; align-items: stretch; }
+  .bac { position: relative; display: flex; flex-direction: column; justify-content: flex-start; width: 100%; text-align: left; background: var(--c); color: var(--e); border: 0; border-radius: 0 6px 6px 6px; padding: .55rem .7rem .6rem; min-height: 6.4rem; margin-top: 1.15rem; }
+  .bac::before { content: ""; position: absolute; left: 0; top: -1.1rem; width: 55%; height: 1.15rem; background: var(--c); border-radius: 6px 10px 0 0; }
+  .bac:hover, .bac.survol { filter: brightness(.94); }
+  .bac strong { display: block; font: 600 .84rem var(--mono); }
+  .bac small { display: block; font-size: .8rem; margin-bottom: .4rem; }
+  .range { display: inline-block; margin: .15rem .2rem 0 0; padding: .1rem .45rem; background: var(--blanc); border-radius: 2px; font: 500 .76rem var(--mono); }
+  .secoue { animation: secouer .3s; }
+  @keyframes secouer { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+  /* Fiches de table */
+  .fiches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
+  .fiche { background: var(--blanc); border: 1.5px solid var(--e); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+  .fiche h4 { background: var(--c); color: var(--e); padding: .4rem .7rem; font: 600 .86rem var(--mono); }
+  .fiche ul { list-style: none; margin: 0; padding: .5rem .7rem; font-size: .88rem; flex: 1; }
+  .fiche li { padding: .12rem 0; }
+  .fiche .cle { font-weight: 700; text-decoration: underline; animation: apparaitre .4s; }
+  .fiche .renvoi { color: var(--bleu); font-weight: 500; animation: apparaitre .4s; }
+  .fiche .avant { color: var(--gris); }
+  .fiche .avant.barre { text-decoration: line-through; }
+  .fiche button { margin: 0 .7rem .7rem; padding: .45rem .5rem; background: var(--nuit); color: #fff; border: 0; border-radius: 3px; font-size: .84rem; min-height: 2.75rem; }
+  .fiche button:hover { background: var(--bleu); }
+  @keyframes apparaitre { from { opacity: 0; transform: translateX(-8px); } }
+
+  /* Comparaisons */
+  .deux { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; }
+  .volet { background: var(--blanc); border: 1px solid var(--filet); padding: .8rem .95rem; animation: apparaitre .4s; }
+  .volet h4 { font-size: .95rem; font-weight: 600; margin-bottom: .4rem; }
+  .volet.mal h4 { color: var(--stylo); } .volet.bien h4 { color: var(--vert); }
+  .volet ul { margin: 0; padding: 0; list-style: none; font: 400 .84rem/1.7 var(--mono); }
+  .filtre { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+  .filtre output { font: 400 .92rem var(--mono); padding: .55rem .8rem; background: var(--blanc); border: 1px solid var(--filet); }
+  .action { background: var(--nuit); color: #fff; border: 0; border-radius: 3px; padding: .6rem 1rem; min-height: 2.75rem; font-weight: 500; }
+  .action:hover { background: var(--bleu); }
+  .action:disabled { background: var(--filet); color: var(--gris); cursor: not-allowed; }
+  .total { font: 300 2.2rem/1 var(--sans); color: var(--nuit); margin-left: auto; }
+  .total small { font-size: .85rem; color: var(--gris); margin-right: .5rem; }
+
+  .choix { display: grid; gap: .5rem; max-width: 42rem; }
+  .choix button { text-align: left; background: var(--blanc); border: 1.5px solid var(--filet); border-radius: 3px; padding: .7rem .9rem; min-height: 2.75rem; }
+  .choix button:hover { border-color: var(--bleu); }
+  .choix button.juste { background: var(--cha); border-color: var(--vert); color: var(--cha-e); font-weight: 600; }
+  .choix button.faux { border-color: var(--stylo); color: var(--stylo); }
+  .cause { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; text-align: center; font-size: .92rem; animation: apparaitre .4s; }
+  .cause p { background: var(--blanc); border: 1px solid var(--filet); padding: .55rem; }
+  .cause .racine { grid-column: 1 / -1; background: var(--nuit); color: #fff; border: 0; font-size: 1.15rem; font-weight: 500; padding: .8rem; }
+
+  /* Decisions de la mission 3 */
+  .decision { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem 1rem; align-items: center; padding: .8rem 0; border-bottom: 1px solid var(--filet); }
+  .decision p small { display: block; color: var(--gris); }
+  .decision div { display: flex; gap: .5rem; }
+  .decision button { padding: .5rem 1rem; min-height: 2.75rem; background: var(--blanc); border: 1.5px solid var(--nuit); border-radius: 3px; }
+  .decision button:hover { background: var(--pale); }
+  .decision button.juste { background: var(--vert); border-color: var(--vert); color: #fff; }
+  .decision button.faux { border-color: var(--stylo); color: var(--stylo); }
+  .options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+  .options button { text-align: left; padding: .6rem .8rem; background: var(--blanc); border: 1.5px solid var(--filet); border-radius: 3px; min-height: 2.75rem; }
+  .options button:hover { border-color: var(--bleu); }
+  .options button[aria-pressed="true"] { border-color: var(--nuit); background: var(--nuit); color: #fff; }
+  .rangement { font-size: .94rem; color: var(--gris); }
+  .faux-cout { color: var(--stylo); font-weight: 600; }
+  .bon-cout { color: var(--vert); font-weight: 600; }
+
+  /* Base de la mission 4 */
+  .base { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 1rem; align-items: start; }
+  .base h4 { font: 600 .9rem var(--mono); margin-bottom: .3rem; color: var(--nuit); }
+  tr.allume > td { background: var(--cha); color: var(--cha-e); font-weight: 600; }
+  tr.choisi > td { background: var(--nuit); color: #fff; }
+  tr.choisi .cel { color: #fff; border-color: #fff; }
+  tr.choisi .cel:hover { background: var(--nuit); }
+  .phrase { font-size: 1.2rem; line-height: 2.5; max-width: 48rem; }
+  .trou { display: inline-block; min-width: 9rem; padding: 0 .5rem; border-bottom: 2px solid var(--bleu); text-align: center; line-height: 1.5; font-weight: 600; color: var(--nuit); }
+  .trou.encours { background: var(--pale); }
+
+  /* La copie corrigee : marge rouge du cahier */
+  .copie { position: relative; background: var(--blanc); border: 1px solid var(--filet); padding: .95rem 1.1rem .95rem 3.2rem; animation: apparaitre .4s; }
+  .copie::before { content: ""; position: absolute; top: 0; bottom: 0; left: 2.2rem; width: 1.5px; background: var(--stylo); opacity: .65; }
+  .copie h4 { color: var(--stylo); font-weight: 600; margin-bottom: .35rem; }
+  .copie p + p, .copie ul { margin-top: .5rem; }
+  .copie ul { padding-left: 1.2rem; margin-bottom: 0; }
+  .copie table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  .copie th, .copie td { text-align: left; padding: .3rem .6rem .3rem 0; border-bottom: 1px solid var(--pale); vertical-align: top; }
+  .copie code { font: 500 .88em var(--mono); }
+
+  .commandes { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding-top: .5rem; }
+  .lien { background: none; border: 0; color: var(--gris); text-decoration: underline; min-height: 2.75rem; padding: 0 .25rem; }
+  .lien:hover { color: var(--nuit); }
+  .suite { margin-left: auto; background: var(--bleu); color: #fff; border: 0; border-radius: 3px; padding: .7rem 1.4rem; min-height: 2.9rem; font-weight: 600; }
+  .suite:hover { background: var(--nuit); }
+  .suite:disabled { background: var(--filet); color: var(--gris); cursor: not-allowed; }
+
+  /* Bilan */
+  .duel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; }
+  .duel figure { margin: 0; background: var(--blanc); border: 1px solid var(--filet); padding: .9rem 1rem; }
+  .duel figcaption { font-weight: 600; margin-bottom: .3rem; }
+  .duel .cours figcaption { color: var(--stylo); } .duel .situee figcaption { color: var(--vert); }
+  .duel blockquote { margin: 0 0 .4rem; font-style: italic; }
+  .duel p { color: var(--gris); font-size: .92rem; }
+  .bloc-bilan h3 { font-size: 1.1rem; font-weight: 600; color: var(--nuit); margin-bottom: .35rem; }
+  .bloc-bilan label { display: flex; gap: .6rem; align-items: flex-start; padding: .35rem 0; }
+  .bloc-bilan input { width: 1.2rem; height: 1.2rem; margin-top: .22rem; flex: none; accent-color: var(--vert); }
+  .note-compte { font-size: 1.15rem; font-weight: 500; color: var(--nuit); }
+  .point-cours { color: var(--gris); font-size: .92rem; }
+
+  /* Onglets du classeur */
+  .onglets { position: fixed; inset: auto 0 0 0; z-index: 10; background: var(--pale); border-top: 1px solid var(--filet); display: flex; gap: .15rem; padding: 0 .75rem; overflow-x: auto; }
+  html:not(.js) .onglets, html:not(.js) .seulement-js { display: none; }
+  .onglets button { flex: none; background: var(--pale); border: 1px solid transparent; border-top: 0; padding: .55rem .95rem; min-height: 3rem; color: var(--gris); }
+  .onglets button:hover { color: var(--nuit); }
+  .onglets button[aria-current="page"] { background: var(--blanc); border-color: var(--filet); color: var(--nuit); font-weight: 600; box-shadow: inset 0 -3px 0 var(--bleu); }
+  .onglets .ok::after { content: " ✓"; color: var(--vert); font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .classeurs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .fiches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ouverture, .deux, .duel, .base, .options { grid-template-columns: minmax(0, 1fr); }
+    .bandeau span { display: none; }
+  }
+  @media (max-width: 520px) {
+    .decision { grid-template-columns: minmax(0, 1fr); }
+    .cause { grid-template-columns: minmax(0, 1fr); }
+    .fiches { grid-template-columns: minmax(0, 1fr); }
+    .copie { padding-left: 2.4rem; } .copie::before { left: 1.5rem; }
+    .m-tete { padding-right: 4.8rem; }
+    .phrase { font-size: 1.05rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .onglets, .seulement-js, [data-feuille]:not([data-feuille="bilan"]) { display: none !important; }
+    .js [data-feuille="bilan"] { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<header class="bandeau">
+  <img alt="Stratos Solutions" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAABgCAYAAADctI0aAABwwUlEQVR42u29eXiU13k2fj/nvNvMaBuBAIFAIGTjiMZpS7b2ays7sR3H2ZdR0njBbJLBdqjrpv2+bqPp+ktS18Ublti9JZGSOPueGiVN0qRRFqfIBktCAiEBAo00muXdznl+f4yEAYMNxAtO9FwXV3wp0sz7nvc9z3mW+7lvWrq2ncHMICLM2MtlDBABWnGoX9O/c/0zSCYFUik9szQz9mo2AUYWRArMamY5ZmzGZuzXMYMJm4xI2d8oNwtopYGZQOUlMwJhZoFn7DfZoSiptlIhoyGN9cK0ZrNSxWj85Oh8JkG5UAdS/FsigBlgBdYzWc2M/QY7FBEac7xM+b868fwuCF7Coa9YERErDWl6odZsnvZHwUn/bZ7nz07++bn+7JX8HkNrYgMBaXnCrWhwVGg2nuM/ONQsrSwAaNKCgNkgCNbwiEkT8e+DxCeh9WlOe8Zm7DfEoZjEozqas3vbV/UB6JtZkhfX6ldtqvJjkZIDR759YHH8qpwBAU1aEyBnVmfGfuMcio4UhhGYVLtyh2OWzeXew9lwZllewBr2cO3AYkvavg0AIufy7/nVuc6OhEZTpzjxex0JnWtpz5kqDNHQwGJEqmIkQ/SyVVKSSVE1WhVdFJped3tLMPPwZuwldSi99270ZpbhvIsqJJvbbWVYEQAQlquODlXlQcQA1Mk1lBEgj+I/8Lo2Ahkv65UmepbTD+YcsY95VnhadjdjM/biO5SZJbgQI+5vxwSAiemf9D7vrk5IdHa+Im35zs4mBeD4zDObsRmHcjFbMinQ2sonUpzixj1LitTAL0WUBBBP/29DssNCzx70NCBs3A2BK4CuVKtCspXQs5zQ2aRnWnYzNuNQLrJUpyHRaYqyiXh+RM/x1249NNS5bqwmcVcktnprPA9gjqFGp2oV9BJtYALA1c3tETLvjZQWtvklRps6fjCzUMTm6fpe/0hX18YMuoDGJIzRoZoyPadA7uqtJSS0bWkxsnf72smZZzljeEmQsq92qNjLnOr4kyM0GWa9/urhPTZx9aW3P9YUKS99fcZQ40bJKWjjlyoaYIBJprPsKCnlwoNed3tLPjpZtt+KRcdgldh1zW1/tHTDQ9cOjMyvNypsz5/IybC87GiJGY5Kx52Kas537Zhefe/GKdc806efiVBeMsjZeVvtyh1OLB/TPZ1NXu3KHbR0uPQuhrqew6BKCyMbZf0EAnFrd/WQakh0WCibKOnpHcqgKxW+FI6trKFD+WMjE/5YpVPfsu1GH5NXc0ivg1BEmi4RgDA0juQy/nGy5Zg1Of65jKQvDLbdNgDcdh4rzFTEzBC/CuelgESHRGdCvwqvf8ahvLyvC9Nltz1UKVyfe7auTU91WF6yeokx4jd40fxoQyJ5xLP1Z6Vd8g5VyED5BZ9IRoVhvUt5hU1IpQ4aNzxkZs3AeG6PXhDLX/+gXLz6vtqe1sSBurUP/iFI3iUt803CsKFVADJssA7BSkHYsbkkjLkggAP/j0irf6hbt+VekR/6+IJ65LsAfbaBxBXNbeYxz5KDRC6SSbHk0IJLZKFw2J0TBkN331m4mNNSgHjJmi1zhSWtvs1NBwGgrrmtfGH1pbmu1JUzsIgZh3KmQ5ow0dxWeInhYQSAL+ufHdcR5HUmnPAqFjwuTee6MJ/xCBBCGCaT9AM/1zSwfcN365rbyk0U8v0Pbsi9FJulduVOm02X6ta0tQjLuY9ISA4DqFD9p1Z+F4BeARYg4YZh6EniOUzi/dD6CmHZpRDWX3Ns0dXDR/Hh2rwYHgTcMznQQk+cZDx9Sf3arQ/qQzog0J1Rih/SuYKVSHT4nc9XhL4IsmBlRX3yJ6+rb95+EwMOh/qfunpGv/FKdtxmaigXeYwy0t6SH2lvyb8k0UmiQ05v4rBCZyfymYMcje2QVsl1oZsLAJYQZLCQASvvI9GFs79xaXPbbFbCKake5pciZ69d+R/lg4sHfBEaZSTlZjCkVuGw4nBNb/XA1f3bWv5BRN3P9W675ZHerc2f3V8z9NXerc3b+rasfQdYX6UC7ykd+iys6BuUH9w9uGuVi2TyjO9AT2eTz0pHyHL+kIBGzRh68pGbciX5TAh0XtypTjIpDmz+yDiYCsKJXSGtyJtJUKzYiUvM7PoZh1K0xsak0ZDosACgMfmEUX/9prL62zeV1dxxV6R25Q7nxayX1M06Nqt25Q4bIF5QOaZikfhnpRl5f+hmPSIWQkhJJJQOvQ/2b7vl8+FIukwpUaGkFl2plHqR6zsEAKYZK6keme9I4r8Vhg1WKk/a+8D+LS3bgStE/e2b7FPa2qlWRqJD1jW3lbPmYxB8LYBf6qDA0rDfXbembeX0up7JAQoylA5dBUaWpLYBwI2WRTqPNlzcBc6e5cWWupTQQUHpwFWadWFmu884lFPsUKRSunFE6q/fVJYd2Wd5tlsS+FZlxCtd5jjuvKnT9td+2WfbvhKTgauMMFrX3FY+NLzwi9J0rg39rA9AkjAkhPC0Vk2vz1R+bdnqraVZ02eWevRAOn70pSoWk1RcokQtA28lkmBW/9m7dcN/193wwJwVI/uo13OK9ZDmNrNYGyGgs0n1t7dMwDIXCdIlIhQfYK0nuch/839rBxZbXV2tCo1J+dy1Y5dAEoAIp1C2eUNUYM5yfnU0+ZUikASRJKFnaiczNZRTaxm9q6vD+u973Nv20clLVm9fEi1btEgOH/9pOi6O1qZnMdrWvyjcAN3tLSGSyWzDULTCg+gQVuQa5WZDgIiEkCByEfpNJRXR/+yWx+v6x2b1Y+HB3EvIuMaJRIc8Oq/qyMED+94t7EiFDj0m4JsNiaTllgDdDxaxL72JDoGGPXx6F0yH6NUs5g3sWNNTt+bBbxhlVU3kZi8jWfg9gH5UvazNGukqjgigp4cAgAWLaQ8TCYvVZKnC8IKLpdMgu4Y9/PxrxYREp2hs2EPAFQCALuzWaG3lc0hvafr+ScFkMfXrWtMFXzcDja2tUynwFWe6lnPFHJ38e4RkkhoBUbzH3SgWyVv51dyRMl5F7WHCngTjmXu8+ubtf6ZNup0LhcVhhfOrmMbmIRzc9WKAyWpX7nAGd61yV4zMN9LEj0ojco1ysz4BBoQEiHxW3ocrpPhuOufXOVIN4GUoUB49uoe6OlNh/dp2JimEDgMWLJ9UpQvt/uPfPL6iuc0spIepp7PJP9MLPLB97SCAwRXvbIuOkXo4zI3HhLQsDqkWyeSPYz92VTHCawV6OovjAup42dSGJA8wkUwKjDvjCQCdJ9rJJz0jZkJrK53uLBqTTxhdKQqRev5ns6K5zeyuHlZIkUYnVBcAIPXsL6RSxc9qvUKdYTPTKZF3ooNA40wgMGsIQhSJDomGKjpxnyk87+ZNJDpkZycpENAFTDnS1IlrOVFnO7fnX7zORIc84VBTKe4C9Cn3iKl7TF0ZPouGnnEoF1wIrY6n7ZF03Jt+SPW3b6tSoa7er/RT9T++R+ia6KcNO/Je5eagWSlhRi4XprPZ4uBXAH5QxB2c9wYnAFiytv0SLXxRk7hrcJxFh7Qj1yo3HxAgSRoCRK4O/ev7t63/Yu3KHRWzbX9v94O3vSwDd11XQK9Y1mamNSCZARKkAFMAqI5fZReMQGRnzzWRTIYnbWg+/YXujsQ9bG36CoCvnNyC9zdsjlaNVgWjD1B2mt9WrNqchgA0oIShGKmUNm7eXtrZ2TQ+vX1rV+5wbNsv2Vc9PAYiDYBrV95d4dtRX7o6bjki25W6cqKuua2cZFkZVPZt8PXP+na2/Kz4PcCy1QtjgaHiadL2soMLD7trttRI4DVkWJez8grQ7ALyu4CPrtSV/9uIpDG4eusCI5Y73Hv4v8IavNlySqJLXGEcHtq2bgypKezP6jaeXgDFhnfqe5E6/SCpsEShkkuCQ733bvReu/7R+I+OHXQvbW6LcSxuq0z63RBGFZg1Mf+XBp7K2kdzZR7mcct2KnBwaKS9JT/9efW3b7LdfDQ2tG3dGAAsvfn+GkixNC/TPxlJpfK1zW2XmaGKsJTXAoZgVjlEKz7vhEfHulJXZi9tbruMwk8c2rsdk0gmRf2BRbN6d6w5drGPT9BFhyFIdIqTgUi1LTsWW6CAsxOTHI19SkjjOh14BQYJEmQQCdIc/nn/vuH70dWqLtSj19zREYlOjs+bcCeOlkTiHcKOXqcKkz4BAkJKkPBV4N1Uu+iyz/dlRs2hu5sK5zX3k0rpS9ZseSNL+WNWoQaROC+S6iQLoBVLD86/HlJuFVbE0oXJu/u23/Lni1dvrZ2KQE467X9qjqmfV5ZYgf+rzRvSZ1znE6drUiAJLB6e/8eGEblD+/kQJEJiroIQb2HNAcD/CaICmIlAIcBCE/3f/RMVfctKM3P3bl87vHRN2ydkLN7gZ8c+4USCPWFgVbgqm46YVTdoVrcSq7kyUlYeZNM3929reQjJpESqVS1Zs/W1UosRWHg3k9GE0P0/wozEpFMCgMCsEGbTmsFZIY1dYaDvN2L2iGscDZb+LBOMLq9yxont2KThaEveM+VJFYHrQOL3i1tQ/w+DBgGYBChhRsDe5D/3bt/wcySTohEQR/pnl4tS8iKh6Q3lM1YsUvkPIL5CAA1kOI60o9AqQJgb1ySMPKC+p8F325b/87xnlxmCx/rbmzMA4Y23P1x6LJh0+h/ccBRJFkuGtlYBgCReAhJ3aPC1xFxmlM4CgaBVAFWY9EGyVxAeE0F2x7yFx46m+0rsJx/+izxaQUiRnolQzhMBis5nx/9rN+yYZ05kxkx/zPXKF3xWmPZ1yisEAEwSBBKG1KG/sX9byz1TiE4+7/QmHwvQuYeH7m4qNGy4b7QUFY+R5VynCtmACBIkACFCDgofqO0/+s1hC3PL5KwJJFm8rA84Rbp25d0Vpna+FqCQZRWUwzCbltzc9qn929f+z6L1D8QjnhXunarldLevCGtX/mqiEM3zC60zEssJqSYl1ra/xiqf+x7lZkDCAIcBwvw4SJBpxCrfRjRVwy/6QgSTY/egM/GMuv2R7NQmvlrasd+V+fEvhiL6lBdywZblXyLT+j9ChwBLKN8LiagAgNHaqoDdUgwhrw19H7H8oLRsoXXI2i/sVX7hl1OnXhSgt0krUgai2yV7NyKfbXKixvdG5ywXPQ80ZQFkl6xtv9QqqXw/CQNghg5cqEKGQSDplL1RmPYbi/5UQzilcEfdrwL4OXqWU1fnHl27skQ57lEao/JrSyIV/ygs+3UAgQMXys89xX7+B8xcR0K+iYQsEWbkOni5t4Wu9bcStKOk1AmnD7SsmtDO3Dnj04f2/m3rjtSt3nwzS+t+aTpR+AUw80SQOfZNAfI0cRUxXSNsq4Gk9U8h68bh/fNWUVR41S3tfHL0M+NQztMak08YXSP7CDmMB0YZOBp5XBjOdcrL+QRhQAgmIqEDb33/9lseRJLFVLiN84gaDDEUli8pm8B+pI40JDosL8h8RtqR60I36xNBEgnJJEPtu+/fv+PWrzqJDksEGZ40MmVIIfdyr4tZNls/XdmbqRuq+Vsh5APQ4QJpyq8sXbPlQ3ml/9cpKLns4ELk7rgrjE18wpBOjHvu3Zh9wQ/uTGgAkExdwfjI3+jQt5kpJOLFIFrNzH6YOXY/iDKAABMzAUHg8t665vaynFfsABFRVnk5BaZ3G9r4PAvvcemUv1G5k1kGfx5a79HS6DIikafqmtvKww2bxYHNG9K0+sGNhlPRpAMXys1+hSS12Ur8sGfbujEwU82fdzpWLluvgsL7Cfi/ZJgVIPsLQYbf2gv8z6zVW0vnTh70XMFHVHbsDs1USgISSr8WhvF+AkMVMp9VLvWAWIDB5OeVkPp7xcgwoefeMBiVts8BV/yRIHOntJxKVcgeBbidovFPibGRod5HN2bqb99km2rWPM8rXMGs/56kVQfJ/0qBV/fkXTc1X9KyeYEnON/zQDEqXLC2veZQKw4tPdS+HKBtQhhCBYUuaG5lL+zpf2TD0RNpUnPbUuUVPgAU/s6MVVwdqsxnRSCujwut5ze3Ba8GgqyLEk9Qf/smu9xzdDaUTij0p8iw38GB64JgAoJJGIJ1uL5v67r2Zas/Xrq3L1/AFcCJ3Plc7psZuKJV1i5eXBLorHRs+xHDjl0bulkfgBBSSgYFWgUfdCV9N14dD3tSTf70tZ3Xw30xUh4Ayz62tbSQ1rM91zlaYhU+JaMl71JeAWDNzPgySXMHJHeTMe/o7x3Ohr9yjlSEuiJA5Syv997rvBec2Sl6BZ56BmWciy2H4B+COe9lJmcPdd5ZWLZ6a+nJ08q1K++bN7hr9GhDYrnhlo//txEp/T2Vz34f0BNGSeU7w9z4LyGNP+sbi31/uoZRu2HHPKGDS0zNTylNc1mI3VIYs3UQfNYDWmx4lUFBHI84k+HeySX5yxe5jn90wimIEmWYwZsg5GeFYZdoP/e1WHmkKZPOzLbBwd6Fxw4jldLLVm8tnbdwaeHA8L73SOl8FqzAKnyvbfnf9aUKpknFGhJJK5i9qKZMhQcnbFeQb81WofyFtCOztV/4qVDyQ8r2ss7xI+M96FH15VdXk1TMWX+y99GNmcWr7nmdtEr/UgAfYYZm7X1UQ3wbFJTv33Lr/yCZFIsPzr1kYNv6fUvXbfn/pFPyl8rNHmXBb+hvbzkwVbe71DBJRqL2gSfvuim3ePXWWin075IQu4QZKQ/d3AOhFftb8vPzBrcN7QUubu2miwqHUnfLA3MuXdu+RAdmeffeYQ6F/rSwIu8o1kxgACRIGoYOgzV9W9ZuufyGh2LFimVKnYczKUbnRIyuVOhIpSKO/SlZdCYhQIKEkEzS1yr4YKk3+Z8x0ot7eoopQu+9G185KsXjgAOgwhoRBuT1yvf+AUCOTJukE3s3CXqcNLp0/uC27rL0nV60dKnrHDWmnUntyh1OYzJ5xqg02dpKSzfsqKlt2by4urltkQ7MRWwoOS3/YZSWz6m5oyPCBr3u0jVbLq+//Ws2ABrcddthIKV7GvaEYIb2CwD0MjKs68Lc+FdN23prIAq/rCs99pralTvmvfmOuyKOch3SulBdfek4M7/fis2arcMgHRD/pWUGBktz9MAlRyZKjApVP2/EePKum3JP1x1Lwwir+7Y2f5NV+BkSkgEsHClkaJZhDpcY1ih6ltOlzW2zte1XHTl2oFwqlE83gFiQzIZmKeWjdQ2JDguJDomqKsuBl+6uHla99270dGhslHZ0tvbcCQ691Yp9iYAuQdVyC52dqndr8xBbtcdEzLGWrd463zPtZwJO/4VWwQAJEkzyX0iwC20dqL99UxlSKR0xHf3aDZsrmPkdxQoxf2th9aXDtSt3OCuaf2run6joe2bO0N4n77qpGPFacGqeOfRVDsNPk2mDCO9wVFZKVrHG5MWPG7toLnBFc5sp81FTMUnnuM7XX7Loc8J0rlNeISRii6RkkNAc+uv6tzfvrL35wdpsSTa2d/tfTZ5n5ZvqbnlgDpJJo7ExaYQGfUqYkauVl/UJECSkAQil/cIHZdT7VtYomT+Zyw7iIphdkZMHPdcMx93SOVIJXS4R3MtB8HsIg/t14A6AGcKwlhhOyfXScj4uWP2nJSu+XL9u2z8vXdf2h4O7VrldqVRYf/2msmdHC6a7oCnd1zM4MvjgLYMj1cPD/Q9u+F8dGJMknn1Fhu5OuKUIf+aFxoEpJ8UnfUCxkF7sQFWyCo+FgbE2Fvwgw56KxA25d3DXqsP/ffedBTl2eNiPVe7par1CAbSYVfBLaO44sLV5f7+W6f72lgmkUjotZB15zlWXrW2/tBEQpps/VH/7JlsI/IxVQAxqKPFkQ3c6XowYO5vUvvaWY89s3tD/9P0rj2uaAqEQgRTyB9pbRp7JlO+ratijEwB6HrgtaymZRU8P1d28/RIQryYpwcz3qfLwIEyxAiY/03N/4kR6ax3OcggEgaFyZaGsOJCuOQrijay1FtIsI8aGm2qGRv2sORsA8hzIrG9aIEQADQ3aPXR0f7UwwvLu9tcH6GxSxbVjmnvDQ7GBB9fu7boCmgz6vPIKvyQhjweMJX55bk+xxTxTQ3nhFOf6TWUZGK8hx+vLA2kutzqkab5DBwWXCCaREIAkpf2W/dtatiLRIQd3NQ1cCKho6fr7a6BkVcNQTXioHo8J036bcvMBTmoNw/du3L9jw1cakkmr595U78XSquvpTPkApnEm41Mt8mMAbru0+dHWkPPv0K5/HYheT0IuFNKMkTT+kLX6Qw74jqUtO78GEd7v5oJ98+cUTG5uK5xS7OtKhaAUkExqABAcasAAGGwIrQDi7jYUQMifZV5TMzPIMA0deFsHd606PNiYNNB1+/DBJIu5N2RiRx7+i3wPUfEe7gb6gTVAUoBbGdubCc+SU6F/85o9des3H9XaXLhvZL418mhLBgDq1rWZkghCSAkPAp1NehouUH/9w2XunKPB0N13FpjCyZMEU1wAhM4mdXj11mUHyibGARxJCxUHEsch0+8TdumssJAZFmxscoYX5P3y8f/qfXDDUTy44ZQZpxPPIJmcRCql7UTHN/zy8e+RVdKoQy+xc6DqP0pi+igAMoWKBF4wblhmSCRZgK+rUMFDEwEW1a7cMRGL5YyeB27LgoHSdW689PZNYW9qo9cLfAvFf5iB3p8z7iQh597wyZi0YyVKmPuNdOBGYTwuDOsdyi94YBhEUjAJ6DBYs39by1Ykk+K0aOFcNzsjmRTat/xsPrPXF/QwOZG3FXEmTEJIwUQ5eMFNgXa+Un/7prKeVMq/qPv+nU0KyaRY0dxm5tNmrr966OH+bS0fMkTsTSSNq1Xg/p3y810cBhPCMCNE9AHS4tu2Lf/RPp424unh8HmJk4R87r23JunstTgiEhI68D2G+OIJJzXVpTryyMdyZ+7EpfT0zxuTSQPJJE2npXEt02wEB+cDARIdEsxETHr6qbAUpxwoeaFNlSuhKXWBEyc6SxFO/55rKJJaTP1/JdNZ3XUkJIipp3fHmtEjpRlbCxZIJM4+z97ayrUb7pvX09kUaI3PQGuAaYkw7Dk999+WW7Jmy5zQR35w8ehR1uK/WSsCybekNb2ztxAfsBx3lhealy5r2by4oanT7N3aPHQSafwUQdSri9hKvJKYkxq82YpY8RqKFDxhpie8CucxIc1rdOAHAAkIASYR6qCY5jQkklZDz/lFVZff8FCsYcN9RUBDKqVlND9eEo13Csu5bhq0BiGJSQRauR/u3dnSaZrBbKDErl2ZdC76J5hK6e7qYVVWdVTWHZk7u2HDfSX72q8/1rt5ZVf/1uZ/Cj15raHlG7XibazCLECSpLVKlpb8T75qYTVA3JDosKbW6NflqNHCdEDAk6Xe+J6GRNJatnpr6fMXrFnUNbctql/bXgOAu1KpIjCvWCSm7vaWoP/BDUenUxoQMZgKZ2snCMs/4wHAWtEJDA5ZrjZDf0VzmzkpMvkGQIK4BKzB4J+AmeygYInALaCzU5814m1tJdu3Iiua2wxo9V3l53PSjoKI34LODqGMcFZ04ZH9SKU0A/dz6I0LaVYQ0cNLy8c/qULjTUIa47norCOnIJxPTIATzyBlzzk6aRKO9Udm1LeGJtRBZZg1nxOm9Q7lux6BLSo6E7Byb9i/Y8NjSHTI5YDqbKii01GOz5fmTEhlRqhUNmy4D6OjABfsDmE7bw+9nE+AQVIKkOFy4P3p/u0bvoIkCz3SPmlqjpXb89Xgq+EpplK6J5nMI5XKTr+QjbhC9PX8zBwcGAjQldoHYG3t2vb7pOZ/FUJeS6a9UPiFe1Y0t/1phvJxCs1SAE9Pn7xIpQBD0Xm/IkRgsHrykY/llq3eOt91pAYweTos4ODIvlgunwnFSDsThzVaTO5ZevP2hWyq68C0jFq2XYW1bQzABsMCwWcmJmJi1rO17zJJg05WLTkn6+gU6pthZjATzzY2VFFlvo+8IP16kNHAOoQg+jkIMJotq/f5Bz0ZqRTvS3QcQEdC169s15oZJCQRsASdAEXd4Z5UykcyKfTA0JOE6jUC9A/Sji0nad0RFibu0Ip67Mnxp+rX7/oOC/yy7+hXfoJUSjVsuK/En1DCLzOlZZQq63CvO5XyzjiUU7x6MknVI/OdslDKEkMVgjwsw1r4OSGN61SQd0FkEkkwkeJQrevfvuExNCYNdDaFnRfQEh/ctWrizYkOZyzuxsoq5GPCilyt3Kw/HZ6D4Oqw8AFzlvn9y27dNevpFB3vTyYnkWrNXMSnw3PrRie3nFMp3VVsL57ofNWvfbhGiPyQtnPv5ULs+6zVCsOJvTtdmPyQCtOPU6T0RIRS/9FHSnuBDGnSFxbDFlMNZaiIzPjPIcTuwm49N18Szp07F+GBPpEtnzVi0pxbYfF6M1JRw8yACgEhEeYnPAKOgBEHwWMQCByAtbqQ97dxzx7qyiyfQGeT6ko+YSw7DpCgSggRATOYSRapDx5wz6kQ35nQtTfvtEMjCCWs6e6fQmeTuhnJTGrqeVDLtmWGUj/3PO+dptYfYsq+lUi+QdjRBiLRwDr8gPYL7tLKd/wCzW/fdsTVnzn+6JrJy259qDIfTiIXn28AHFzsEcvLnfLwmzNlti3kQooULDOWNXKO+ylhRa5TgeeBySASgJS66Eyad6K5zbxAXtYTE7eD8TQpTY8J07lau9mgGJmQYEEqDLwPOfas7wXH/dpY4GZO6VjgIpTuKKYCfD7zUbUrdzgLFtQcDoGgt3IsIKE+CSKtg0CDxPtMIUyhlXWim5TzSgAQSflrrYGwSJvW5HNHFFKtXMqWHNOO9sprllkU/Za0o/8sTadGFTLdQS7956E7ebMO3OuF5OUe6Pdqeg8tUMGhS50FFfWaqBFEOSIBEvq8rrGrZzmfcBSp3ZoL4zYTC2jF08OOjY1JQx+b7Z7bM2mlWD6mSVg2ABdEYC42iHc3QqxobjPRmDSi80qfmhR8xCzzR3q3rv14BfE7NOhPVFD4i7CQ+bIqTD4DEo60I28W0tgSN+hHS9dsfdvT9688XnJsdq6qNEKvBp5t8XJywDas2VI5fmx2lG15pJAtyY1Oln1OWJF3KTcbEMgkKQlCag686/u3N+9ctnpr6YoL/LpL196zpK65raz+9k12FKJDWNGrlZcLQBAkJYGk4tB778D2DV/KqdxsEQue6W5vCS/21AZEvKK5zZwmmnohq43mTI4WIl2pK8P+9paJ2oHFZW4s/hXo8JdkWILAtTGtA+TVkemoTjpuBgDrwPu13o+Jcefo3oVvfI5DaUi0mpGy2XJuLh2CcbdwSuqVmxtSXr4lh/BPIpnh+2HoH04cn/xSb3tL31ypJ7u6UqHKl1FkpI4NIePMRfJPPl9agnj6BGdOXfP80urhyXFWUpFhEpjBOhRdXa1qqGFPcM7pZsMeLQCTgRiYQUQGEh2ya85yLtk7zLgCGj17MLJ32AempqrTce2kB/f2Pbjq3/u2rH03S7xBSOMq7Wa2KN/NC9NZTpb1lbo1bR/t6UgE4bhnn2Gq+rc35an/6D1WjiKLrCiP+gU/HTWpQxj227WXd4nIIBIMCGLfW9u3Y/1nkEjIC9CPoeK06455ofBLwqwat3T0cWFH316E7UNCGJIBXwfuR/Zv3/A1JJNiMLVqABc5VRBAqG3ZXOtY8SUZbyLqR3PfPRtdwMk2uGuVi2d5Y0naftng3asOLF3bnpvCmPiGHfX721tOzJ30PHBbsRZjPMuoTdI672jlyCM35c70fNxZcyugsl5BiQ+RYfyxDrwCdJjq29ayFWCquuHhqJWfGBvtvD0LJEURSMhkzXq4dFh3Z2OMFdKKlLAKAHkqh0KJY5E1QTRy+hcrZgBUb7uid2pjmuFcfehyV1Ke9+owGJB2dDGEKDufe2xIdlg9qUQQrN2SN8ByCiqSXxFPi5LqS7mrMxWiC+iZajX3dj2bhvZMF4ASHbK/vWkCwHcbk8mu4ZGFX1RB4e+ENN9EQqTqb3nwOxEpngGSYgYpm0yKResfjctcbBab4WAZe0cjir4oTPtdOnRdBgwQSQhJUO6H+3asf6hYMzlfIuHpVIApH8tlC8PDfUbU3Cmc6NuVmwuIQSSkAFEeYZgo9Uu+0bBmSyV2Q1zsXr8xuVsCYFOLj5Np/6fS1AYAtbfunLvo0ILa8xmjYCU8gIn52cNkGNXPTa2eL0q6cC0fBgBhBhOq2vKY+H3CsKBD91Bo6O8sWbNlLhKd4slHbsyzCRsdHfLZDUQcetmSS6uHfc2sQef36nLR8XDv4erpDc3j/jM6UGXxvkz5frA6TiRBRFcDxHV9cysb1mypfKHP9cc85/I7H46aTMtImpZy85q1/k5dOq67sFuf4CdOdMizrCsVUzAmJDrkod7K6DPta7/KofpHrVRWGHYFh8bbu6uHVSKxnH7LUx6mFSMjkvKZ8sDywyVzjkyOs/y8MM2rlO+FDBgkJADydeBf37ttQycSCYmu1Hk5k+rmtmjdLZuripyqxKM/ftKLzl/0uLQi7w4LWZ/AEkIYTCLgIGjq297ypbwZRD3lx2oXLy652Dkmup7NGn8c5iZYGNZcw1IJM/Rjknjp1IvK5+DcKciUTxebp0J6MoGRFxTyYuUTANQmf33u3gWVl6s39sQCZi6QaQOMLh2YPhmyrH7eiAEQC5D55h/hlLROSsOY07OcCUKe7Xazrs+j0QKfi3yTI2crP/TDKYa37iIrJv9R3S0PzQk1ggD+3BXNbeZZnDUBgPDylpceEQDeJq2ICdYFEuLw0YaqYuQ4jZuaRsQmk+K0teZnJ8CbVG/9WLb+9k02DPwKKhgpDsLyn9SPVZpHG/b8djuUxmSrHCr9IysrM8cLWmaHDi34gjDtd3IYuAQmIiGJpGDl39y/veXTSJ6ITM5rg8dsV/mBGeZ1Rcmy1R8vrfv9N35JmPY1ys/7ABcRsCCfA+/D/dtbvopEh7SypRN5yyjEFsdeBWPhu6ejgm+yVj5YS9bqr0gabCrJ9YcWzH/eqOKkYqgzb0QvWbPlcoCWc+gzwIcsL28tWr+54jm/H04VZQmqCPLqkPnRnPGC0RA9v3MaGBgwTnRDSIAgJp3QILBf3ls5FkzRN3r/XbbHO/lwMqSV2wNIgK8Dn0ugRA60ZjBgamEBTGioopPTwebq4TGkUlqz+KzyCywMey7C/PoDj60fVzJi5IDZK5rbjLMBJSeBPBkVJWD9fi5eU2ffgkNPDYwPlFQ3t0Xrx95kLl3b/vFLP9rxjbq17X82t68kcsa1nnZSqRT7oRklQ1gAKRIGMTjsvXej39Vz8XP5vmQOZdH6B+L7RuZXlPqzw8ikEUaZvkCG9Q7t510wZDH9kCEr7yP92zd8Go1J4zwH/E5Y770bvaFt68aE63NIlV8wrCLTGpiFkIYAiTxr//2TWfXtZS2bF6OzSfV0NgUj7S3HelJN/qsBZwIw9W1t3gNWnyNhkJDGcu2F79+38OATvhnL1fSU2VMbnc4qC5LoFL33bvQE9CphGLNBRKTl5xzHqaC8tqdTxjPsHUFKWLXRPWa5LBe/bkBnlmW4EwCBLFYBM/Q1PrGCMNz6sUoTYFLSOYWjd0Vzu1EYOz7mV6T/gKT5Fh344ZnTnszJrC+ShCSwhjaUXNHcbjT07D4lxU2l/kEjmRQ6NL7PKvwFSCiCWF+/dssCCPdIGBhhdzp+Ju9F9T+uNEfaW/KBwmqy7IXKy04qw/iPWiy2MA43losabv5QjJkXCMN6GwGtUad8QZWS2TMfAIy5NzwUNZTUno0xgCUrpcFcRGz3p39LhwMTCSkDo8pRQqZzw5YVr/i0MCNXc+AHzJAQJJhIsQpu7tt2y2dqV+6ouGDJzmJIipo77oo4gh4TtvOWsMgBK0lIwaAg9NyPmGx+v7xELrJz2dGXW8YULwruhLBs9dZShHyX1moURIBh/MvSQwtuOLD5+vRQ552FqVOTGqcGHxuTTxin8J52Nqm6NW3rIY0Wkga0n/92oOTXAm29JigpDc5cimGGMEBmUDqYhwbGgESreU4R0VksyJQV6waE/+HQJ2GYi6XhvT3wMSZzMat25U47Xj4RTo8VIFkszA513llgpo8JM+LwWR6fDIWeP5XOaUEDOvSPQ0hAiTnd7S1BNj5/FhqTssiAN/Ua9CynwV2rXJLi4yCSIFnFQj7oHD8y3pstHcPRPYSp9TxpTbn3Gxu9S1o2vw4kbhVWhMB4fKBtzS8HsThcvHhxWB7LF+ZK7RKpu8Ps8QmSRrlgvqO7vSVAKqVP1FaYCcmkaEi0mo7MVfW3t0zYk/xOSKMW0AKsv1a14b6SxncO828ZH0pSoBGi/vJF8TDHlcI4dhi68tPSjFyr/IJHYLPIgCZD9r339e9c/7WpHBUXQgmw+Jaty5ilp8bGjtjlZZ8TVuTtys/7pLmIgBWyEAb+hwe2t3xpyZr/mPv6zPxjz6d4V93cFrU8S091Rl5c/Mivx4dCAPiSVdvqlO1ltSeXGKbxJZLmHK18BcWPs9DbC4SuMzF71a9tryFgCUtzDWv9YWEYtg6D41p7b9m/7dYnL7vx3llPu3PHT+AzmAkEXLJ2y+s0o1tYDqnQe7h/y7qVJ3/uwlu3zidP20ueOXRwYPFiwzD878tI2evDwuQP45Kv6H520I9Py4WN2sWLDUcqMxTqF8KM1unQy5KgVb1taz6L0ygt+h/ccHTJ2vZLBck7pBO9JSxMPgHw70jTqdKh+j99FPwP9g4zulLhiuY2c1JTTUGwIKnGTF92CztWq/zCL/oXrH3DKSx7J635iua26DHP0tLwHpF27AOsFcDqG6zpH/u2rP7hs3+SFKme5fTmGlhHcxMbBWgjmZF5ys/1Goxr9i04NNg4dVB3pVJh/bWbbKt0jL3y+fcKu6RZ+3kG6y0B6P87sLV5f5FWIukM7kqdeOeWNm99Lxi7hGmXKd/9oSH0e/KxeG7o7ib3Yj8IX+S2cSsvathcms1mscB0+sd51udJGtfqIO8CVGRaEyJQvnfj/p3rv4Zk0uhOXRi3SP31m8o4YEVuZkxWVHxeWM61yi3SNhbxLKKgAv/GgWvjX22Y7LB6tjUd2f8CnzlSPeyeawv3lXiwXIJJCh1nYPuqnyxZvfl6SeJ+YdiXkik/qIP8B6PMQ3Xr2r5OGmMgIjD7LDCXIa7SrBYYVsTSoQfW6mkE3prX56r27Gemp4mOnw6fv+zGXZXZUjpgZfg/QeIqYr6+bk1bOTH9EkI4gJ4rXO/jAXP+QH181mDvwPG6SxZkQUITISypvpTPxtq+Ytl8GilkY2aZzsJz1moVfFEYVqlW/qfr1rR9hYT4BTF/Q4eICjauXbq2rRyMG8yy2VE/c/gRCsO/ZsP4bzA0h4FYIkTl/iswiq6iBEr97ZuGbc+p0UpqEP0Y4CUE/G7doS1fpzVtP2FAkGHPUwfDXQPA9wAgnVcl0irMmbT1zWW+R9KJvp9VeC2z/5a6NW1fIqJeBoxHDkHXlaflaAaN0o68nqSFsDDZR/Dfu2/rbfsBUNdJCOXeb3zUBwh1zW3/rPz8Gww79nusVbPh5T9Qv27L57XWQwzxhSXr2i4xpP0a5Xu/Q6APkWVDB36atP7bfVtbji1bvbW0SA1Bv13Qe7IiXGIEmXFXfEZakXeGbs4ngimEkEwiZN9buX/H+s8+KxVw7taQ6LB6GvaESLVyb31rdtlBl1Vk9iOG5VxblAeFAAkwUci++wGtI0/U7j5alY6bGTAHL8g5e9YI4eSN8YogaBkArMOlE1nzWDjvo9tny5LF39fpPX+MSPxPiXk9SWOZtOwaMu11BDHl84oEz9rLQ4c+VCHzSwYezU8UdpZUllT9go7Vgqj/DPgG1hGXPC/wDHZuE6H3ZWFFLhGG9R6S5nsgJLSbhefmPz64cOjgoqNzy3EFNA1xiTBtoaYVp5vbDbTjjAeGE5MyUCXxwfZVTyxZ9cBHCM6/CWktExHnPSSt94T5dNJwbAizKIYYFjKBnzlyX0Hgr0q0iGumCBmm0DqIGlqbp9fUlqzZkjWkvkwz/R377qVkWL9vOLFrAFwDZggrAv/4oS9ORypqIJIhFOLlvlWBgr1KUf5HADYIw14iIpEPkhDQoQ8yLIA1dOBBB95xofTDSoab4MYOVze3RZ8bIRKDmfqJDiy9+f73aBLrQXSz4ZRUk+WsM0AIc2MpYZVB2FEIJ4DKT0AH7lfCMPwXgjFcf/u2KoVsBq2t9FsVoSQSnaKzYiBTN1yzznBK3hfmJ4tEz0ICJHLsu4n+HRu+Xrtyh9OVutI9XwBRYWgivuzgwvxeULZ2YIcVmsHnhO1cXZQHhUFCSibhI/Tf079jwzcaNnSUBMqV8IIyEOXPRep0YPFiI7Y4piMjac6G0tk7+c08OkmtaG4zh/IZyymbXYoc3Nm2n3u5mduqGvbo9Mh8L5LXViAPLonZFUd7tqzdtOgjDzxklVuXK2/yKgr9Gg48MEgCzMKwiZU/ooHvS8FP9VUP718h5jujHBoRsqb4ZlPPeUnz6WzOiJfQwPa1ey+78d4/CEpopfbVaxFOEMgoAMHXzah7qH7sTaY1J5tbdtCKhYJvCbwJi0POZkf2EaqHz5hedlcPq0VH5wZVoZ/1/7RtNpn4Pg5Mvg4LS9cpzr1Bh+NEjMYw9H8kvEIGxBnS+pH+rc2/qL99k52Fk3YUXSuVYsc0+4Xrc1EgK3XC+VZKPXY8VBU25BE3lP/HFOEHQzf7Bxx4pjQdQxUy/5P1I98FkgKpFE+Jxu8FmJJJUCpF/7aoue1RS/vrlBcu1WEQAfMfEPDfZJghQD8Ppfry4ObVTwFATaIjErF98ywDkzz3hk/G+nZsGALRX9c1tz2IAKs49GoRBpqBt3Eh8wvl5o8C7EFyR9+8oe8hldJLb96+0D2czg41ZIKXUEjuIq2hNCYNdKXC+rXtHWRFP6C8XEBCmBBS6dD/wP5tt3z5gnVzEh2iBrDE7GOOo6TULB8hy3mbcnM+AEHSMGhK0S8I7W8X2eyb9NwbHorWRAv+OWx+athwXyzj2ZZlBga09PrbhyeX3jxngSyrqnWPp/tK/GDSL3UuUVIZNtNEWCgc7n10Y+bl4pQ9md1uQtNcX7A6sPfSUXS9QKQ3pXcklXCEFfCB58hqnD0izFUen6+AoGzs8OhLOe26ovmn5uRkd7kfkbOEoQqKLDE4b/HQsoN9ETaU7YdyljCUVcBw30h7Kn+e8R0tW/PxEjYq7FIg3z0VRdQk7opEKqOVz7StP1S7ckcFObp2FofPdLe35Kff05o1WyodNx/2Proxs3j11lpW8sh0jW3Jmi1zI5nydE9n4hyH9oryJa+dfayskAlivY9uHAKARWvbl5QwTWQACB1UCLJMy1DH97W3HJtuOMTy0bl729YP4Ldp2njFsvnU3TXVfGTNRFICFLDvvm//jg1fn54avqCQvzOhhwC3Zs3WiBL4tLSct04xrQkSQhKRGwaF93iG8V8lCJegYc9eAHzkkZtyR86tcEq5gZjhmEF0wdwjh7EbEOsW3g4Sd2gvu8gqtZ92Azw+7tofLzUmoq507HBO+PJyy06p9U05x6Hn1HWSyaLU5wmPsIfRs5zQ2aRGgDxwEtPadJfmeZxYT0ciWLZm23FtGmVebM7cuua2TAEIdGmESv102HvvR/1TNlIyKc5NavTUienFq7fWTohfVFIpLBMKnia/xMqNvvboU6UZQ87lQAvLhCdDOdnfBx/JpKgfqzR7Ky9XSF2hnqemRQC45s/vcgIzOk/CiGY4dOpueWB//9zXjEVH9sU8aalpAjwKS+xJiSiAPDqbNMAkw515HXPsYtFWHjHLMjztpCtleqy7YY8Cmvh8ZGIKt2/KB7PLuHblDme27ath8BHfjhhRL28pmAJCzfKBipo77soN3f3n7lBZq1eTKcu8GMqYryqH0j0V4jJhv2FFpNJhXvnhh/bv2PD1ResfiB/YvH78PLhMnq30N7eV97fTREMiafmi5jEynbeexGdCgPCV7yZYH/1ejOfVcUl06JzDQ2Za0dJudKdaAvP2TQXrcHV+1PId7xK7Q9rRtys3B7BiSPM1Ztns18Tp+C/7tt7W0ZBIWj3bX15+ivqP3mP1JjrC50Z4xNXNbdF4z3DY09kUAEkCUrp25Y4Kq/J4TKz+eKZglxqGkjpePKGD+rHKEquy2u15llLyjKH63iKXyXNmqopOeuOvAcsvYl4aG1tlX/nE0WjZwpGenuLYPwDMv3HXrGiFCAY33/j06X+4bOnWUiV0OXbvPgxcyS9Uexq6+84CgGemGeG6pvBO+4BjOAFy+7MJgH5y6t8SBnfBrb/9YWsCY4YEKrRv2XNveGj4yNI9he5UKrhQ3BQADwAWJ58wrIFfWL3Vw5mp9TvWkOg4UCibuMwZrygBqIAUMASM4beOYGmqt6554t+1n/89HQSb9u9o+eqK5jaze3Pz+HkWNAlg1N38YD0rEalubuv1tPistCJvC918AJrmgIWrlfeR/Ts2fKW6uS06mP7OXuw4xzkgZqpraS8rGHHVsKHD7qmscmszA4YROh3CjrxduZMuGAYgIA3bCLJjWxzL/9qla7ZcrowwA+BlDUFPpQcsbsj62x8ptfKuUdA8O4zPF5e0bJ4sY3G0ux3aLMto8hxPsePApSqSKjLG5lDRH1ziVe3+sT7P1JhfLMnZ2uihUpn/OI/E51c7obv/dIDh8IH+CTycCs8EjCkOjXL2Qt6nrhSFJ8u1WIer+Vm2tDN3pQwvH8vGqseHKvcM1Y3Mr5nlZehIKqVrV+5wBhcP+BdY2yAAXNRpvnLi5Eniqet58gJoTvGbBmyj2ugeM+/Z2fFj/e/v397y1WlQ0gV0R7gxuVv6NvKu1L1RTY8LO/r2sFgzgSBDMCirfP9GZ8GsrzYk7isZaW/Jn+NQYfElbd0tQ6mEpoIdCdNe3ciPY4YZflYY9tu1O+kC5DCRFk7MUH5uR5z0rT1Vo3kh9WhB8AReAQ7ek+d2Lr/h4SiHmXKPuFoHfsZID/c/07b+0KhUJYvWPxpP52K8r73lWK/pjFdUxgZta/be/dvWFoWlvIM1Qw211WcZ4jvTSc8vzi0UaxPSjL3XWnjp90PNt/be81H/dBb+k4COfNo/XGC37Tl0itbhai6UDceRTBrPR7c4AUwMDcFHKqUFGSVe3P5O/S07f2Kawe8+KxN7gXw9xc4jv9jr/JviUBhY7Mwqy1A0uthYtP6B+Pl678tv+GSsduUOB8mk6EpdGRaCTCYG+VlhRa5R04p+giQT+Ry4Tft3rP+sNzg6N1NmW9MguXN+mKkrw0BJLz1x1J3IuRHCrEelHX2H8vI+QDYzAmlFLfbzW8LA2hDkM1btwGLr6faWkXMtbL6o1tGh68cqzUXrH4jX3NERMaMFv2/zrQdZsLCc6Hv8yiX/snRt+yYjMH5qKvdXFaS+Wte87ZNLNf1tbsJdXJTsJEaSReBZh/IqOP5ytsIvv+Gh2J6GYkuZmKvJcF4LFjXnKyGLC8YXspg7reU0FQlIipqLDy5c8DxDgBhpb8lPDRBCha5BTG+SVuQNmkkildLo6STM2EuDQxnMxyYb8jE52NmUvRBEaThUYWtHOQAO1yTuijiyvINM51rl5j2ADSJDMklPB4UP7t+x4etIdEiiEReGiHSPzZp44c5F0vJLKssDrYPZdjTX3d6Sn3/jvbO04zwmzcg1oZf1ichiRmg4MTN08/f3b1t326L1D8TzhpWf7fl68JUBtxGI2NrQYYZh+o+dXHrfMIYPLF3T9glocT0ss8qwIoCQ0KEHaAZJcwEJ+cfKy0L57v9b2ry9C8r7574U7R4s5vAv62k4aXslekBNFBdOKO0XdFF4/eWxnuWdFBspTL/z1JhMyv6DQh9ceHB4YPrgSz5h1PSMmkMNe7wzHYYaViC0TmvfjeJ8yZ1mHAouSNqh57yZg6cnLVu5B0hXN7dH5h1YNMsu148JK3JV6GV9AJKESRAiH4beBxyyflCUxWya7G1MpnFFq0bb8+obEwCOxOezbxuQXsiF6jgt+sgDcdORHcKw36LcnAeCAbAr7aij3Pyn+nuH/gwADCV175wjU1iAllfiWXFDssPKDRwyDLt0VGldGxO1nWTK32EwdOiPaz//QzAOsICEhgDBB1BJJK6SpjULjKuUNv546dr2u7Ou808xZGNT2rovS/dA6rzWKJuO9A0iIUAsXj7VkSZVzGCK69nVs5yXVeaspUPz/x/WbDE9ZO4ZSl05ZjW3xaaLpjhJMgOpFEwmh2wrLuwYwiAfOdFNm7GLTiydpyPOsvDjMjQqPyWsyFtDN1cswJIkCAp1kG+KOfxfni9q+yYqnj6Rb3elzinNKaSHSZYudANlBbmBnLBi1qdgWG/Rvpsnoigz+yJS4mg3324w/UXtsvn1RsP2XN/m1Qeno6j6sUqz9/B/hedPAvXrmTqYsVWl9lSG91rgnwrDXKJVEECFjwlZ8TdlIn30THibuuZdi0LfvZ5AKZLSllbk/8Y4a/Rv2/Cxl7MVKUyHn92mevpxvzKbMZG0VsTTnPZQakRj/8Ss4aiShzHdTTkpOqlZs6XS+eg9uV7AkxbyKvT/XCl2LeYDSHRIpBL6QrqXuPgxavyqdSjLbt06PxOoccuzdCiCzwrTeatyi61hCEMA5CnPfc/Azlu/dcn6bUu80vF+bG1W5woEOxLLGkt/lgkGoovFYN9Aoeb3y0xrsvSLZEWvVm4+IEIUjFDYUUu7+fYKoW87FljSNtQxEYSVz5mWRQJA58v6cANDxWPG0nQoRtcLM7qEw0CzDv9GBea9b5xA0B+HmHvDJ2M10TJ/issUoz1VThrusZFtLf9at6ZtkIi2Kj9vCSlvW7qu7fG+LS0/RKJDniN25Oyp5Ib7SnxZFzyfKHvaCNyoZ017kWCq08YvxYt9Cg4lcVdk6GgmKBZ6i52chobl6B5J41IpKPRzPjGFioMQAE0agToZaChLDG0NVxdFwmx5ZHDTqrvPiVysud14MdHUDYkO6xT9npdh3ONkq0ncFZkbLwmnhz6rm9si8XQ8PPmajIvBC9Y1ty0KAlFueTJvWurTZEavUd4UaG2qNcxB8KcDOzd8E8mkeCa1pv98WOOG0W6WTZTLg8tKrMG2mzNobSV7uPwzwnauVsVZI8kMTzoxW3uF7b8/Ub6hO55eYJuB3NfeMoCT8ApIpfTgsxytL6tJ0srNpWNSqw1gZq3CX/T3Hrq7/vLKaL/tq6kHHRw5leotCxRbpL33tjxWt3Yzk7AeJiEdDtTHa1fuuBoVOUcN1YghcPpcCrTPbZcy5d37ZzmR0exUqnBGJxDNxcJnH7xwQQLMxbVsbNhDXef4Yp/vppBRYTdecUXQNWe5XDT7sbIDm5GeblPr5rYcaUgQSy5y6PLoNKfudF1w06rxU/470SEbG/ZQVyp1djKwRKc4ks4azzLjvfChV0jH6ayo22RSGH2uiTPhhk5EzdXhi6HBvaK5zcwVnLK5dYsmTp63k9EMd1dnTnSk4unhsAdxdTK4UrzyaQ6TilgZM9QDhhU+LKzI25RXlAclIQ0G8qHnf7jCwLdqV+6oOP9CLyhmRw1XubH+6uFc7c077bqRRZ8XlvMu7ebzRGQxoAynxFZ+bkvf1nVr/yuetgvAsVDw2Dm2VV/6dUomxTNPHz5iev4fkzQqQUQE/nz1svlWmIvF64okQHSm+aRLWjYvkL5VXXNHR6R/yy2fZhX+AEKCiZfJSKFscNOq8blSnxch+IqR+VOcIsUTf2D7bYNP37/y+PM5AZUfo2chQFNr+jwdnhXNbeYlLTsXXAjtZO3KpFOzZkslwDS4647xrtSVYf28EUMfM93p4isAkKtdZtJgIiM0jGnn+7yHYGeTngLH8fPVEqc4as6olohkUpzMKTMRGBU6np7V2Ngqz4bxevJU0u8TZFq1A4stFCJVDWUT5SfkSxMdcppL5nzXrjsd12wG9vGh3lmvW7mjov72TXZRT7zVWzEynxqSSeuE1nZnkwKD6tduWVB/+ybrFXEoDRvuK1n0kQfiRewBsbk3UwgFPy5M551FciSWEIYgIQpQwQcGdq7/Yg4o11JFq0aroufaMWpMJg2kSJd7+cJs2zxe1zM/ZljqS9J03qOK4LgoMwXScCzl59tzhcwdtRt3lMtYluPpeNjf3jJxJvzCK2I9ywldqVABNcKwHe3lGQK/cpSo166f6exM6DO94F27W5XvurnCJE8M/WxPAAIgRZtWYVYYjonQ+D8AUDAC+3lHu7j4khZfrFVukSSINEBcc0dHpHbl3RX1t28qQzIpnoMpuUA75lnSV34VHy1EzmP2rMj1Wl5TbklV15BsnW4HU5iLzYuVZgw0Jo26kX0xJBIyNI0QxAwChaE2GpNPGKoQqZ21emvpafdBJ4jQmYEki8tu3DUr8Xz3WtzMhGTSWHbrvfNnFWVZCSnS9b2VJSc4ZhMdsnfHmtGn21tGurpS4Qs5gUtaNi+ov37TCYnXwZ03e71bm4d6tq1NI9EpAOL6yREjB8xuAAw0Jov/Tvnc5zkkO5vU3u1rh/+3ZmjUsH0OMlb15fagAxB3t7cEPUB4wmGBCa1JQiSSWVA5pl6RlMeIlLG2ParLpUvQ3Aaw/Iww7bcqP+8Xp5MNAVAhDNwPD2zf8A0kEjIbi4+bmYmy0dFR/1ycSd3I/NJDdpTrmtuou314sq55finFjQ5h2lerQi4gwQazCKQTNZWX29q/tbmlfm17DfnaemZOZgANey6yGlln8TzXPFW8JmZNoZbat2YFCslWQuoMJyYRDwLjJ7UrqL993afqV236tiqtErqgJ06Rzpiyyus3lcnyal3pZspcJbX50UfyvZ03ZqZGIRZJw6gGTKiwMIJcekIZVrX2I+HlfXGVjacNJ5ks9ADhr1OXmRrC+8V5pj8MAPvvWXek+p3Jyf72Z8cjbBQCisBCV2qyv6vY7TFueoehTJ9ArI1omJsK8fedHuXtWzbfKgu3VezdjuFpMJrf3Bb2R1yBM3U1kyxqx3eWqTVbhDkEc2/N0NEixSlhyboH38Bkl1yytj1toqJnugZxafOjsydRmo/DDTOJu+RJ9YoT5YGqDfeVaLZF36PrM1OpjoWW9hpa/wA/s5n60Ql12Y33zgocaxlL2w6G5hxG161PAUDDFR2We8sDFRSYZaCt5X0THb84U4pUf/sm21Jl8Z7lsdHuVNNEdXNbkMOsy5a27CiTLMKwL7cvHk+nj4eqbsmareV6oOpA764bD/e+IlKkAD951025Fc1t/kTgVmgZ/QzZkStVkc+ESErBRDmE/gdtWD+4pGXzgmfa1h8aQocLUOGcCvg9y2lP1VGVDSfNA9WvmZx7QyYCxmeEaV2jvVyBBFnMFEonYrKbfUhEjb9OJDrkXncwnY/Mkxcwl/KSW+PRBuoCmASFrJUmwxQI/d8bbG/5Wu3KHRWo/CjOrdNQjLYW9I+lu7o2nhUDYsec0EKuzFUyP7h4ILP4YNXCpc3bPgyt3g2N32ElaiEY0Bgkae01pPkzhGrbk4+szlU3t0Wt/rpS1PWnL6ywWkyjlq3eOj+0rBb23Xzc4H8/1wJnTaIj4pRNbIRpldWt2fJf/dvWfW3uDZ+M7d1+28iSNVtfW9+y7VatlBaAVOzPIbABJqbQ+LO6NVtGAa0BCGHatg79J7sWHPriomeUTdLxGlbumOeZwQYS0ghD3tW9fc0+JIfFyfUkgLgWO61IwY9YXiQzIY/rukOL3kXrtr4LoKWA/hNhCGiPC95I7qd167bsk4Sv6eDY9y3ta/QMADXL0f2zU9rRjGRSlI+pgEI261u2f0IPBZOS5X8oM7CVktn6W7a9E5pWB1D1xHit0hoM80B9y44+hv5pcODYgwVTHo4CZQC7z20qFK/dOjzGPQ1jR+u/sfB1fMuuG4n161gFbxSmU8JgCMf833HNBwwyPxuE4RO+bWaSyaRIpVL65XYojERCorNTHUlnDTte/pg07CtVkQPWIGEARB489wNUWvqjsFBYFM5z+s4XzdnZ2aRrV+4IPXWM6zNPRjlW0SkM5xrl5X0iigAoSMuOaDe38/cz31n78+gfxbrjYUMcZU/33ntjgIvQurpaFZIQ6qD6tgi9UEjLgDDeW93cdjc8uLUDO63ngtWKw3cHl82P9afj2ZNOI+rqalX111eWSVuU7F147PDpDnSKKCgPAHVrt71PGPQfwo4uIiGLZE1edhQKUtoltcIwajkMr1GcX720eeum0Jt8AGUOEj3LqfMFI4szPNdEp0AnVEDBEisy6++DwD1e8IJdlza3FYf6psb6z+aIovF0LFT0d1ZJPOqnR7YsWv/Aj8zAmH8EtEfw1jqzdE5KezmACII1VGESAEg4ZX8uSQJE0CqEGSuHe3zoPqRSj3s3POQfePimXN3qB18vpPV30imByk48AdBe9HSI0+/HHMtYhUhZoYDCQoNLd5GUbxRWBEQCYW7M1V4hQ9KYY8TK/liHwR9z6K9hMh6TntvaE58/UDN0ELWLYQyeJAy2YmS+LNk7rIaW2nONstkf48njhcBQ90xKdaAstHYC4gMyUgJmDe0XANaQ0fJFzGoRqeBKbYlVkdDfWFMz1DEwsLgEnZ36TM8iEp/PdSPG32ih/9K0nBIIiXDyeEH57jECGzJS9jsk5O/owL3ONIzvG6H7918Zmf+D2pU7LOPlVL+rb26v80JZ4MSb01ZF+eeF4Vyl/GKXBWQIJvLYd9/fv3PDN+vXttdUCN7XnVoVnmtlOshHrNFogecDQffegXDZ0qgZiujnhRl9q3JzARGZXFTKiygvv7lCYuNe+11O7z03Ti5qaT9WUn0xkwATLzr6QIURCwZ0Xn4a4JtIiNdHWTxu2v7NT7e3jEzXp9KhqUfamgsg4q4rWC89tKVmUTw9dqAowHMC8xMYO3xt+Dmknkuw1Jh8whgYGDCk9LcISTeQNBEWJp6Swtqh2d+rYtb3zFxQogrZP9JSvImEuFmYzhwSxj+T5jeEYvzDnQ2LqHblDkfaMVvYIy4AHWROqoMwg8DWCc3h56pxaOXnFIBx1zYL4oDrWqVj/EIjWpNAPkJ8XPt5G0TZkjmzc5mhiREkk0INq3SQS/+EfZdAIAA2gNeAIcJ85ikiKgCsmYmgFUFzLwDURAv+EQAwLI9VMKn9fJS0PiVivvzOh2LZHGKGLuh99zQfX7r2/qVM9uekE21Qbl6rYOKbLOnLzKI7Yns9rideFxQmX4PA/xAEXSXt2EeUVn+41HXfmbWrBsryC4MVzW1mNpTO3u1rsse8/4h1d6XGF1/aZpE7qRgYIyWqSpT5CaO0/H1hftwNsmMPS8P6IQe+AglfUa6Ug/BdQsp3E4nZJI1HDh5acHhw16r/nKLDIAB8+Q0PxfKxXC2skqF0obDacCL/wCpEmB//GgifFhA/9UNjxLYn54WFzJuIxO9ByNXSjvyx0sHnMkH4htm2f9B4udKc+lXbZ4O0TbYas2TpF4UVuVp5WZ9AAkIKIipwEHxkRfaJby0s0kMOnc+XmLG4kSscceIGeUGmzKpdDBXIWR3SdN5a5JolE0yBdCKW8vLb+yYqbl8RT4vx0qyF1tbCgfbUyAFc3FYgHRw4XB3Wl4//jdbB26URqYLS1wSaf1i3ZsvdMO1PZ0ZHJy9tGA1KW9pnuWvbS62RdoGI27vkyTF14DTCp9NkSoFk0lgxMp+maSgMI3yPsGM3sPKhA+/bKrCa+netOqkeg3EAnwbw6brVW7eR9v+FyH+XsKPvDfLhf+DeKzfIWx6q9IOJEIerhTNvRD+31vt8UTI5BJIApNo77PV3pTyck07TQqULByWKf4upFvFYzR13RYRUT/VuvulN0wRKS9ZsuZzAPyFi0sq4fiBb+r/obFK1K3c4TuYZPf8o9MLGpNHV3hwCLZCqEGoYBkCShTilnheOe7Yinq8C6+lFq7cvgXS+bERKLlP5iaMMsap/W/PXTrvUHwD4AZLJnXWHFrbqwP0bIloMO/KFcnav8eOzh3sOQ62Ip93Gxt1ymJ0YgHEoZjJNSfBzzPoWq7zqfWH2+Pe0wMf21wz/7HQ5mtqVOx4RFFzPHN5F0iwn5tbGxie+10V0on4SlmUIrmPrwLsU4H9mpUKt/C0VAhtPSzXHkUzua8DyTwXDk19RhcnHpFNSpXX27u7qQ+8zXmINTaMIJkoKK3tgImvODa0S61FhRa4+wQErSBLI5dB/f8yPfr971pWzxNiTE1OFrnOOGIJcOgyNqAhyIvTH+0S0euHnpOlcG3o5b2o2JzCcqKnc/La+zLdb3ow3W3b17wfdqSvTeJVYNBcL6+LpEqVEAMY7tQ7/WUjzKpLmYma9iUPvb5xZlbsPDZV9A2Q8JRGMuSp7bOjeO73eqShuEijXva7fe7KAzZTVHZlbOWG7jFTrsf3N7VUmif9grZhD/YSmwm0k5dxlq7eqvYZyVwCY0DQXKIBkOTsif+jYQfnhaLV4RAfu+4Qw1y5Zs/nzznGna2HDQt2VujKsSdwVkdHTnuk5DgaqOWV0rvWYIHOEpPlcygQnHNEiNGK1K3c4qhI0BLikwgIZwmAmDeLxuYtcp6xlZ8UzT+8/Un95ffRQeaFMC55EFxVnkLQ4K9giLbUbEWq4f+s6r25N+wMyUn6ZcrNDSuAG23KfqV/bXhME5jHf9sUIENSFchmM0BEjlC4XKpUOlUdCJIUZqVde4aN99153B5JJ0Z1KBfVr22s829RTgCRiHQJEVcIw14bZsSc9jfc5Tj63ZKhmltGy02Br4ljv4eqw3hqJoUzbvfc2b1u6tv21JMRGZvl/hi7pfR260H3ZrffOevr+24/3VI3mG3qW7ymUpW81TCeqg0IBPu4/RpasXblDDu682Zte/UtH2it9zjRqUv+DkP9Fq+DfmPCOxYfnvfYlaxvXrtzhLFo2v2rZ6q2lQEr78yrJjFodZDhvD92sT8RCCGmARBD67vv6tt3yjXycJLR0cp5Tei7OpCHRYc294ZMxNLeZ3dXDqnfH6mPS9u3ovIVflFbkutDLBURkM1hJ2zFDN/vvpMX/W1j6trlBvCTE7t2n4BYudocyuGuV2189PKmkFvu3rftJ309/dJ1WXosOvF+BNaQdnSMMuwmmsV1zsFtKc7Mt4xvrV7ddU93cFu1ubwlel46ne/3q3HPahokOKbQsLcLgiA2F26QTm8ehX5BS3UrCLCMpy/YuPJhDe3PY3d4SBgvMY1AlnimzEwUjUGVzpETgb9RaHZemYwgy/rInnuZ9I/uK8NiaV3DxGvawpaSpBYvZtq+ccEQDYCMMQjARiNk0g1AXHCL2PFwB7R4+GoSGiKmIdc44pP7NG0br1mx9uxDG1VxUGPiXgS0t3wtC53e11vNuXjzgj7Q3F9DeEpjAIPnWEWjyJmxX9G9r+UcwdhUZvXjtJWvufw1SKY3GpKEoqCbtF4po1BBgBsBlZJjlpNU/DW1bN6Y9x5FaaN/l3DTIrTzmFKzDpRMohmubtA7HhWkL1up9ABDoWBQAajJldk9nUyCIlgkrwgx+usDe4UBnY0FJNjY1z0RobJVGOp7RJPYJTVqT8bgO3Alhx6QMxZ+9ZBHK4sUD4dN9JRknWha57MZ7raDgfFpYzlVFeVAIEoYEUV6H/ocHrpv9HdQmRW/Pl3J18asono4XRs4hlXJnuRXRoIKqDC83mkplF31kbpzY+oywnavCU2omMUv5hZ3921rubNiwY54O/Vndbc0jJ5+OriqRuMjnKupXbapye8Lsgc6WkYZE0srULJcUjnyawpLvgOmNoZ9/O7S+gogWSjtik5BvYa3eonToxyD31rdsf/Anbm47dq1yl67dskKifWxfURuGVsTTYkyTlChypZLA6iJrvv7UvvaWpxetfzQe8QphQw+MHpAPAIOpU1Omy27dNctmN+15eIRZbyQh3loX0p/0T5btvhgWMcvCtEm73W3rg2nwGpfGCEHIxGQwC2f0gaZDo4wcCDwEFADsPV3D52ym8xFqbE3KIeD9MlIqglx6byjxhUSiQ/zKKPzYFDndOVJXU3NH5+jQ3SgUiaKm2PCYCfduJKWDTyDAh4xIrES5uZsbk0/8Td9Qb5lkHgmcSRcAtLZCIRgkDKG8wo8KEl9FMin6Uy3PmbafTlfqb99W5WUKBWkYPxaR8rcpL78YAIT2NACUlS1UNXd0OJxNi6ImEeYIMhxZ4ijWBa/25p324K6UhyTrniJJ1a+KcjYPl3HEvQZKRyGgXrIIpSuVUkce+Vgur7I6jEQ7hR29Snn5AIwpBCwVOMx/wGJjd913j9chldLo7NT97S0T5zSvkExSvy6kTanV6OicwormtqgZtR4Vpn219nIuEUwGQmmXWMortCtFrZc2t83uGY2NOkaw/3R9kyOPfCx3ETsUBgAjWqFltJIBoKrhCm3lj9fovPVHSoUx9jLfVb6xMZR4swberZX669DNfk/7haw0HUsY1mtB4n4rQt11zVtWhjI8HgBm7codzvTnk+AjvTs2jgrNjcKw5ik/HwDi82hMGgc2X5/eu33tZG7+4rMCC58+Ghn3ZV0gCJ/ToZclaRKRevOLAQfHiwAMDA5Kz3ed3NkF4cUU8VbygpDRjlTq8MGFEWb1FmYFInr8QDp+9BeVx+c9Pbs//avNG9IFlfaiuXTsOUA9Ik4kOsQbJp/ohVY/noLPXTUw8HSNo8N5vVubh4buvtOdGtsm1gokTQLrT4+0t+QTJ3MJnyaUlkgkpA48ipSUBkLQD0magCgeBLOi+TEAyGQOStvNzibmn+qgQEKacy3TePfgA6sOH9i8IT24a5WLRIdA6wm5WkIyafQO9eb7Jsp/YYqJn5PjdouXhsG8LTo9lGVT+WfIsK4sFmAhSQiDSBRYeR802PmBa6gFjlQj5/0lra1cb7uRUmCipuagNQ7xuLCctysv5wPkMBAKwzKUP7mFIvmPDiw8eFC7KK8pmygvgrgu4obO2Tbs/SuPTzOuP3PsQDlrURta/LSTju/t3fHRY77t+yXp4eN6gfmdvrab/7V/67or2BB/wJpvVWHQA63B4AYBsdNQ8p9lpHA4lo9pJJOiu3pYOel4AQBB4jqSFkOFxw2pf4I5y09oHg9uWjVRd8sDc6o23FfynG4vAJU/VKFDY4CZ95FhgUHX1F+7yQaDMPTKrt/8+QhU5ZgHAL33bPQBwFNhgUHqxVCHHNy1ylVCLydpztd+AdD8rQZA+koubOgpYr72b/uzI0Z6ODOFmj3lJeyPp0VnR4cG6PsgQcR6PgmrnIUxB8x06q8X97Tgokjb0aN76HTZmdoN981TgTmrEwmY/mShYGilmRyAAQ0TAP57aKEPAM5Rw2QVVBi28RUOg8MkDYOk2LS0ecud9c07l56Qs6Uis11j8glZM1RTtrS+ZnGdfWxWJDS9CSVN8eKG5UzLVj+wbBJYNPeGT8acivLHhWVfNTWbI0lKQULmOXQ/3L9t/ddcNSkHq4f3nYTSPOdd3tDUagaqLDphu8LOln5RmNFrlJcLiYTFTIFhxwz2vc0iH/0LCksWNPQsN3oL8YGlNfVT7OH0qvMoDYkOq7rorDF8NDK+aP6luw/MOTJQjOgII+0t+R4sVyozRo3JJwyA0P/g2v/tbVv5AAV8BYE3stJHmDXLSOlHdM7+S5RNlCwZilchldJVDXv0FJhDkDSIifbvAyaKEcazYzgL575mbHS06zkgw86GPaxDY6KmdnCEGN8nwwSYJ3pLq0MQv7I1lCnqCpUrOSUKsTRJ8BRcXwf6xJzS+fYfdhdLtQy6XFiODdZQErqns8k3lezr6XyW0LqnM+UfnyzLP3eG5jsaBAiJr+ugADLsUpJqocW0H627JZKtxWtXgoVhQfuFY4Hyv3sCp3RyQJZKBLND8/hgpnwf4mmhYo4/uGnVODFPggRoemixoYoAoPfRjZk48PTe+9cOK1ZX6NDbR9IypV36b4zwZ3Vrtzxet7b9ny5pefSNtSs3L+5qvVINbVs3ZkqdK0Rltru9JRitGs2/mDUUrkn8eyS043lWQabEiX+BrMhVRdAaCRKGYKI8h95NcUN+vbq5LTrY3jJ+oZiWHnSqGm/Cl4h+UTrRKTg9mQArw46ays1+0naCf9ARbXuuzvnRnMCuVX4XXr3W09kUIJksjuB3kuo601RuZ5MaAgpDJ880AaIrtWYUwD2L17X9UpLxKeVmy4TlfMwP3B8vqnnd1yub28yunu/oIlMJkyENgPkJtLcEp9cPzqr4mErpxY3JcHTxcgEae4ZVCBK0fEnZxOz9oCMq10byIgsNSUmLZCjABJIGA8CE7V7wQcs69MFFHRkRFiH50cDMI5mkU/A+Z0oDGxqKc2NqC7MIIaxYTKjg0vxC+R30jDIwldbIKaY44tAM1Vk0ioi7p1Qbq5uTdpBZrE/rrvkA0HhiKH263sI0MNnZWxs9/jZDu3+lWF0hhHmZiETfy2HwXh0U/sYwjQP169p/zOvEI3npf3/k2GxvRXOb2Z1qDn/tCKXmjo5IkeSXaajzzgJlJidIiw5hOVdNaw2DhACRp4LC+1ZkKr+YIT0nlnONCx4iS3QKdDYpCzohbedtys16JGAwEAjTkaGX29K3reUvletQ1vV5/7Z1R150AfRXqpaSSunziq56llMXoOua28qXbthSP7ilpQvKbxfSjBFgMcS1Xakr1ZhJS+qtP4pNcU0GRSJwIjBT/YHKWef6dfuWzbeqdu/RzLKUQx8kzTphFWMTnc+8LFPbJ7RzzsWhSPXiOjghQUKCWY+GUMMAkI06RuPuK8T5B/yaAQSDGDhbTZECQ7/g58pYGZ9x2POMX0pcP28kZtiism/buvWxrHi9Al+nsmNblJcdYK0L0o4uEpHShJDmFy0VeWRpPPMnBSOwaxL/7hi/rhyCHDtaXustxmBy97GG0fscL3Q+J03nqilNYwlhSIC8MCi8Z2D7rd+a1dxmeiw026IEjyQmL0i78Nl88S1T1F8CgJJW1FRu/p9h4JN1LZsvIVbZoerhI/gNsZrEXZFgkRalE+VxTwt9cOHBwy84c9TZpACmQnN7EHOD0qUtmxtUaGxmFdwkzchigv9mADDyYRjYMg4gAw0foCIJUmsrCXM+n2sdASNAV1cqrL+0zROGjdAr/Iq0PAAAIlrGpxErQryo4t88VVuotAl5+UrEQgIImDUAWSqFmA2gP5THRFfXuQvcaaENQAAkiInF3L6lkVnYE/Q0IHw5iv+9f1yda9iD/wWAKcqErwP4+vwbd82K2Xph6GbfBeA6IrlCRmLXsVLXFXx1z9KG5XeKX6tm0tmkZ9vm8dhoLrtkqHeWHzhfFkbRmRQHJQxBoILS7nvK4qU/qF25w+lubwlL0vHjB/uOHb1gtvM5RZg2QSiAQOBQmLah/fwn+hce+nsDMElJy1NCvxr0YM/VVLyEYrlYjC1yopHzkZMt1leEIQ8yC2f/tnVHoPkASZMY7APgQkVhROoiJy8LxDj0wMzXNIxWRbXtnjNXSuyAqwAmMFVBCDB4sHfHmtHiSRnnl0NZ11ITughUewVCSIEKgEGCooJ1bJqP+JykNlpbGWBixREwg0M/ZIWhI0v7Cj0NCHGWTs6Lbk1NqgpVun7VtqqG5rZFr13/QBzJpBh+eOVxcyLWA4l7JjPB1Qz9Ie3nf8XKB5G45cChZ94rfk1vxt3tzaEbN6UU9GkynSu0lwsBEkIIg4jyYRi819bzf5gfy9UO5mMBgKKwUlcq/PWVOfmXJKQQViSi/fyDfVub/6p2fHGZ1uT8/kTF0/sz5cd+ExxJooMlAMQY/2iYs/+HPd6KAiannOU5j/Tva28+Dt8cBUBFkmgCT+XSQ2UZz66tOlL8ZQ5YawawsODZsd7KsRMFxermtuhZwmUgldK939joAcSKcTWrgEEwLr9zWrri4HnWIxRdCGuhL8sFEYszrczpaRcr+ZzvsCqrz9vxzZk+5Jj/l8MiAI0lHADoT8ezJ8+crWhuPrPcS1ORy4SE+BNhR8HKz0hBP75kqGYZ0PqikGETBD8fQjmR6JCNjUnjUO+TUSCLnGcd/dXmDWmkWrkhkbRQddRiRzhOqVMGI/yBr3LvYa2GpOlYAvgr40JbZA2jVdGqqlH30Ng9kt3o58hyrlBuPiQCCSElA74OvffNMsTutD+yuGCJgRcNj9DZpJFMCn+ItpCf+wBrfKd/2/q/XtTcVm3qzBgiKHSeI9/sq8GO7tlNU2mvBNQiksZ8HQRvAvAdNCYN7G5VOHPqwKfnx1S66SgSHYKRDqZ+KJFMioae5UZPPD21KdDFyl9FhlEhOHwdUq3fbkgst3oa9oS6L0InXkZmQmsrTUeBK5rbzO69w7zgkgXzBGgOQATQN720L+pv32QjvES7+afEaYfCWZ0GmdLlIqERq0IJnSIWb7viZCXFxuQTsmt5J6OJNQpbGiBkKbQ6JUipaoD2x6zwyCkpF7uKSRNYFOsWTMdv/DdzirrxfCbci/NPlv+/vosxI1q2QLvZDwD4ev08L9a7uzUPgI+RXiDzKzSAA9NqhidqYg17uP72TTbn+bXF2QE66AtWkNJDTyeh4ddP4hiYrovbRQKu3SfWtLutOex8dr7n5NEMWtHcHhn358zy7KpjQ0M41gBIN56OlEwcGffKFnwJwHowL78gh7Lo6NxyX9vV+5+ZO2JFjcfECeFypiICVuQR+H+6f/v6b1c2t5n9O9c/82JHlome5aKzs2lsyZot79Lh0ESio0N2NjWN4DfQunpGuRhO82eVm/uokIahBW9EouOJOic9373todwwcPyF1qx25Q5HFILqunhascICrQLNDKobmV+qSo/E6mDl+hOJrJL4MalwUkizVPnh9Sua258I8hlz0dG5sQOP3HRKZ656ZL4zJcSONBCtr6lkxbxWONFF2svnJbBbxXJ+1IobE8eOKBWfdgxiuttAZ49QBLEKSBjW/Nhc760AvgyADxiBHfccByfx13ZhN2q/urhU3fHvns6WXCOlFWUdgoDS6c3aVXR84cmyGCe7W8XFYULMnVuEtr9AfYe1LrLYTdX0Lm1um50PYBpC/ACsm8B8RW3zjsso7xLmLN8HgFUBgbAp9qw6Zqtx6MCmOACUjzjjY0pUEPSfQCuA+QsH2ltGgKQAijK/F5Qq50pOdNeIOAZmMLNxcoE23dIeXbJuy+XGrQ//rvJygWUHnU/ff9vYNNF290l0FgDQAygkkyHaU7puXZuafo7GhbRsD8xpnVgyVGOZJebDwohcG05zwErDYIhJeO6NYa3zrfrbHy7rvvfGzEuxyRoaElxzx12RSFl5uqenXA02NSn8plrx9KMC8LOo5h8z6TdBiLcvLR39E01WT8T148tWb/ULtm+QFeFYtti989182Pv0ngK624P6te01it3XpK1ZPyrzJj4sTPOS4guGrzIAZViRXD4zASQwmMYzdWVjnTDsVSTkh9Ja75KlFSO2FhYSHZkTkSYRj4AL1c2IXlp9qX9wZF+5jjnlpHAjCYNVmPtCwcA+y3OWPFnZt696cr5zTnWUqdBec3CMQkyQHS1n9pctXL212/Zy2d4HbsuMTpFvA+DLbr13VjgWFQFyUo5VupD+O5gCkGGBNZtnqVcQANZMzhRJuZaACSKO37rLOUL0gshpEoLR2aSmN3ohlFYUQEjh55Wb/6A07KUI3ZV+aKWWlo9f5q3ZMjK0bd2hkz9j/8j8KoN1ibIRFObFJ+jQ+DppRirDQjaAKT9bRKQCSL3IFaFpRz5nOSeamkRnQ8Pk4uGFi4UVvYeEgSCXOQzgi8c8K/a6lXfjlzv/bOL0NKlxYLHVxezR2nZ3KvoxxAW1bFMpTdAt0il7R+jlvCIHrJQguBT6H+zbuf6L5qFgtsq7kSlo94tuKbRibq6E/LER+q0QWkp0iJH2ljxY/ytIECAEDHsLgLl929b1ukoGhpLamVTKd/OhK7XSMYfq/3C5WNHcZgaCS2w//Fl5mJ4Lgb8GSGs/309+4TNCUylJg4888rE8OhJ6RTwtNBuf0IGbF9I0CXhQ5zzhu2IQ8fSz5MrJpECyleYDQVfqyrAAHCOFPxemVae8rCYDd0WVmA9Puw09MGQsyyqXfuGNUYwkaGD7hr2AHgQzM9OfmjqIWb4sntSNSQOJDtmw4b55fs6azwU1Z3DXbYeFcN9Jhvn7rLUuZlxTaUJPzxmnlFmFBGIWpiUV8e8CID9w51/a3Da7MfmEcT4kzzZT4AtdUtO77HPM/AsIASGtj5qG/y6KFHojUl9Sc8ddESSTAo1JY9Ha9iWkaa4vjeOzWRzyhyaaSBr/D0IQwI/3b16zB8xAayu/dv0DFSviafHisetMRSgNe7izs1NVj8x3jJC+EU4ee4pZ+xB0W+3KneXS9jlrlMyuW/9w1bMRElNj4xNGVz4WNLS2miBaSiRAhCfP/wI7ElNdE3qn9lwNkCDDFCRkXnv+B3q3t3wLyaRAJJJRUovFixe/NK2uVEp3Vw+7vfdu9H+TOjnPF6VcfsMnY33bmr/Mofe3QppEwlgqBH1zafO2WxcvHgj721sm9m5fO9n76MZMf3vLRH97y0TvvRu97vaWAF4wHkaiTVrTd4jEEhJCQKu/7n1oY9+kO5HmTPZYEehJ3F09rFgdHASH/1LkqhH15MQ+IcxgDtpbAqRSXLtyh1M7vrgMqZTubm8JFq1/IB7R9E/CitxMJAEVJEnTUXLzRwcXHz7Q05kKVK6EzrnTkywiWVlTJ8BEEL9PpnV9T+dtOXQ2KXSlQnQ2qZ4Hbjvcv7PlV31bm/fUr26/XkZKHgP4OKBHiQT4BN9r4oxOSxsqwqBxEiYA/lMA7KvsoXw6m+tK7db1Y/Ul55pqBFpMRiwz09V1ZciCb+EwSIMoyiQe40LkpmfaW348VJbxkErp6mXzrUDwkcGtzb8YqhnKZGCv0gLbhDCjysv/DBIfa7xitwQRg4gLmUB1730uAZi0o3xh0NCTJWBZ2KGsCrSYBOMBaLZIyLdIS21SXp76tq3rVYXjfl08XdKQ6LCQ6BRdXVeG6GxS7qGFd5E036/9PDPjS8YFzNBMe/o8WIMEGQxk4Plv78/N+nFD4r6SntRt2V4ks0Aq85KSFv02OJKTzIyW+cvWbKsOLLVFhZ4vpPGvwnTmAXzfwYPzb1q6buseZv1tCQyxYqGELpAQswQZ79NK/Q6Zzh9I1mAVQhfyf9G345bPINEhjzzSlDtyiiRsSsvmtjmhZ/275OybhGG9m6RxnQz179SvfXC7cEq+w34uZE/6l7Q8arLK/SEro1mY5mtAgPbyHzed6INuISgZeHRj5iwNXs1AQMTqzLK0KV2/alsVG+HXtFe4SVjOJTr0/25p87a3IeQHIFWfBgLJJBlqLmB+kImbBLOpg+D/IyFaQKKS6OyyuLUrd9j9k7Gn6srSPyWitwHiyrq17fdCiy+IChXWrSlZEOa8HwB27tk0R7OGCBgwIDSfgVT7MJJJsT/V8j/1Kx+4jm37cWE585RXuH9p8/YrcSjcxau3HhJBoLUZjS5t3lpDh/RGFvoKaTjQoZcmpjtrqg8Nd6XjXH/7Jlt4Tum+9pZjSCYFugAUmcoD5gvCpRTXHRwCQGJ5K3WClEn3R7VpLvVYPGb5+fcbTumVCN2bhFW2fOnq9jbp2E8Fnv9MDzqzS8uv+V2s31nGvv9nQsp3SyeGMJf+ev+2ln+4gBpK63RCJ2WkRKhCJq/94B2w4nuWyOMrejJd3VO7/bdqs78cNgyYpYbyDV2OfVuv/+TS1W2HWambSIqrjFjFG4nojTr0VxV3JE8VyAjCciC0gspnQiZ8lTjY3LdjwzcbEskzKdExwBRH+8hRqaocNtYHofqBAP2TsKKLALSyClqVRoa0lmSqGMkIpOlAudkRHfgfN2fN3e5PHBED21sGGxId1vicI6XD999+/LTuTsyIlJlh5mjF2bpTvuOFlhH0qrx1A3T4VWE6s0F4Mwx+M6sAEgSSJgQRhBVBWJhQKp9ZxYb9dQLfJZ0SERYmyk8DQ56ggzDNYHZtZc4QAf5dh/4fSjtaCvBt0Oo2kA1DSCg3+ztAJ9CTIAAIA5hG1C6TTik4q8yzDq4eWlDTK7h7cRC+l4S4x4iUvJFZ/SnY+lMdFMBaHpWGnAMICGlBKx869L4eau9OWxqjfT1lZgOgXN9axCHPxklicwTDNJxSM/DdOaFn0nl2eUqm1r0cAPq/0y4AqELGHXDKzVlOlKN+GH6AvPy9gP6wdEpXsArbGQwBPlBXdtUwwG+WwgSVxKAKEwjdyc+TNP5uUXNbtbiA4gVPUfe16tD/OcLwff07Wv4rCDMx2wn70NEx40heItP5COVj8dy+9uuP1TW3lZtG9Dt9C4beppmvYr/wj2F+/Gscege0nxtUfn5Y+flDHLoHg+zYl3Ru/P+RQW/s37LuvfbEkSeKspYp/+xzIM1hLCh4HgdV/dvWfYIDr1H7ubuUO7lXB96ANCNlYES07+3Xfn5vWJj8BHz3qv7tLZt4ImcL23UBkD9vhITrMACMtDcXhoaKyndM6glVmPh7Im4vpnSJ57w3BzZvSPfeuzGzv+bwT1WQf70O3X/QXmFA+4W9rAIFVlBeYSj0sv3B5LF7lJv/g/5dt+2slHoSjI+pwuTfQ+PhKRVFfbrDcicmj5u+zvVub/mWUsE7OAy/pAN/UAXuQR0Gw6ow+Z+GFgfQ2amSU3U6KZ0RHXh/HRYm/95XeuCM106EcsFHloXSGdjR8mMMZP5E+fk7te/9gENvAKyVMK052s8d0oE/oILCTh0GH+5rX/vON76tap8o+DzUeWehB1ChKDtGbPZO7b2p+SPuDQuZvyfwX5llmcILkbiPtDcXBhdPwfeZvqAKmb8nFjuBqYFEAEOddxZ6tzYPWcofP7B5w3jfljU3cKivUG52hw4KQ9rPDwrLWWTEKt4M4JD23UGVn3yIQ/WWvrY1H9AcHoqeo3ASzqTboT3HEQced3tLV4e/ri7ub7xNDdddsmbLG1nKH7MKNYgEoBWH+jX9O9c/cy4EPi9Yt010yJ/PKzEWPBlRh5f+JCKdGCvXoSkin2fxBuert5t8wsDUQOBlt947K9CxKHz/D0GyNy/0U/OHge6vDLsNieVGT8Oe8CV4F04UVC+78d5ZBVGSs4zwcgXMVqHxn6pyjIbunlLpu5B1POlvGjZ0lEg+Zmasah7c9L7xZau3lu7dvjZ7wZKoJ332iua2aLZ8rgyOHXkdSYrFyp3/impH//dQp4/OTlVzR0dk6O4mF6/4ACVT7cqd5YNT/MGX3/BQzIwWeEzxW4mE4TN1yRJDD25aNTEt7zF9jxeEQwkyZeRIpTH/g1bV5FFzNNWaA1L0ImjRzth5PniAgESHWFiamfszOho1cpkjhy7P+b33/tUJJ1LX3FFeQDoYqR52u1NFoetzfE4EMFaMtFN3IiEb0CAz1ty8c3QkiFL8K6HXF1TE5/NE6IpLWpZU+9mRSaRSmTN8/nO/L5kUK0bmy+50XJ8D4JGRTIrqkfnO0+3NY0ArAamfAKCGNXfFMZTJ1t++yTZ0RUk2E8kPAYXG5BNGdmQfncPnE1IpXVTBg9n9QFP25GtUYzkfiQ5xsgRJY/IJmR3ZR93tzeELDmpOqQNe3rc00p12XOz9OWHO8h8tK81EvfSImFCW2VDVKP3b/yiwhvaokwaS+LTRCj5diL2k+lI+6+T38zi4F1z3xlapjBpR3dwW1fkITUilJGDv33bLl6dn+FbItBhMTMmHpIqwhgt2KNNs6YvWPxAvj6n86KuQW+Q3w+gEZUHpyh26YNiTSujydC42geKMDgDi/jSyaBg+OYo81+fFAKG7OqnQ3sn+7ZuM2ETGmBTC1DE4wlzEEYQ5OT8mpcxOHJ93ooPDLyh4nkrpbuDcI4lUK8s7Orn+9nss6zDYn/ewY3j5mK9JBtFKHVO5MOP57IwLE8lkcB4braijk44bmaqj4lmuXQJSrTx5w78ZK+Jp3f2sOuBJm7jlnJsHY3d06GUTmejeoygsK83MDQw1i1XlUUdS3sxJw5gteaymWp/B+fLzURNcUHf0hdZ9d6ua29I+WTACOyetUFWOkTluWHXNbeV+LO4vLdsT9GWWG2hvKpx+nfQinJAzzuQiSXleSb7bmWv6Na/ponv+F7a3xYtyQs7YxfTSviJ8txfZ/V+M7yW/uiAQF7a3jZk9+JtVVHk5v6z+9k22zMWsvdvXZC+Sw+VVccAlEh2y2z42qxCV2SnJ198YEzN78OWzUGj+TapZ91aOBXsny/Izker5WWdHQvtVhclLq4f937R7m4lQZgwzSOWXO5sgPoX3dyZCmbEZm7EZm3EouEgKHTMn+4zNOJQZ+/VMwoiy5leE63TGZmzGofymWKq1SBik2CApBVhjxqnM2IxDmTH8OuA2YagBVkGapAVonkl7ZmzGocwYLgwktBuit72lj1nfSSQESSmYobQwBZhPVZWbsRl71ab1M/by2GCXrm5uix5c0NIdT/8kR9J8HZijBtA29rMvHUdX14xDmbFXvf3/8RMn/izSNYIAAAAASUVORK5CYII=">
+  <span>UE8 SIG, chapitre 2.1 : correction du cas pratique 1</span>
+</header>
+
+<main>
+  <section data-feuille="accueil">
+    <div>
+      <div class="barre-fx"><span>fx</span><h1>Le tableur des poseurs</h1></div>
+      <div id="tableur-accueil"></div>
+    </div>
+    <div class="ouverture">
+      <div>
+        <p>Nadia Perrot note dans ce tableur chaque journée d’un poseur sur un chantier. Sofiane Belkacem y a relevé trois problèmes :</p>
+        <ol>
+          <li>deux numéros de portable pour Yann Mercier, sans savoir lequel est le bon ;</li>
+          <li>un coût horaire passé de 38 € à 41 € au 1er janvier 2026, et personne ne sait quelles lignes ont été recalculées ;</li>
+          <li>8 heures au lieu de 16 sur le chantier de la rue Nationale.</li>
+        </ol>
+      </div>
+      <div>
+        <p>Votre copie sous les yeux, rejouez les quatre missions dans le tableur. À la fin de chacune, vous verrez ce qu’on attendait sur votre copie.</p>
+        <p class="avertissement" style="margin-top:.6rem">Une réponse qui pourrait valoir pour n’importe quelle entreprise reste une réponse de cours. Ici, on attend un chiffre, un nom, un site.</p>
+        <p class="seulement-js" style="margin-top:.9rem"><button class="suite" style="margin:0" id="commencer">Ouvrir la mission 1</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section data-feuille="m1"></section>
+  <section data-feuille="m2"></section>
+  <section data-feuille="m3"></section>
+  <section data-feuille="m4"></section>
+
+  <section data-feuille="bilan">
+    <header class="m-tete" style="padding-right:0">
+      <h2>Ce qu’on attendait de vous</h2>
+      <p class="m-consigne seulement-js" id="score"></p>
+    </header>
+
+    <div class="duel">
+      <figure class="cours">
+        <figcaption>Réponse de cours</figcaption>
+        <blockquote>« La redondance des données entraîne des incohérences. »</blockquote>
+        <p>Vrai, mais valable pour n’importe quelle entreprise.</p>
+      </figure>
+      <figure class="situee">
+        <figcaption>Réponse attendue</figcaption>
+        <blockquote>« Le portable de Yann Mercier est recopié sur chaque journée ; la mise à jour n’a touché qu’une partie des lignes, donc deux numéros coexistent. »</blockquote>
+        <p>Elle ne peut venir que de ce tableur.</p>
+      </figure>
+    </div>
+
+    <p class="seulement-js">Cochez ce qui figurait sur votre copie.</p>
+
+    <div class="bloc-bilan">
+      <h3>1. Les « choses » que le tableur mélange</h3>
+      <label><input type="checkbox"> Quatre choses repérées : les poseurs, les clients, les chantiers, les journées de travail.</label>
+      <label><input type="checkbox"> Une table nommée pour chacune : SALARIE, CLIENT, CHANTIER, INTERVENTION (POSEUR à la place de SALARIE convient tout autant).</label>
+    </div>
+    <div class="bloc-bilan">
+      <h3>2. Les trois problèmes, tous nés de la recopie</h3>
+      <label><input type="checkbox"> Téléphone : le numéro est recopié sur chaque journée, la mise à jour n’a touché qu’une partie des copies, deux versions coexistent.</label>
+      <label><input type="checkbox"> Coût : le taux n’existe nulle part en tant que tel, il est fondu dans un montant calculé à la main ligne par ligne.</label>
+      <label><input type="checkbox"> 8 heures au lieu de 16 : l’adresse est ressaisie différemment (« rue » / « r. »), et le filtre compare des textes.</label>
+      <label><input type="checkbox"> Conclusion : les trois anomalies ont la même cause, une information écrite plusieurs fois.</label>
+    </div>
+    <div class="bloc-bilan">
+      <h3>3. Stocker le coût de la journée ?</h3>
+      <label><input type="checkbox"> Le coût de la journée n’est pas stocké, on le calcule : heures × coût horaire.</label>
+      <label><input type="checkbox"> Le coût horaire est stocké : c’est une vraie donnée.</label>
+      <label><input type="checkbox"> Il change dans le temps : historique des taux, ou taux appliqué enregistré dans chaque intervention (« on stocke le taux appliqué, pas le montant » est accepté).</label>
+    </div>
+    <div class="bloc-bilan">
+      <h3>4. Les heures du chantier dans la future base</h3>
+      <label><input type="checkbox"> Chaque intervention porte le numéro du chantier, et non son adresse.</label>
+      <label><input type="checkbox"> Il suffit de totaliser les heures des interventions qui portent ce numéro.</label>
+    </div>
+
+    <p class="note-compte seulement-js" id="compte" role="status">0 point clé sur 11 sur votre copie.</p>
+    <p class="point-cours">Point de cours, 2.1.1 : ce qu’est une base de données ; ce qu’elle fait qu’un tableur ne fait pas ; une information à un seul endroit.</p>
+    <p class="seulement-js"><button class="lien" id="tout-rejouer">Tout rejouer depuis le début</button></p>
+  </section>
+</main>
+
+<nav class="onglets" aria-label="Feuilles du classeur"></nav>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const eur = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const nb = n => String(n).replace('.', ',');
+
+  /* L'extrait du tableur, tel que dans l'enonce. Identifiants : base Menuiseries Vasseur. */
+  const L = [
+    { d: '17/06/2025', p: 'Yann Mercier', t: '06 12 34 56 78', a: '5 rue Nationale, Tours', c: 'Constructions Ligéria', h: 8, e: 304, ch: 105, sa: 5 },
+    { d: '18/06/2025', p: 'Yann Mercier', t: '07 55 44 33 22', a: '5 r. Nationale, Tours', c: 'Constr. Ligéria', h: 8, e: 304, ch: 105, sa: 5 },
+    { d: '02/09/2025', p: 'Yann Mercier', t: '06 12 34 56 78', a: '14 rue de la Loire, Blois', c: 'Rivière & Fils', h: 7, e: 266, ch: 101, sa: 5 },
+    { d: '03/09/2025', p: 'Léa Aubry', t: '06 98 76 54 32', a: '14 rue de la Loire, Blois', c: 'Rivière & Fils', h: 6.5, e: 247, ch: 101, sa: 6 },
+    { d: '17/02/2026', p: 'Léa Aubry', t: '06 98 76 54 32', a: '3 allée des Pins, Blois', c: 'Belhadj Karim', h: 7.5, e: 307.5, ch: 110, sa: 6 },
+  ];
+  const COL = [
+    { k: 'd', l: 'A', lib: 'Date' }, { k: 'p', l: 'B', lib: 'Poseur' }, { k: 't', l: 'C', lib: 'Tél. poseur' },
+    { k: 'a', l: 'D', lib: 'Adresse du chantier' }, { k: 'c', l: 'E', lib: 'Client' },
+    { k: 'h', l: 'F', lib: 'Heures' }, { k: 'e', l: 'G', lib: 'Coût (€)' },
+  ];
+  const val = (i, k) => k === 'h' ? nb(L[i].h) : k === 'e' ? eur(L[i].e) : L[i][k].replace('&', '&amp;');
+  const TOUT = ['d', 'p', 't', 'a', 'c', 'h', 'e'];
+
+  function feuille(keys, lignes = [0, 1, 2, 3, 4], o = {}) {
+    const cols = keys.map(k => COL.find(c => c.k === k));
+    const extra = o.extra || [];
+    return `<div class="cadre"><table class="feuille"><thead>
+      <tr><th class="coin"></th>${cols.map(c => `<th class="lettre">${c.l}</th>`).join('')}${extra.map(() => '<th class="lettre"></th>').join('')}</tr>
+      <tr><th class="num">1</th>${cols.map(c => `<th data-k="${c.k}">${c.lib}</th>`).join('')}${extra.map(x => `<th>${x.lib}</th>`).join('')}</tr>
+    </thead><tbody>${lignes.map(i => `<tr data-l="${i}"><th class="num">${i + 2}</th>${cols.map(c =>
+      `<td data-k="${c.k}" style="--r:${i + 1}">${o.cel ? o.cel(i, c.k) : val(i, c.k)}</td>`).join('')}${extra.map(x => `<td>${x.cel(i)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+
+  /* Score : seule la premiere tentative de chaque geste compte. */
+  const coups = {};
+  const essai = (cle, ok) => { if (!(cle in coups)) coups[cle] = ok; };
+  const copie = (html, entete = 'Ce qu’on attendait sur votre copie') => `<h4>${entete}</h4>${html}`;
+
+  /* --- Navigation entre les feuilles --- */
+  const FEUILLES = [['accueil', 'Énoncé'], ['m1', 'Mission 1'], ['m2', 'Mission 2'], ['m3', 'Mission 3'], ['m4', 'Mission 4'], ['bilan', 'Bilan']];
+  const nav = $('.onglets');
+  nav.innerHTML = FEUILLES.map(([id, lib]) => `<button data-aller="${id}">${lib}</button>`).join('');
+  function aller(id) {
+    $$('[data-feuille]').forEach(s => s.classList.toggle('active', s.dataset.feuille === id));
+    $$('[data-aller]', nav).forEach(b => {
+      if (b.dataset.aller !== id) return b.removeAttribute('aria-current');
+      b.setAttribute('aria-current', 'page');
+      nav.scrollLeft = Math.max(0, b.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2);
+    });
+    document.body.dataset.f = id;
+    window.scrollTo(0, 0);
+    if (id === 'bilan') majScore();
+  }
+  nav.addEventListener('click', e => { const b = e.target.closest('[data-aller]'); if (b) aller(b.dataset.aller); });
+  const ongletFait = (id, oui) => $(`[data-aller="${id}"]`, nav).classList.toggle('ok', oui);
+
+  /* --- Gabarit commun d'une mission --- */
+  function mission(id, m) {
+    const el = $(`[data-feuille="${id}"]`);
+    Object.keys(coups).filter(k => k.startsWith(id + ':')).forEach(k => delete coups[k]);
+    ongletFait(id, false);
+    const faites = new Set();
+    let cour = 0;
+    const suivante = FEUILLES[FEUILLES.findIndex(f => f[0] === id) + 1];
+    el.innerHTML = `
+      <header class="m-tete"><h2>Mission ${m.num} : ${m.titre}</h2><p class="m-consigne">${m.consigne}</p></header>
+      ${m.etapes.length > 1 ? `<ol class="pas">${m.etapes.map((e, i) => `<li><button data-pas="${i}">${i + 1}. ${e.nom}</button></li>`).join('')}</ol>` : ''}
+      <div class="etapes">${m.etapes.map(e => `<div class="etape" hidden>
+        <p class="tache">${e.tache}</p><div class="jeu"></div><p class="message" role="status"></p><div class="copie" hidden>${copie(e.attendu, e.entete)}</div></div>`).join('')}</div>
+      <div class="commandes">
+        <button class="lien" data-a="solution">Voir la solution</button>
+        <button class="lien" data-a="rejouer">Rejouer cette mission</button>
+        <button class="suite" data-a="suite" disabled>Terminez la manipulation pour continuer</button>
+      </div>`;
+    const blocs = $$('.etape', el);
+    const suite = $('[data-a="suite"]', el);
+    const majSuite = () => {
+      const fait = faites.has(cour);
+      suite.disabled = !fait;
+      $('[data-a="solution"]', el).hidden = fait;
+      suite.textContent = !fait ? 'Terminez la manipulation pour continuer'
+        : cour < m.etapes.length - 1 ? 'Étape suivante'
+        : suivante[0] === 'bilan' ? 'Voir le bilan' : 'Ouvrir la ' + suivante[1].toLowerCase();
+    };
+    const montrer = i => {
+      cour = i;
+      blocs.forEach((b, j) => b.hidden = j !== i);
+      $$('[data-pas]', el).forEach((b, j) => j === i ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current'));
+      majSuite();
+    };
+    const solutions = m.etapes.map((e, i) => {
+      const b = blocs[i], msg = $('.message', b);
+      const api = {
+        dire(html, genre = '') { msg.className = 'message ' + genre; msg.innerHTML = html; },
+        essai: (cle, ok) => essai(id + ':' + cle, ok),
+        fini() {
+          if (faites.has(i)) return;
+          faites.add(i);
+          $('.copie', b).hidden = false;
+          const p = $(`[data-pas="${i}"]`, el); if (p) p.classList.add('ok');
+          if (faites.size === m.etapes.length) {
+            $('.m-tete', el).insertAdjacentHTML('beforeend', '<div class="tampon">Classé</div>');
+            ongletFait(id, true);
+          }
+          if (i === cour) majSuite();
+        },
+      };
+      return e.jouer($('.jeu', b), api);
+    });
+    el.onclick = ev => {
+      const p = ev.target.closest('[data-pas]');
+      if (p) return montrer(+p.dataset.pas);
+      const a = ev.target.closest('[data-a]');
+      if (!a) return;
+      if (a.dataset.a === 'solution') { if (!faites.has(cour)) solutions[cour](); }
+      if (a.dataset.a === 'rejouer') { mission(id, m); window.scrollTo(0, 0); }
+      if (a.dataset.a === 'suite') {
+        if (cour < m.etapes.length - 1) { montrer(cour + 1); window.scrollTo(0, 0); } else aller(suivante[0]);
+      }
+    };
+    montrer(0);
+  }
+
+  /* --- Mission 1 --- */
+  const BACS = [
+    ['sal', 'SALARIE', 'Les poseurs'], ['cli', 'CLIENT', 'Les clients'], ['cha', 'CHANTIER', 'Les chantiers'],
+    ['int', 'INTERVENTION', 'Les journées de travail'], ['plus', 'À trancher', 'Aucune table pour l’instant'],
+  ];
+  const TRI = { d: 'int', p: 'sal', t: 'sal', a: 'cha', c: 'cli', h: 'int', e: 'plus' };
+  const INDICE = {
+    d: 'Une date ne décrit ni une personne ni un lieu. Rappel de l’énoncé : chaque ligne est « une journée d’un poseur sur un chantier ».',
+    p: 'Yann Mercier est quelqu’un qui travaille pour Vasseur. Où range-t-on les personnes de l’entreprise ?',
+    t: 'À qui appartient ce portable ? Il suit la personne, pas la journée.',
+    a: 'C’est l’adresse où l’on travaille. Elle décrit un lieu d’intervention, pas celui qui paie.',
+    c: 'Constructions Ligéria commande des travaux. C’est une chose à part, avec son propre nom.',
+    h: '8, 7, 6,5… Le nombre d’heures change d’un jour à l’autre : il ne décrit ni le poseur ni le chantier.',
+    e: 'Attention à celle-ci : 304,00 €, c’est 8 h × 38 €. Un montant qui se calcule a-t-il sa place dans une table ? Mettez-le de côté.',
+  };
+  const m1 = {
+    num: 1, titre: 'Le grand tri',
+    consigne: 'Identifiez les « choses » différentes que ce tableur mélange, et donnez à chacune un nom de table.',
+    etapes: [
+      {
+        nom: 'Ranger les colonnes',
+        tache: 'Rangez chaque colonne dans son classeur : glissez-la, ou cliquez sur elle puis sur le classeur.',
+        attendu: `<table><tr><th>« Chose »</th><th>Table proposée</th><th>Ce qu’elle porte dans l’extrait</th></tr>
+          <tr><td>Les poseurs</td><td><code>SALARIE</code></td><td>Nom, téléphone (et le coût horaire, voir mission 3)</td></tr>
+          <tr><td>Les clients</td><td><code>CLIENT</code></td><td>Nom</td></tr>
+          <tr><td>Les chantiers</td><td><code>CHANTIER</code></td><td>Adresse, client</td></tr>
+          <tr><td>Les journées de travail</td><td><code>INTERVENTION</code></td><td>Date, heures, et le lien vers le poseur et le chantier</td></tr></table>
+          <p>POSEUR à la place de SALARIE convient tout autant : ce qui compte, c’est d’avoir vu les quatre choses.</p>`,
+        jouer(z, api) {
+          z.innerHTML = feuille(TOUT) + `<div class="plateau" style="margin-top:.6rem">${COL.map(c => `<button class="jeton" data-c="${c.k}" aria-pressed="false">${c.lib}</button>`).join('')}</div>
+            <div class="classeurs">${BACS.map(([id, n, s]) => `<button class="bac" data-b="${id}" style="--c:var(--${id});--e:var(--${id}-e)"><strong>${n}</strong><small>${s}</small><span class="dedans"></span></button>`).join('')}</div>`;
+          let choix = null, apresGlisse = false, reste = 7;
+          const selection = k => { choix = k; $$('.jeton', z).forEach(j => j.setAttribute('aria-pressed', j.dataset.c === k)); };
+          function placer(k, b, compte = true) {
+            const bac = $(`[data-b="${b}"]`, z), j = $(`[data-c="${k}"]`, z);
+            if (!j) return;
+            if (TRI[k] !== b) {
+              if (compte) api.essai('c' + k, false);
+              bac.classList.remove('secoue'); void bac.offsetWidth; bac.classList.add('secoue');
+              api.dire(INDICE[k], 'non');
+              selection(null);
+              return;
+            }
+            if (compte) api.essai('c' + k, true);
+            const lib = COL.find(c => c.k === k).lib;
+            $('.dedans', bac).insertAdjacentHTML('beforeend', `<span class="range">${lib}</span>`);
+            j.remove(); selection(null);
+            $$(`[data-k="${k}"]`, z).forEach(c => c.classList.add('sur-' + b));
+            reste--;
+            api.dire(reste ? `« ${lib} » est rangée. Encore ${reste}.` : 'Une seule feuille, quatre choses différentes, et un montant dont on ne sait pas encore quoi faire.', reste ? '' : 'oui');
+            if (!reste) api.fini();
+          }
+          z.addEventListener('click', e => {
+            const j = e.target.closest('.jeton'), b = e.target.closest('.bac');
+            if (apresGlisse) return;
+            if (j) { selection(choix === j.dataset.c ? null : j.dataset.c); if (choix) api.dire(`« ${j.textContent} » : dans quel classeur ?`); }
+            else if (b) { if (choix) placer(choix, b.dataset.b); else if (reste) api.dire('Choisissez d’abord une colonne.'); }
+          });
+          z.addEventListener('pointerdown', e => {
+            const j = e.target.closest('.jeton');
+            if (!j || e.button) return;
+            const x0 = e.clientX, y0 = e.clientY; let g = null, survol = null;
+            const sous = ev => { const t = document.elementFromPoint(ev.clientX, ev.clientY); return t && t.closest('.bac'); };
+            const bouge = ev => {
+              if (!g && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 6) {
+                g = j.cloneNode(true); g.classList.add('fantome'); document.body.append(g); j.classList.add('leve');
+              }
+              if (g) {
+                g.style.left = ev.clientX + 'px'; g.style.top = ev.clientY + 'px';
+                const b = sous(ev);
+                if (b !== survol) { if (survol) survol.classList.remove('survol'); if (b) b.classList.add('survol'); survol = b; }
+              }
+            };
+            const fin = ev => {
+              removeEventListener('pointermove', bouge); removeEventListener('pointerup', fin); removeEventListener('pointercancel', fin);
+              if (!g) return;
+              g.remove(); j.classList.remove('leve'); if (survol) survol.classList.remove('survol');
+              const b = ev.type === 'pointerup' && sous(ev);
+              if (b) placer(j.dataset.c, b.dataset.b);
+              apresGlisse = true; setTimeout(() => apresGlisse = false, 0);
+            };
+            addEventListener('pointermove', bouge); addEventListener('pointerup', fin); addEventListener('pointercancel', fin);
+          });
+          return () => Object.keys(TRI).forEach(k => placer(k, TRI[k], false));
+        },
+      },
+      {
+        nom: 'Le défaut qui commande tout',
+        tache: 'Dans ce tableur, on désigne chacun comme on peut. Attribuez un numéro à ces trois tables.',
+        entete: 'À retenir, même si la question ne le demandait pas',
+        attendu: `<p><strong>Le tableur n’a aucun identifiant</strong>. Le poseur est désigné par son nom, le chantier par son adresse, le client par un libellé saisi librement. Une base attribue un numéro à chacun : c’est la clé primaire.</p>`,
+        jouer(z, api) {
+          const F = [
+            { id: 'sal', n: 'SALARIE', cle: 'n° salarié : 5', av: 'Désigné par son nom', v: ['Yann Mercier', 'Téléphone'] },
+            { id: 'cli', n: 'CLIENT', cle: 'n° client : 4', av: 'Désigné par un libellé saisi librement', v: ['Constructions Ligéria'] },
+            { id: 'cha', n: 'CHANTIER', cle: 'n° chantier : 105', av: 'Désigné par son adresse', v: ['5 rue Nationale, Tours'] },
+          ];
+          z.innerHTML = `<div class="fiches">${F.map(f => `<div class="fiche" data-f="${f.id}" style="--c:var(--${f.id});--e:var(--${f.id}-e)"><h4>${f.n}</h4><ul><li class="avant">${f.av}</li>${f.v.map(x => `<li>${x}</li>`).join('')}</ul><button>Attribuer un numéro</button></div>`).join('')}
+            <div class="fiche" data-f="int" style="--c:var(--int);--e:var(--int-e)"><h4>INTERVENTION</h4><ul><li>17/06/2025</li><li>8 heures</li></ul></div></div>`;
+          let reste = 3;
+          const donner = f => {
+            const c = $(`[data-f="${f.id}"]`, z), b = $('button', c);
+            if (!b) return;
+            b.remove();
+            $('.avant', c).classList.add('barre');
+            $('ul', c).insertAdjacentHTML('afterbegin', `<li class="cle">${f.cle}</li>`);
+            if (--reste) return api.dire(`Encore ${reste}.`);
+            $('[data-f="cha"] ul', z).insertAdjacentHTML('beforeend', '<li class="renvoi">renvoie au n° client : 4</li>');
+            $('[data-f="int"] ul', z).insertAdjacentHTML('beforeend', '<li class="renvoi">renvoie au n° salarié : 5</li><li class="renvoi">renvoie au n° chantier : 105</li>');
+            api.dire('Les tables peuvent maintenant se renvoyer les unes aux autres par un numéro, sans rien recopier.', 'oui');
+            api.fini();
+          };
+          F.forEach(f => $(`[data-f="${f.id}"] button`, z).addEventListener('click', () => donner(f)));
+          return () => F.forEach(donner);
+        },
+      },
+    ],
+  };
+
+  /* --- Mission 2 --- */
+  const m2 = {
+    num: 2, titre: 'Trois problèmes, une seule cause',
+    consigne: 'Expliquez, pour chacun des trois problèmes relevés, en quoi il découle de la recopie de l’information.',
+    etapes: [
+      {
+        nom: 'Le téléphone',
+        tache: 'Trois lignes pour Yann Mercier. Cliquez sur le numéro qui contredit les autres.',
+        attendu: `<p>Le numéro est <strong>recopié sur chaque journée</strong> au lieu d’être écrit une fois pour le poseur. La mise à jour n’a touché qu’une partie des copies : deux versions coexistent, et rien ne dit laquelle est juste.</p>`,
+        jouer(z, api) {
+          z.innerHTML = feuille(['d', 'p', 't'], [0, 1, 2], { cel: (i, k) => k === 't' ? `<button class="cel" data-i="${i}">${val(i, k)}</button>` : val(i, k) }) + '<div class="suite-jeu"></div>';
+          let fait = false;
+          const reveler = () => {
+            fait = true;
+            $('[data-i="1"]', z).classList.add('vu');
+            $('.suite-jeu', z).innerHTML = `<div class="deux" style="margin-top:1rem">
+              <div class="volet mal"><h4>Dans le tableur : trois copies</h4><ul><li>17/06/2025 : 06 12 34 56 78</li><li>18/06/2025 : 07 55 44 33 22</li><li>02/09/2025 : 06 12 34 56 78</li></ul></div>
+              <div class="volet bien"><h4>Dans une base : une fois, pour le poseur</h4><ul><li>SALARIE n° 5, Yann Mercier</li><li>Téléphone : un seul, à corriger une seule fois</li></ul></div></div>`;
+            api.dire('Deux numéros pour la même personne, et les dates n’aident pas : le 06 revient après le 07. Rien ne dit lequel est juste.', 'oui');
+            api.fini();
+          };
+          z.addEventListener('click', e => {
+            const b = e.target.closest('.cel'); if (!b || fait) return;
+            if (b.dataset.i === '1') reveler(); else api.dire('Ce numéro-là revient deux fois. Cherchez celui qui ne ressemble pas aux autres.', 'non');
+          });
+          return reveler;
+        },
+      },
+      {
+        nom: 'Le coût horaire',
+        tache: 'Le taux horaire n’a pas de colonne. Démasquez-le, ligne par ligne.',
+        attendu: `<p>Le taux n’existe <strong>nulle part en tant que tel</strong> : il est fondu dans un montant recopié et calculé à la main ligne par ligne. Quand il change, il faut retrouver et recalculer chaque ligne, sans moyen de savoir lesquelles l’ont été.</p>`,
+        jouer(z, api) {
+          z.innerHTML = feuille(['d', 'h', 'e'], undefined, { extra: [{ lib: 'Coût ÷ heures', cel: i => `<span data-t="${i}"><button class="demasque" data-i="${i}">Démasquer</button></span>` }] });
+          let reste = 5;
+          const voir = i => {
+            const s = $(`[data-t="${i}"]`, z);
+            if (!$('button', s)) return;
+            s.innerHTML = `${eur(L[i].e)} ÷ ${nb(L[i].h)} = <span class="taux">${L[i].e / L[i].h} €</span>`;
+            if (--reste) return api.dire(`Taux caché : ${L[i].e / L[i].h} €. Encore ${reste} ligne${reste > 1 ? 's' : ''}.`);
+            api.dire('38, 38, 38, 38, 41 : le taux est partout et nulle part. La ligne à 41 € a-t-elle été recalculée, ou saisie ainsi ? Le tableur ne le dit pas.', 'oui');
+            api.fini();
+          };
+          z.addEventListener('click', e => { const b = e.target.closest('.demasque'); if (b) voir(+b.dataset.i); });
+          return () => L.forEach((_, i) => voir(i));
+        },
+      },
+      {
+        nom: 'Les heures manquantes',
+        tache: 'Lancez le filtre de Sofiane, puis retrouvez la journée qu’il a laissée de côté.',
+        attendu: `<p>L’adresse du chantier et le nom du client sont <strong>ressaisis</strong> à chaque journée, et ressaisis différemment (« rue » / « r. », « Constructions » / « Constr. »). Le filtre compare des textes : il ne reconnaît pas le même chantier sous deux écritures.</p>`,
+        jouer(z, api) {
+          const CIBLE = '5 rue Nationale, Tours';
+          z.innerHTML = `<div class="filtre"><output>${CIBLE}</output><button class="action" data-go>Filtrer</button><p class="total"><small>Total des heures</small><span data-tot>–</span></p></div><div style="margin-top:.75rem">`
+            + feuille(['a', 'c', 'h'], undefined, { cel: (i, k) => k === 'a' ? `<button class="cel" data-i="${i}">${val(i, k)}</button>` : val(i, k) }) + '</div>';
+          let filtre = false, fait = false;
+          const lancer = () => {
+            filtre = true; $('[data-go]', z).disabled = true;
+            $$('tbody tr', z).forEach(tr => { const ok = L[+tr.dataset.l].a === CIBLE; tr.classList.add(ok ? 'garde' : 'ecarte'); });
+            $('[data-tot]', z).textContent = '8 h';
+            api.dire('8 heures, alors que deux journées de 8 heures ont été passées sur ce chantier. Cliquez sur la ligne oubliée.');
+          };
+          const retrouver = () => {
+            if (!filtre) lancer();
+            fait = true;
+            const tr = $('tr[data-l="1"]', z);
+            tr.classList.remove('ecarte'); tr.classList.add('retrouve');
+            $('[data-i="1"]', z).innerHTML = '5 <mark>r.</mark> Nationale, Tours';
+            $('td[data-k="c"]', tr).innerHTML = '<mark>Constr.</mark> Ligéria';
+            $('[data-tot]', z).textContent = '16 h';
+            api.dire('Le même chantier, écrit autrement. Pour le filtre, ce sont deux adresses différentes.', 'oui');
+            api.fini();
+          };
+          z.addEventListener('click', e => {
+            if (e.target.closest('[data-go]')) return lancer();
+            const b = e.target.closest('.cel'); if (!b || fait) return;
+            if (!filtre) return api.dire('Lancez d’abord le filtre.');
+            if (b.dataset.i === '1') retrouver();
+            else if (b.dataset.i === '0') api.dire('Celle-ci, le filtre l’a bien gardée. Cherchez parmi les lignes grisées.', 'non');
+            else api.dire('Cette ligne concerne un autre chantier, à Blois.', 'non');
+          });
+          return retrouver;
+        },
+      },
+      {
+        nom: 'La cause commune',
+        tache: 'Téléphone, coût, heures manquantes : qu’est-ce qui les relie ?',
+        attendu: `<p>Les trois anomalies ont <strong>la même cause</strong> : une information écrite plusieurs fois. Une base l’écrit <strong>une seule fois</strong>, dans la table où elle a sa place, et les autres tables y renvoient par un numéro.</p>`,
+        jouer(z, api) {
+          const C = [
+            ['Nadia Perrot fait des fautes de frappe.', 0, 'Une faute de frappe a bien déclenché le troisième problème. Mais sans recopie, il n’y aurait rien à mal recopier, et le téléphone n’est pas une faute de frappe.'],
+            ['Une même information est écrite plusieurs fois.', 1],
+            ['Un tableur ne sait pas filtrer ni calculer.', 0, 'Il sait faire les deux. Le filtre a fait exactement ce qu’on lui demandait : comparer des textes.'],
+          ];
+          z.innerHTML = `<div class="choix">${C.map((c, i) => `<button data-i="${i}">${c[0]}</button>`).join('')}</div><div class="suite-jeu"></div>`;
+          const bon = () => {
+            $('[data-i="1"]', z).classList.add('juste');
+            $('.suite-jeu', z).innerHTML = `<div class="cause" style="margin-top:1rem"><p>Le téléphone, recopié sur chaque journée</p><p>Le coût, recopié et recalculé à la main</p><p>L’adresse, ressaisie à chaque journée</p><p class="racine">Une information écrite plusieurs fois</p></div>`;
+            api.dire('C’est la phrase qui devait conclure votre réponse.', 'oui');
+            api.fini();
+          };
+          z.addEventListener('click', e => {
+            const b = e.target.closest('.choix button'); if (!b) return;
+            const c = C[+b.dataset.i];
+            api.essai('cause', !!c[1]);
+            if (c[1]) bon(); else { b.classList.add('faux'); api.dire(c[2], 'non'); }
+          });
+          return bon;
+        },
+      },
+    ],
+  };
+
+  /* --- Mission 3 --- */
+  const m3 = {
+    num: 3, titre: 'Stocker ou calculer ?',
+    consigne: 'Le coût de la journée doit-il être stocké dans la table des interventions ? Justifiez en distinguant le coût de la journée et le coût horaire.',
+    etapes: [
+      {
+        nom: 'Trancher',
+        tache: 'Pour chacun de ces deux coûts, que fait la future base ?',
+        attendu: `<p><strong>Le coût de la journée, on le calcule : on ne le stocke pas.</strong> C’est une donnée calculée : heures × coût horaire. Le stocker, c’est s’exposer exactement au deuxième problème : rien ne garantit qu’il reste cohérent avec ses composantes.</p>
+          <p><strong>Le coût horaire, on le stocke</strong> : c’est une vraie donnée. Mais pas n’importe comment, comme le montre l’étape suivante.</p>`,
+        jouer(z, api) {
+          const D = [
+            { id: 'j', n: 'Le coût de la journée', ex: '304,00 € pour 8 h, le 17/06/2025', bon: 'calc', non: 'Stocker ce montant, c’est retrouver le problème de la mission 2 : rien ne garantit qu’il reste cohérent avec les heures et le taux.', oui: 'Il se calcule : 8 h × 38 € = 304,00 €.' },
+            { id: 'h', n: 'Le coût horaire', ex: '38 €, puis 41 € au 1er janvier 2026', bon: 'stock', non: 'Calculé à partir de quoi ? Rien d’autre dans le tableur ne permet de le déduire : c’est lui, la vraie donnée.', oui: 'C’est une vraie donnée, la seule à conserver. Reste à savoir où.' },
+          ];
+          z.innerHTML = D.map(d => `<div class="decision" data-d="${d.id}"><p><strong>${d.n}</strong><small>${d.ex}</small></p><div><button data-v="stock">On le stocke</button><button data-v="calc">On le calcule</button></div></div>`).join('');
+          let reste = 2;
+          const regler = (d, compte) => {
+            const r = $(`[data-d="${d.id}"]`, z);
+            if ($('.juste', r)) return;
+            if (compte) api.essai(d.id, true);
+            $(`[data-v="${d.bon}"]`, r).classList.add('juste');
+            api.dire(d.oui, reste > 1 ? '' : 'oui');
+            if (!--reste) api.fini();
+          };
+          z.addEventListener('click', e => {
+            const b = e.target.closest('[data-v]'); if (!b) return;
+            const d = D.find(x => x.id === b.closest('[data-d]').dataset.d);
+            if (b.dataset.v === d.bon) regler(d, true);
+            else { api.essai(d.id, false); b.classList.add('faux'); api.dire(d.non, 'non'); }
+          });
+          return () => D.forEach(d => regler(d, false));
+        },
+      },
+      {
+        nom: 'Le 1er janvier 2026',
+        tache: 'Où ranger le coût horaire ? Commencez par l’option 1, passez au 1er janvier 2026, puis essayez les deux autres.',
+        attendu: `<p>Le coût horaire <strong>change dans le temps</strong> : la journée du 17/06/2025 doit être valorisée à 38 €, celle du 17/02/2026 à 41 €. Le ranger seulement dans la table des poseurs ferait recalculer toutes les journées passées au nouveau taux.</p>
+          <p>Deux solutions justes : <strong>conserver l’historique des taux</strong> (un taux par poseur et par date de début) ou <strong>enregistrer dans chaque intervention le taux qui lui a été appliqué</strong>. Le chapitre 2.2 traite cette question du temps.</p>
+          <p>La réponse « on stocke le taux appliqué, pas le montant » est acceptée : c’est la même logique que le prix du tarif et le prix facturé.</p>`,
+        jouer(z, api) {
+          const OPT = [
+            ['Option 1 : une seule fois, dans SALARIE', a => `Dans SALARIE, le coût horaire vaut <strong>${a ? 41 : 38} €</strong>. Toutes les journées sont calculées avec ce taux.`],
+            ['Option 2 : un historique des taux', () => 'Un taux par poseur et par date de début : <strong>38 €</strong> jusqu’au 31/12/2025, <strong>41 €</strong> à partir du 01/01/2026.'],
+            ['Option 3 : le taux appliqué, dans l’intervention', () => 'Chaque intervention garde le taux de son jour. Il ne bouge plus ensuite.'],
+          ];
+          z.innerHTML = `<div class="options">${OPT.map((o, i) => `<button data-o="${i}" aria-pressed="${i === 0}">${o[0]}</button>`).join('')}</div>
+            <p class="rangement" style="margin:.7rem 0" data-r></p>
+            <div class="filtre" style="margin-bottom:.7rem"><button class="action" data-t>Passer au 1er janvier 2026</button><p class="total"><small>Coût des journées de 2025</small><span data-tot></span></p></div>
+            <div class="cadre"><table class="feuille"><thead><tr><th>Date</th><th>Heures</th><th>Taux utilisé</th><th>Coût calculé (€)</th></tr></thead><tbody data-c></tbody></table></div>`;
+          let opt = 0, apres = false, vuFaux = false, fait = false;
+          const juste = i => L[i].e / L[i].h;
+          const taux = i => opt === 0 ? (apres ? 41 : 38) : juste(i);
+          function peindre() {
+            $$('[data-o]', z).forEach((b, i) => b.setAttribute('aria-pressed', i === opt));
+            $('[data-r]', z).innerHTML = OPT[opt][1](apres);
+            const b = $('[data-t]', z);
+            b.textContent = apres ? 'Revenir à décembre 2025' : 'Passer au 1er janvier 2026';
+            const lignes = apres ? [0, 1, 2, 3, 4] : [0, 1, 2, 3];
+            $('[data-c]', z).innerHTML = lignes.map(i => {
+              const c = L[i].h * taux(i), mal = c !== L[i].e;
+              return `<tr><td>${L[i].d}</td><td>${nb(L[i].h)}</td><td>${taux(i)} €</td><td class="${mal ? 'faux-cout' : 'bon-cout'}">${eur(c)}${mal ? ` <small>au lieu de ${eur(L[i].e)}</small>` : ''}</td></tr>`;
+            }).join('');
+            const t25 = [0, 1, 2, 3].reduce((s, i) => s + L[i].h * taux(i), 0), vrai = 1121, ecart = t25 - vrai;
+            $('[data-tot]', z).textContent = eur(t25) + ' €';
+            if (opt === 0 && apres) {
+              vuFaux = true;
+              api.dire(`Le passage à 41 € a réécrit le passé : les quatre journées de 2025 coûtent soudain ${eur(ecart)} € de plus. Essayez une autre option.`, 'non');
+            } else if (opt > 0 && apres && vuFaux) {
+              api.dire('Les journées de 2025 gardent leur coût, celle de 2026 passe à 41 €. Les deux options sont justes.', 'oui');
+              if (!fait) { fait = true; api.fini(); }
+            } else if (!apres) api.dire('Décembre 2025 : le taux vaut encore 38 € partout, tout est juste.');
+            else api.dire('Regardez d’abord ce que donne l’option 1 après le 1er janvier.');
+          }
+          z.addEventListener('click', e => {
+            const o = e.target.closest('[data-o]');
+            if (o) { opt = +o.dataset.o; peindre(); }
+            if (e.target.closest('[data-t]')) { apres = !apres; peindre(); }
+          });
+          peindre();
+          return () => { vuFaux = true; opt = 1; apres = true; peindre(); };
+        },
+      },
+    ],
+  };
+
+  /* --- Mission 4 --- */
+  const CH = [[105, '5 rue Nationale, Tours', 4], [101, '14 rue de la Loire, Blois', 1], [110, '3 allée des Pins, Blois', 7]];
+  const m4 = {
+    num: 4, titre: 'Les 16 heures, sans risque d’en oublier',
+    consigne: 'Dans la future base, comment Sofiane obtiendra-t-il les heures du chantier de la rue Nationale sans risque d’en oublier ? Une ou deux phrases, sans SQL.',
+    etapes: [
+      {
+        nom: 'Interroger la base',
+        tache: 'Dans la future base, l’adresse n’est écrite qu’une fois. Cliquez sur le chantier de la rue Nationale.',
+        attendu: `<p>L’adresse n’est écrite qu’une fois, dans la table des chantiers, et <strong>ne peut plus être mal recopiée</strong>.</p>`,
+        jouer(z, api) {
+          z.innerHTML = `<div class="base">
+            <div><h4>CHANTIER</h4><div class="cadre"><table class="feuille"><thead><tr><th><u>n° chantier</u></th><th>Adresse</th></tr></thead><tbody>${CH.map(c => `<tr data-ch="${c[0]}"><td>${c[0]}</td><td><button class="cel" data-ch="${c[0]}">${c[1]}</button></td></tr>`).join('')}</tbody></table></div></div>
+            <div><h4>INTERVENTION</h4><div class="cadre"><table class="feuille"><thead><tr><th>Date</th><th>n° salarié</th><th>n° chantier</th><th>Heures</th></tr></thead><tbody>${L.map((l, i) => `<tr data-int="${i}"><td>${l.d}</td><td>${l.sa}</td><td>${l.ch}</td><td>${nb(l.h)}</td></tr>`).join('')}</tbody></table></div></div>
+          </div><div class="filtre" style="margin-top:.9rem"><p class="total"><small>Total des heures</small><span data-tot>–</span></p></div>`;
+          let minuteurs = [];
+          const eclairer = (n, fin) => {
+            minuteurs.forEach(clearTimeout); minuteurs = [];
+            $$('tr[data-ch]', z).forEach(t => t.classList.toggle('choisi', +t.dataset.ch === n));
+            $$('tr[data-int]', z).forEach(t => t.classList.remove('allume'));
+            $('[data-tot]', z).textContent = '0 h';
+            let cumul = 0, d = 0;
+            L.forEach((l, i) => { if (l.ch !== n) return; d += 420; minuteurs.push(setTimeout(() => {
+              $(`tr[data-int="${i}"]`, z).classList.add('allume'); cumul += l.h; $('[data-tot]', z).textContent = nb(cumul) + ' h';
+            }, d)); });
+            minuteurs.push(setTimeout(fin, d + 150));
+          };
+          const cible = () => eclairer(105, () => {
+            api.dire('16 heures. Les deux journées portent le numéro 105 : plus aucune écriture de l’adresse pour les séparer.', 'oui');
+            api.fini();
+          });
+          z.addEventListener('click', e => {
+            const b = e.target.closest('button[data-ch]'); if (!b) return;
+            const n = +b.dataset.ch;
+            if (n === 105) cible();
+            else eclairer(n, () => api.dire('Le même geste marche pour n’importe quel chantier. Sofiane, lui, cherche celui de la rue Nationale.'));
+          });
+          return cible;
+        },
+      },
+      {
+        nom: 'Rédiger la réponse',
+        tache: 'Complétez la réponse attendue en choisissant les bons morceaux, dans l’ordre.',
+        attendu: `<p>Chaque intervention portera le <strong>numéro du chantier</strong>, et non son adresse. Il suffira de <strong>totaliser les heures des interventions qui portent ce numéro</strong> : l’adresse n’est écrite qu’une fois, dans la table des chantiers, et ne peut plus être mal recopiée.</p>`,
+        jouer(z, api) {
+          const TROUS = [
+            ['le numéro du chantier', 'C’est ce que chaque intervention doit porter : un numéro ne se ressaisit pas autrement.'],
+            ['son adresse', 'Ici, on nomme ce que la base ne recopiera plus.'],
+            ['totaliser les heures', 'Le verbe attendu dit ce que fait Sofiane des heures trouvées.'],
+          ];
+          const PIECES = ['son adresse', 'le nom du client', 'totaliser les heures', 'le numéro du chantier', 'recopier les heures'];
+          z.innerHTML = `<p class="phrase">Chaque intervention portera <span class="trou encours" data-g="0"></span>, et non <span class="trou" data-g="1"></span>. Il suffira de <span class="trou" data-g="2"></span> des interventions qui portent ce numéro.</p>
+            <div class="plateau">${PIECES.map(p => `<button class="jeton" data-p="${p}" style="touch-action:auto">${p}</button>`).join('')}</div>`;
+          let g = 0;
+          const poser = compte => {
+            if (compte) api.essai('t' + g, true);
+            $(`[data-g="${g}"]`, z).textContent = TROUS[g][0];
+            $(`[data-g="${g}"]`, z).classList.remove('encours');
+            $(`[data-p="${TROUS[g][0]}"]`, z).remove();
+            g++;
+            if (g < 3) { $(`[data-g="${g}"]`, z).classList.add('encours'); api.dire('Juste. Morceau suivant.'); }
+            else { api.dire('Deux phrases, sans SQL : c’était tout ce qu’il fallait.', 'oui'); api.fini(); }
+          };
+          z.addEventListener('click', e => {
+            const b = e.target.closest('[data-p]'); if (!b || g > 2) return;
+            if (b.dataset.p === TROUS[g][0]) poser(true);
+            else { api.essai('t' + g, false); b.classList.remove('secoue'); void b.offsetWidth; b.classList.add('secoue'); api.dire(TROUS[g][1], 'non'); }
+          });
+          return () => { while (g < 3) poser(false); };
+        },
+      },
+    ],
+  };
+
+  /* --- Bilan --- */
+  function majScore() {
+    const v = Object.values(coups), j = v.filter(Boolean).length;
+    $('#score').textContent = v.length ? `Du premier coup : ${j} manipulation${j > 1 ? 's' : ''} réussie${j > 1 ? 's' : ''} sur ${v.length}. Reste le plus utile : comparer avec votre copie.` : 'Comparez avec votre copie.';
+  }
+  const cases = $$('[data-feuille="bilan"] input');
+  const majCompte = () => { const n = cases.filter(c => c.checked).length; $('#compte').textContent = `${n} point${n > 1 ? 's' : ''} clé${n > 1 ? 's' : ''} sur ${cases.length} sur votre copie.`; };
+  cases.forEach(c => c.addEventListener('change', majCompte));
+  majCompte();
+  $('#tout-rejouer').addEventListener('click', () => location.reload());
+  $('#commencer').addEventListener('click', () => aller('m1'));
+  $('#tableur-accueil').innerHTML = feuille(TOUT);
+
+  [['m1', m1], ['m2', m2], ['m3', m3], ['m4', m4]].forEach(([id, m]) => mission(id, m));
+
+  /* Typographie francaise : espaces insecables, y compris dans ce qui apparait en cours de jeu. */
+  const typo = t => t.replace(/ ([:;?!»€])/g, ' $1').replace(/« /g, '« ').replace(/(\d) h\b/g, '$1 h');
+  const passe = racine => {
+    const w = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT);
+    while (w.nextNode()) {
+      const n = w.currentNode;
+      if (n.parentNode.closest && n.parentNode.closest('script,style')) continue;
+      const v = typo(n.nodeValue);
+      if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  };
+  passe(document.body);
+  new MutationObserver(l => l.forEach(m => m.addedNodes.forEach(n => {
+    if (n.nodeType === 1) passe(n); else if (n.nodeType === 3) { const v = typo(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; }
+  }))).observe(document.body, { childList: true, subtree: true });
+
+  aller('accueil');
+})();
+</script>
+</body>
+</html>
