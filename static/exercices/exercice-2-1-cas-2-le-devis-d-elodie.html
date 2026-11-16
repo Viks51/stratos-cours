@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Le devis d'Élodie — s'entraîner</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --fond: #f8fafd; --encre: #1a2430; --gris: #5b6472; --filet: #c5d0de; --carte: #ffffff;
+    --pale: #eef3fa; --bleu: #2058a8; --nuit: #143a66; --sur-bleu: #ffffff;
+    --vert: #24704a; --vert-pale: #e6f4ec; --rouge: #b03a2e; --rouge-pale: #fbeceb;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fond: #0f1722; --encre: #e4eaf2; --gris: #9ba7b7; --filet: #2d3b4f; --carte: #162131;
+      --pale: #1c2a3e; --bleu: #7eaef0; --nuit: #b4d0f5; --sur-bleu: #0f1722;
+      --vert: #74d39e; --vert-pale: #15302a; --rouge: #f29186; --rouge-pale: #3a1f22;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--fond); color: var(--encre); font: 400 1rem/1.55 var(--sans); }
+  main { max-width: 50rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1, h2, p { margin: 0; }
+  h1 { font-size: clamp(1.5rem, 5vw, 2.1rem); line-height: 1.2; color: var(--nuit); letter-spacing: -.01em; }
+  code { font-family: var(--mono); font-size: .9em; }
+  button, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--bleu); outline-offset: 2px; }
+
+  .entete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem 1rem; border-bottom: 2px solid var(--bleu); padding-bottom: .6rem; }
+  .entete .reperes { color: var(--gris); font-size: .9rem; white-space: nowrap; }
+  .intro { margin-top: .9rem; color: var(--gris); }
+  .sans-js { margin-top: 1rem; padding: .8rem 1rem; border: 1px solid var(--filet); border-left: 4px solid var(--bleu); background: var(--carte); }
+  .sans-js a { color: var(--bleu); font-weight: 600; }
+
+  .cadre-devis { margin-top: 1.2rem; overflow-x: auto; border: 1px solid var(--filet); background: var(--carte); border-radius: 6px; }
+  pre.devis { margin: 0; padding: .9rem 1rem; font: 400 .82rem/1.5 var(--mono); width: max-content; }
+
+  section.mission { margin-top: 2.2rem; }
+  .mission h2 { font-size: 1.2rem; color: var(--nuit); display: flex; gap: .6rem; align-items: baseline; }
+  .mission h2 .num { flex: none; display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--bleu); color: var(--sur-bleu); font-size: .95rem; }
+  .question { margin-top: .5rem; font-weight: 600; }
+  .consigne { margin-top: .35rem; color: var(--gris); font-size: .93rem; }
+
+  ol.lignes { list-style: none; margin: .9rem 0 0; padding: 0; border: 1px solid var(--filet); border-radius: 6px; background: var(--carte); }
+  ol.lignes > li { padding: .65rem .8rem; border-left: 4px solid transparent; }
+  ol.lignes > li + li { border-top: 1px solid var(--filet); }
+  .ligne { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .8rem; }
+  .mention { flex: 1 1 15rem; min-width: 0; font-family: var(--mono); font-size: .88rem; overflow-wrap: anywhere; }
+  .mention small { font-family: var(--sans); color: var(--gris); font-size: .8rem; }
+  .verdicts { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .choix { border: 1px solid var(--filet); background: var(--fond); border-radius: 999px; padding: .28rem .7rem; font-size: .85rem; line-height: 1.3; }
+  .choix:hover { border-color: var(--bleu); }
+  .choix[aria-pressed="true"] { background: var(--bleu); border-color: var(--bleu); color: var(--sur-bleu); font-weight: 600; }
+  label.type { display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; color: var(--gris); }
+  select { border: 1px solid var(--filet); background: var(--fond); border-radius: 4px; padding: .25rem .4rem; font-size: .88rem; max-width: 100%; }
+  .justification { margin-top: .45rem; font-size: .9rem; }
+  li[data-etat="juste"] { border-left-color: var(--vert); background: var(--vert-pale); }
+  li[data-etat="faux"] { border-left-color: var(--rouge); background: var(--rouge-pale); }
+  li[data-etat="vide"] { border-left-color: var(--gris); }
+  li[data-etat="juste"] .justification { color: var(--vert); }
+  li[data-etat="faux"] .justification { color: var(--rouge); }
+  li[data-etat="vide"] .justification { color: var(--gris); font-style: italic; }
+  .justification .corps { color: var(--encre); }
+
+  .barre { margin-top: .8rem; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+  .action { border: 0; background: var(--bleu); color: var(--sur-bleu); border-radius: 6px; padding: .5rem 1.1rem; font-weight: 600; }
+  .action:hover { filter: brightness(1.08); }
+  .action.discret { background: transparent; color: var(--bleu); border: 1px solid var(--bleu); }
+  .score { font-weight: 700; font-size: 1.05rem; color: var(--nuit); font-variant-numeric: tabular-nums; }
+
+  .boutons { margin-top: .8rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+  .boutons .choix { font-size: .92rem; padding: .4rem .9rem; font-family: var(--mono); }
+  .retour { margin-top: .8rem; padding: .7rem .9rem; border-radius: 6px; border-left: 4px solid var(--filet); background: var(--carte); }
+  .retour[data-etat="juste"] { border-left-color: var(--vert); background: var(--vert-pale); }
+  .retour[data-etat="faux"] { border-left-color: var(--rouge); background: var(--rouge-pale); }
+
+  .df .mention { flex-basis: 13rem; }
+  .df label { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--gris); }
+
+  figure.graphe { margin: 1rem 0 0; border: 1px solid var(--filet); border-radius: 6px; background: var(--carte); }
+  figure.graphe figcaption { padding: .6rem .9rem 0; font-weight: 600; color: var(--nuit); }
+  .cadre-graphe { overflow-x: auto; padding: .4rem .5rem .6rem; }
+  svg[data-graphe] { display: block; width: 100%; min-width: 36rem; height: auto; }
+  svg .id rect { fill: var(--bleu); }
+  svg .id text { fill: var(--sur-bleu); font-weight: 700; }
+  svg .att rect { fill: var(--pale); stroke: var(--filet); }
+  svg .att text { fill: var(--encre); }
+  svg text { font: 13px var(--sans); dominant-baseline: middle; }
+  svg .fleche { fill: none; stroke: var(--gris); stroke-width: 1.6; }
+  svg .pointe { fill: var(--gris); }
+  svg .mise { font-weight: 700; fill: var(--nuit); }
+
+  textarea { display: block; width: 100%; min-height: 7rem; margin-top: .4rem; border: 1px solid var(--filet); border-radius: 6px; background: var(--carte); padding: .6rem .7rem; resize: vertical; }
+  .zone label { font-size: .9rem; color: var(--gris); }
+  .reponse { margin-top: .9rem; padding: .8rem 1rem; border: 1px solid var(--filet); border-left: 4px solid var(--bleu); border-radius: 6px; background: var(--carte); }
+  .reponse p + p { margin-top: .5rem; }
+  .reponse fieldset { margin: .9rem 0 0; padding: .6rem .8rem; border: 1px dashed var(--filet); border-radius: 6px; }
+  .reponse legend { font-weight: 600; padding: 0 .3rem; }
+  .reponse fieldset label { display: flex; gap: .55rem; align-items: flex-start; margin-top: .35rem; }
+  .reponse input[type=checkbox] { margin-top: .3rem; width: 1.05rem; height: 1.05rem; accent-color: var(--bleu); flex: none; }
+
+  .fin { margin-top: 2.6rem; padding-top: 1rem; border-top: 1px solid var(--filet); display: flex; justify-content: center; }
+
+  @media (max-width: 34rem) {
+    main { padding-top: 1rem; }
+    ol.lignes > li { padding: .6rem .65rem; }
+    .mention { flex-basis: 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="entete">
+    <h1>Le devis d'Élodie — s'entraîner</h1>
+    <span class="reperes">UE8 SIG · 2.1 · cas 2</span>
+  </header>
+  <p class="intro">Refaites le cas pratique, puis vérifiez : la page compare vos réponses à la correction et vous dit pourquoi. Rien n'est enregistré — rechargez la page ou cliquez sur « Tout recommencer ».</p>
+  <noscript>
+    <p class="sans-js">Cette page a besoin de JavaScript pour corriger vos réponses. Sans lui, lisez l'énoncé ci-dessous et comparez avec la correction : <a href="/static/corrections/correction-2-1-cas-2-le-devis-d-elodie.pdf">Télécharger la correction (PDF)</a></p>
+  </noscript>
+
+  <p class="consigne" style="margin-top:1.2rem">Avant de construire la base, l'équipe recense les données des documents existants. Voici un devis établi par Élodie Fournier à l'agence de Blois :</p>
+  <div class="cadre-devis" tabindex="0" aria-label="Le devis D-2026-0412">
+<pre class="devis">MENUISERIES VASSEUR — Agence de Blois           Devis n° D-2026-0412
+Date : 14/04/2026                               Validité : 30 jours
+Établi par : Élodie Fournier
+Client : M. Karim Belhadj — 3 allée des Pins, 41000 Blois — 06 21 43 65 87
+Réf. : CL-0007
+Adresse du chantier : 3 allée des Pins, 41000 Blois
+
+ Réf.    Désignation          Matière   Qté    P.U. HT    Total HT
+ F-510   Fenêtre 2 vantaux    PVC         4     265,00    1 060,00
+ F-520   Fenêtre 1 vantail    PVC         3     198,00      594,00
+ P-530   Porte d’entrée       PVC         1     540,00      540,00
+                                               Total HT    2 194,00
+                                               TVA 10 %      219,40
+                                               Total TTC   2 413,40</pre>
+  </div>
+
+  <!-- Mission 1 -->
+  <section class="mission" aria-labelledby="t1">
+    <h2 id="t1"><span class="num">1</span> Le dictionnaire des données</h2>
+    <p class="question">Établissez le dictionnaire des données de ce devis (code, désignation, type, commentaire), en écartant les données calculées et les paramètres. Justifiez chaque exclusion.</p>
+    <p class="consigne">Pour chaque mention du devis, décidez : elle entre <strong>au dictionnaire</strong> (et avec quel type), ou on l'écarte — donnée <strong>calculée</strong>, <strong>paramètre</strong> ou <strong>constante</strong>. Une colonne du tableau compte pour une seule mention : on juge la donnée « Désignation », pas chacune des trois désignations. Les codes (<code>NumDevis</code>…) sont donnés dans les justifications.</p>
+    <ol class="lignes" data-mission="1">
+      <li data-mention="vasseur"><div class="ligne"><span class="mention">MENUISERIES VASSEUR</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="agence"><div class="ligne"><span class="mention">Agence de Blois</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="numdevis"><div class="ligne"><span class="mention">Devis n° D-2026-0412</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="date"><div class="ligne"><span class="mention">Date : 14/04/2026</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="validite"><div class="ligne"><span class="mention">Validité : 30 jours</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="etabli"><div class="ligne"><span class="mention">Établi par : Élodie Fournier</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="client"><div class="ligne"><span class="mention">Client : M. Karim Belhadj</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="adresse-client"><div class="ligne"><span class="mention">3 allée des Pins, 41000 Blois <small>(adresse du client)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="telephone"><div class="ligne"><span class="mention">06 21 43 65 87</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="ref-client"><div class="ligne"><span class="mention">Réf. : CL-0007</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="adresse-chantier"><div class="ligne"><span class="mention">Adresse du chantier : 3 allée des Pins, 41000 Blois</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="ref-produit"><div class="ligne"><span class="mention">Réf. <small>(colonne : F-510, F-520, P-530)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="designation"><div class="ligne"><span class="mention">Désignation <small>(colonne)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="matiere"><div class="ligne"><span class="mention">Matière <small>(colonne)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="qte"><div class="ligne"><span class="mention">Qté <small>(colonne)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="pu"><div class="ligne"><span class="mention">P.U. HT <small>(colonne)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="total-ligne"><div class="ligne"><span class="mention">Total HT d'une ligne <small>(1 060,00 · 594,00 · 540,00)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="total-ht"><div class="ligne"><span class="mention">Total HT du devis : 2 194,00</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="taux-tva"><div class="ligne"><span class="mention">TVA 10 % <small>(le taux)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="montant-tva"><div class="ligne"><span class="mention">TVA : 219,40 <small>(le montant)</small></span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-mention="total-ttc"><div class="ligne"><span class="mention">Total TTC : 2 413,40</span><span class="verdicts" role="group" aria-label="Verdict"><button type="button" class="choix" data-verdict="dico" aria-pressed="false">Au dictionnaire</button><button type="button" class="choix" data-verdict="calculee" aria-pressed="false">Calculée</button><button type="button" class="choix" data-verdict="parametre" aria-pressed="false">Paramètre</button><button type="button" class="choix" data-verdict="constante" aria-pressed="false">Constante</button></span><label class="type">Type <select data-type><option value="">—</option><option value="texte">Texte</option><option value="numerique">Numérique</option><option value="date">Date</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+    </ol>
+    <div class="barre"><button type="button" class="action" data-verifier="1">Vérifier</button><span class="score" data-score="1" aria-live="polite"></span></div>
+  </section>
+
+  <!-- Mission 2 -->
+  <section class="mission" aria-labelledby="t2">
+    <h2 id="t2"><span class="num">2</span> La polysémie</h2>
+    <p class="question">Une des mentions du devis pose un problème de polysémie. Repérez-la et proposez une correction.</p>
+    <p class="consigne">Quelle mention désigne deux données différentes ? Cliquez-la.</p>
+    <div class="boutons" role="group" aria-label="Mentions du devis">
+      <button type="button" class="choix" data-polyseme="ref" aria-pressed="false">Réf.</button>
+      <button type="button" class="choix" data-polyseme="designation" aria-pressed="false">Désignation</button>
+      <button type="button" class="choix" data-polyseme="total-ht" aria-pressed="false">Total HT</button>
+      <button type="button" class="choix" data-polyseme="etabli" aria-pressed="false">Établi par</button>
+      <button type="button" class="choix" data-polyseme="adresse-chantier" aria-pressed="false">Adresse du chantier</button>
+      <button type="button" class="choix" data-polyseme="tva" aria-pressed="false">TVA</button>
+    </div>
+    <p class="retour" data-retour="2" aria-live="polite" hidden></p>
+  </section>
+
+  <!-- Mission 3 -->
+  <section class="mission" aria-labelledby="t3">
+    <h2 id="t3"><span class="num">3</span> Les dépendances fonctionnelles</h2>
+    <p class="question">Relevez les dépendances fonctionnelles et représentez le graphe des DF.</p>
+    <p class="consigne">Pour chaque donnée, choisissez ce qui la <strong>détermine directement</strong> : connaître cette valeur suffit à connaître la donnée, sans passer par une autre. Le graphe s'affiche après la vérification.</p>
+    <ol class="lignes df" data-mission="3">
+      <li data-df-ligne="date"><div class="ligne"><span class="mention">DateDevis</span><label>déterminée par <select data-df="date"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="num-salarie"><div class="ligne"><span class="mention">NumSalarie <small>(le commercial)</small></span><label>déterminé par <select data-df="num-salarie"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="code-client"><div class="ligne"><span class="mention">CodeClient</span><label>déterminé par <select data-df="code-client"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="adresse-chantier"><div class="ligne"><span class="mention">RueChantier, CPChantier, VilleChantier</span><label>déterminées par <select data-df="adresse-chantier"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="nom-salarie"><div class="ligne"><span class="mention">NomSalarie</span><label>déterminé par <select data-df="nom-salarie"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="site-salarie"><div class="ligne"><span class="mention">SiteSalarie <small>(l'agence)</small></span><label>déterminé par <select data-df="site-salarie"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="civilite"><div class="ligne"><span class="mention">CiviliteClient</span><label>déterminée par <select data-df="civilite"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="nom-client"><div class="ligne"><span class="mention">NomClient</span><label>déterminé par <select data-df="nom-client"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="prenom-client"><div class="ligne"><span class="mention">PrenomClient</span><label>déterminé par <select data-df="prenom-client"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="adresse-client"><div class="ligne"><span class="mention">RueClient, CPClient, VilleClient</span><label>déterminées par <select data-df="adresse-client"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="tel"><div class="ligne"><span class="mention">TelClient</span><label>déterminé par <select data-df="tel"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="designation"><div class="ligne"><span class="mention">DesignationProduit</span><label>déterminée par <select data-df="designation"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="matiere"><div class="ligne"><span class="mention">MatiereProduit</span><label>déterminée par <select data-df="matiere"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="prix"><div class="ligne"><span class="mention">PrixUnitaireHT</span><label>déterminé par <select data-df="prix"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+      <li data-df-ligne="quantite"><div class="ligne"><span class="mention">QuantiteDevis</span><label>déterminée par <select data-df="quantite"><option value="">—</option><option value="NumDevis">NumDevis</option><option value="NumSalarie">NumSalarie</option><option value="CodeClient">CodeClient</option><option value="RefProduit">RefProduit</option><option value="couple">(NumDevis, RefProduit)</option></select></label></div><p class="justification" aria-live="polite" hidden></p></li>
+    </ol>
+    <div class="barre"><button type="button" class="action" data-verifier="3">Vérifier</button><span class="score" data-score="3" aria-live="polite"></span></div>
+    <figure class="graphe" data-figure-graphe hidden>
+      <figcaption>Le graphe des dépendances fonctionnelles</figcaption>
+      <div class="cadre-graphe">
+        <svg data-graphe viewBox="0 0 760 320" role="img" aria-label="Graphe des DF : NumDevis détermine DateDevis et l'adresse du chantier, NumSalarie et CodeClient ; NumSalarie détermine NomSalarie et SiteSalarie ; CodeClient détermine la civilité, le nom, le prénom, l'adresse et le téléphone du client ; RefProduit détermine DesignationProduit, MatiereProduit et PrixUnitaireHT ; le couple NumDevis, RefProduit détermine QuantiteDevis.">
+          <defs><marker id="pointe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="pointe" d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <g class="id"><rect x="16" y="72" width="176" height="36" rx="5"/><text x="104" y="90" text-anchor="middle">NumDevis</text></g>
+          <g class="att"><rect x="232" y="16" width="400" height="36" rx="5"/><text x="246" y="34">DateDevis · RueChantier · CPChantier · VilleChantier</text></g>
+          <g class="id"><rect x="232" y="72" width="140" height="36" rx="5"/><text x="302" y="90" text-anchor="middle">NumSalarie</text></g>
+          <g class="att"><rect x="412" y="72" width="332" height="36" rx="5"/><text x="426" y="90">NomSalarie · SiteSalarie</text></g>
+          <g class="id"><rect x="232" y="128" width="140" height="52" rx="5"/><text x="302" y="154" text-anchor="middle">CodeClient</text></g>
+          <g class="att"><rect x="412" y="128" width="332" height="52" rx="5"/><text x="426" y="145">CiviliteClient · NomClient · PrenomClient</text><text x="426" y="164">RueClient · CPClient · VilleClient · TelClient</text></g>
+          <path class="fleche" d="M192 90 H210 V34 H230" marker-end="url(#pointe)"/>
+          <path class="fleche" d="M192 90 H230" marker-end="url(#pointe)"/>
+          <path class="fleche" d="M210 90 V154 H230" marker-end="url(#pointe)"/>
+          <path class="fleche" d="M372 90 H410" marker-end="url(#pointe)"/>
+          <path class="fleche" d="M372 154 H410" marker-end="url(#pointe)"/>
+          <g class="id"><rect x="16" y="212" width="176" height="36" rx="5"/><text x="104" y="230" text-anchor="middle">RefProduit</text></g>
+          <g class="att"><rect x="232" y="212" width="400" height="36" rx="5"/><text x="246" y="230">DesignationProduit · MatiereProduit · <tspan class="mise">PrixUnitaireHT</tspan></text></g>
+          <path class="fleche" d="M192 230 H230" marker-end="url(#pointe)"/>
+          <g class="id"><rect x="16" y="268" width="176" height="36" rx="5"/><text x="104" y="286" text-anchor="middle">(NumDevis, RefProduit)</text></g>
+          <g class="att"><rect x="232" y="268" width="160" height="36" rx="5"/><text x="246" y="286">QuantiteDevis</text></g>
+          <path class="fleche" d="M192 286 H230" marker-end="url(#pointe)"/>
+        </svg>
+      </div>
+    </figure>
+  </section>
+
+  <!-- Mission 4 -->
+  <section class="mission" aria-labelledby="t4">
+    <h2 id="t4"><span class="num">4</span> L'attribut déterminé par un couple</h2>
+    <p class="question">Un attribut n'est déterminé que par un couple d'attributs. Lequel, et pourquoi ?</p>
+    <div class="boutons" role="group" aria-label="Attributs">
+      <button type="button" class="choix" data-couple="quantite" aria-pressed="false">QuantiteDevis</button>
+      <button type="button" class="choix" data-couple="prix" aria-pressed="false">PrixUnitaireHT</button>
+      <button type="button" class="choix" data-couple="designation" aria-pressed="false">DesignationProduit</button>
+      <button type="button" class="choix" data-couple="date" aria-pressed="false">DateDevis</button>
+    </div>
+    <p class="retour" data-retour="4" aria-live="polite" hidden></p>
+  </section>
+
+  <!-- Mission 5 -->
+  <section class="mission" aria-labelledby="t5">
+    <h2 id="t5"><span class="num">5</span> La remise et le prix unitaire</h2>
+    <p class="question">Élodie accorde parfois une remise sur un produit, pour un devis donné. Qu'est-ce que cela change à la dépendance du prix unitaire ?</p>
+    <div class="zone">
+      <label for="r5">Votre réponse (elle n'est pas corrigée automatiquement : comparez-la à la réponse)</label>
+      <textarea id="r5"></textarea>
+    </div>
+    <div class="barre"><button type="button" class="action discret" data-voir="5" aria-expanded="false" aria-controls="rep5">Voir la réponse</button></div>
+    <div class="reponse" id="rep5" data-reponse="5" hidden>
+      <p><strong>Sans remise</strong>, le prix unitaire est le <strong>prix du catalogue</strong> : il dépend du produit seul (<code>RefProduit</code> → prix du catalogue), et le recopier sur le devis serait redondant.</p>
+      <p><strong>Avec une remise accordée devis par devis</strong>, le prix réellement consenti dépend du <strong>couple</strong> (<code>NumDevis</code>, <code>RefProduit</code>), comme la quantité. Il faut alors <strong>deux</strong> données : le prix du catalogue, rattaché au produit, et le prix consenti (ou le taux de remise), rattaché au couple.</p>
+      <p>Seconde raison de conserver le prix consenti sur le devis : <strong>le prix du catalogue change</strong>. Après une hausse, un devis d'avril doit toujours montrer le prix d'avril — c'est la question du temps, traitée au chapitre 2.2.</p>
+      <fieldset data-autoeval>
+        <legend>Ma réponse disait que…</legend>
+        <label><input type="checkbox"> sans remise, le prix du catalogue dépend du produit seul ;</label>
+        <label><input type="checkbox"> avec une remise, le prix consenti dépend du couple (devis, produit) ;</label>
+        <label><input type="checkbox"> on garde le prix consenti sur le devis, car le prix du catalogue change.</label>
+      </fieldset>
+    </div>
+  </section>
+
+  <div class="fin"><button type="button" class="action discret" data-recommencer>Tout recommencer</button></div>
+</main>
+
+<script type="application/json" id="corrige">
+{
+  "m1": [
+    {"id": "vasseur", "verdict": "constante", "type": null, "justification": "Constante : le nom de l'entreprise figure sur tous les documents."},
+    {"id": "agence", "verdict": "dico", "type": "texte", "justification": "SiteSalarie, l'agence du commercial (Blois ou Tours). Elle dépend du commercial, pas du devis (voir la mission 3)."},
+    {"id": "numdevis", "verdict": "dico", "type": "texte", "justification": "NumDevis, l'identifiant du devis (D-2026-0412). Texte : il contient des lettres et des tirets."},
+    {"id": "date", "verdict": "dico", "type": "date", "justification": "DateDevis, la date d'établissement."},
+    {"id": "validite", "verdict": "parametre", "type": null, "justification": "Paramètre de l'entreprise. Identique pour tous les devis ; la date de fin de validité se calcule."},
+    {"id": "etabli", "verdict": "dico", "type": "texte", "justification": "NomSalarie. Le devis porte un nom ; la base retiendra aussi un numéro, NumSalarie (deux salariés peuvent être homonymes)."},
+    {"id": "client", "verdict": "dico", "type": "texte", "justification": "Trois données, pas une : CiviliteClient, PrenomClient, NomClient."},
+    {"id": "adresse-client", "verdict": "dico", "type": "texte", "justification": "Trois données, pas une : RueClient, CPClient, VilleClient — pour pouvoir trier ou filtrer par ville."},
+    {"id": "telephone", "verdict": "dico", "type": "texte", "justification": "TelClient, en texte : on ne calcule pas sur un téléphone, et le zéro initial doit rester."},
+    {"id": "ref-client", "verdict": "dico", "type": "texte", "justification": "CodeClient (CL-0007) : c'est la deuxième « Réf. » du devis (voir la mission 2)."},
+    {"id": "adresse-chantier", "verdict": "dico", "type": "texte", "justification": "RueChantier, CPChantier, VilleChantier : distincte de l'adresse du client, même si elle est identique ici. Un promoteur fait poser ailleurs que chez lui."},
+    {"id": "ref-produit", "verdict": "dico", "type": "texte", "justification": "RefProduit (F-510, F-520…) : c'est la première « Réf. » du devis."},
+    {"id": "designation", "verdict": "dico", "type": "texte", "justification": "DesignationProduit, le nom du produit."},
+    {"id": "matiere", "verdict": "dico", "type": "texte", "justification": "MatiereProduit : PVC ou aluminium."},
+    {"id": "qte", "verdict": "dico", "type": "numerique", "justification": "QuantiteDevis : on calcule avec (quantité × prix unitaire)."},
+    {"id": "pu", "verdict": "dico", "type": "numerique", "justification": "PrixUnitaireHT, le prix du catalogue (voir la mission 5)."},
+    {"id": "total-ligne", "verdict": "calculee", "type": null, "justification": "Calculé : quantité × prix unitaire."},
+    {"id": "total-ht", "verdict": "calculee", "type": null, "justification": "Calculé : somme des lignes."},
+    {"id": "taux-tva", "verdict": "parametre", "type": null, "justification": "Paramètre : le taux dépend de la réglementation, pas du devis. Il se range une fois, dans une table de paramètres, et non sur chaque devis."},
+    {"id": "montant-tva", "verdict": "calculee", "type": null, "justification": "Calculé : total HT × taux de TVA."},
+    {"id": "total-ttc", "verdict": "calculee", "type": null, "justification": "Calculé : total HT + TVA."}
+  ],
+  "m2": {
+    "bonne": "ref",
+    "retours": {
+      "ref": "« Réf. » désigne deux données différentes sur le même document : la référence du produit (F-510) et le code du client (CL-0007). C'est une polysémie — exactement le conflit de la réunion de lancement, où la « Réf » de Nadia Perrot n'était pas celle de Sofiane Belkacem. Correction : un nom explicite et unique par donnée, RefProduit et CodeClient, inscrit au dictionnaire.",
+      "designation": "« Désignation » ne désigne qu'une donnée : le nom du produit. Cherchez une mention qui désigne deux données à stocker.",
+      "total-ht": "Même nom pour deux montants, c'est vrai — mais tous deux sont calculés : ils n'entrent pas au dictionnaire. Cherchez une mention qui désigne deux données à stocker.",
+      "etabli": "« Établi par » ne désigne qu'une donnée : le commercial qui a fait le devis.",
+      "adresse-chantier": "L'adresse du chantier porte un nom à elle, distinct de l'adresse du client : il n'y a pas d'ambiguïté.",
+      "tva": "La ligne « TVA 10 % » porte un taux (paramètre) et un montant (calculé) : aucun des deux n'entre au dictionnaire. Cherchez une mention qui désigne deux données à stocker."
+    }
+  },
+  "m3": [
+    {"id": "date", "donnee": "DateDevis", "det": "NumDevis"},
+    {"id": "num-salarie", "donnee": "NumSalarie", "det": "NumDevis"},
+    {"id": "code-client", "donnee": "CodeClient", "det": "NumDevis"},
+    {"id": "adresse-chantier", "donnee": "l'adresse du chantier", "det": "NumDevis", "note": "Elle dépend du devis, et non du client : un même client peut demander des devis pour plusieurs adresses.", "retours": {"CodeClient": "Un même client peut demander des devis pour plusieurs adresses : l'adresse du chantier dépend du devis, pas du client."}},
+    {"id": "nom-salarie", "donnee": "NomSalarie", "det": "NumSalarie"},
+    {"id": "site-salarie", "donnee": "SiteSalarie", "det": "NumSalarie", "note": "L'agence dépend du commercial, pas du devis : l'écrire sur le devis créerait une dépendance transitive."},
+    {"id": "civilite", "donnee": "CiviliteClient", "det": "CodeClient"},
+    {"id": "nom-client", "donnee": "NomClient", "det": "CodeClient"},
+    {"id": "prenom-client", "donnee": "PrenomClient", "det": "CodeClient"},
+    {"id": "adresse-client", "donnee": "l'adresse du client", "det": "CodeClient"},
+    {"id": "tel", "donnee": "TelClient", "det": "CodeClient"},
+    {"id": "designation", "donnee": "DesignationProduit", "det": "RefProduit"},
+    {"id": "matiere", "donnee": "MatiereProduit", "det": "RefProduit"},
+    {"id": "prix", "donnee": "PrixUnitaireHT", "det": "RefProduit", "note": "Sans remise, c'est le prix du catalogue : il ne dépend que du produit (voir la mission 5).", "retours": {"couple": "Sans remise, le prix ne dépend que du produit : c'est le prix du catalogue (voir la question 5)."}},
+    {"id": "quantite", "donnee": "QuantiteDevis", "det": "couple", "note": "Ni le devis seul, ni le produit seul : c'est le couple (voir la mission 4).", "retours": {"NumDevis": "Le devis compte trois quantités : NumDevis seul ne suffit pas.", "RefProduit": "La F-510 figure sur des centaines de devis : RefProduit seul ne suffit pas."}}
+  ],
+  "m4": {
+    "bonne": "quantite",
+    "retours": {
+      "quantite": "La quantité. « 4 » ne dépend ni du devis seul, puisque le devis compte trois quantités, ni du produit seul, puisque la F-510 figure sur des centaines de devis. Elle dépend du couple : 4 fenêtres F-510 sur ce devis. C'est une dépendance fonctionnelle composée ; elle annonce la table de liaison du 2.1.3.",
+      "prix": "Sans remise, il dépend du produit seul : c'est le prix du catalogue — voir la question 5.",
+      "designation": "La désignation dépend du produit seul : RefProduit suffit.",
+      "date": "La date dépend du devis seul : NumDevis suffit."
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  "use strict";
+  var C = JSON.parse(document.getElementById("corrige").textContent);
+  var VERDICTS = { dico: "Au dictionnaire", calculee: "Calculée", parametre: "Paramètre", constante: "Constante" };
+  var TYPES = { texte: "Texte", numerique: "Numérique", date: "Date" };
+  var DETS = { NumDevis: "NumDevis", NumSalarie: "NumSalarie", CodeClient: "CodeClient", RefProduit: "RefProduit", couple: "(NumDevis, RefProduit)" };
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+
+  function effacer(li) {
+    li.removeAttribute("data-etat");
+    var j = $(".justification", li);
+    j.hidden = true;
+    j.textContent = "";
+  }
+  function juger(li, etat, marque, retour) {
+    li.setAttribute("data-etat", etat);
+    var j = $(".justification", li);
+    j.textContent = "";
+    j.appendChild(document.createTextNode(marque + " "));
+    var corps = document.createElement("span");
+    corps.className = "corps";
+    corps.textContent = retour;
+    j.appendChild(corps);
+    j.hidden = false;
+  }
+  function presser(groupe, bouton) {
+    $$("button", groupe).forEach(function (b) { b.setAttribute("aria-pressed", b === bouton ? "true" : "false"); });
+  }
+
+  // Mission 1 : le dictionnaire
+  $$("li[data-mention]").forEach(function (li) {
+    var label = $("label.type", li);
+    label.hidden = true;
+    $$("button[data-verdict]", li).forEach(function (b) {
+      b.addEventListener("click", function () {
+        li.dataset.choix = b.dataset.verdict;
+        presser($(".verdicts", li), b);
+        label.hidden = b.dataset.verdict !== "dico";
+        effacer(li);
+      });
+    });
+    $("select[data-type]", li).addEventListener("change", function () { effacer(li); });
+  });
+  $('button[data-verifier="1"]').addEventListener("click", function () {
+    var justes = 0;
+    C.m1.forEach(function (it) {
+      var li = $('li[data-mention="' + it.id + '"]');
+      var choix = li.dataset.choix;
+      var typ = $("select[data-type]", li).value;
+      var attendu = VERDICTS[it.verdict] + (it.type ? " (" + TYPES[it.type] + ")" : "");
+      if (!choix) {
+        li.setAttribute("data-etat", "vide");
+        var j = $(".justification", li);
+        j.textContent = "– Sans réponse : choisissez un verdict, puis vérifiez à nouveau.";
+        j.hidden = false;
+      } else if (choix !== it.verdict) {
+        juger(li, "faux", "✗", "Attendu : " + attendu + ". " + it.justification);
+      } else if (it.verdict === "dico" && !typ) {
+        juger(li, "faux", "✗", "Bon tri, mais il manque le type : " + TYPES[it.type] + ". " + it.justification);
+      } else if (it.verdict === "dico" && typ !== it.type) {
+        juger(li, "faux", "✗", "Bon tri, mauvais type : " + TYPES[it.type] + " attendu. " + it.justification);
+      } else {
+        juger(li, "juste", "✓", it.justification);
+        justes++;
+      }
+    });
+    $('[data-score="1"]').textContent = justes + "/" + C.m1.length;
+  });
+
+  // Missions 2 et 4 : un seul bon bouton, retour immédiat
+  function choixUnique(attr, mission, cfg) {
+    var retour = $('[data-retour="' + mission + '"]');
+    $$("button[" + attr + "]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var id = b.getAttribute(attr);
+        presser(b.parentNode, b);
+        var bon = id === cfg.bonne;
+        retour.setAttribute("data-etat", bon ? "juste" : "faux");
+        retour.textContent = (bon ? "✓ " : "✗ ") + cfg.retours[id];
+        retour.hidden = false;
+      });
+    });
+  }
+  choixUnique("data-polyseme", "2", C.m2);
+  choixUnique("data-couple", "4", C.m4);
+
+  // Mission 3 : les DF
+  $$("li[data-df-ligne]").forEach(function (li) {
+    $("select", li).addEventListener("change", function () { effacer(li); });
+  });
+  function retourDF(it, v) {
+    if (it.retours && it.retours[v]) return it.retours[v];
+    if (v === "NumDevis" && (it.det === "NumSalarie" || it.det === "CodeClient"))
+      return "NumDevis le donne aussi, mais en passant par " + it.det + " : on retient la dépendance directe.";
+    if (v === "couple")
+      return "Le couple le donne, mais " + DETS[it.det] + " suffit : on retient la dépendance directe, sans attribut superflu.";
+    return "Connaître " + DETS[v] + " ne permet pas de connaître " + it.donnee + ".";
+  }
+  $('button[data-verifier="3"]').addEventListener("click", function () {
+    var justes = 0;
+    C.m3.forEach(function (it) {
+      var li = $('li[data-df-ligne="' + it.id + '"]');
+      var v = $("select", li).value;
+      if (!v) {
+        li.setAttribute("data-etat", "vide");
+        var j = $(".justification", li);
+        j.textContent = "– Sans réponse.";
+        j.hidden = false;
+      } else if (v === it.det) {
+        juger(li, "juste", "✓", "Juste : " + DETS[it.det] + "." + (it.note ? " " + it.note : ""));
+        justes++;
+      } else {
+        juger(li, "faux", "✗", retourDF(it, v) + " Réponse : " + DETS[it.det] + ".");
+      }
+    });
+    $('[data-score="3"]').textContent = justes + "/" + C.m3.length;
+    $("[data-figure-graphe]").hidden = false;
+  });
+
+  // Mission 5 : la remise
+  var voir = $('button[data-voir="5"]');
+  voir.addEventListener("click", function () {
+    $('[data-reponse="5"]').hidden = false;
+    voir.setAttribute("aria-expanded", "true");
+  });
+
+  // Tout recommencer
+  $("button[data-recommencer]").addEventListener("click", function () {
+    $$("li[data-mention]").forEach(function (li) {
+      delete li.dataset.choix;
+      $("label.type", li).hidden = true;
+      effacer(li);
+    });
+    $$("li[data-df-ligne]").forEach(effacer);
+    $$("select").forEach(function (s) { s.value = ""; });
+    $$('[aria-pressed="true"]').forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    $$("[data-retour]").forEach(function (r) { r.removeAttribute("data-etat"); r.textContent = ""; r.hidden = true; });
+    $$("[data-score]").forEach(function (s) { s.textContent = ""; });
+    $("[data-figure-graphe]").hidden = true;
+    $("textarea").value = "";
+    $('[data-reponse="5"]').hidden = true;
+    voir.setAttribute("aria-expanded", "false");
+    $$("input[type=checkbox]").forEach(function (c) { c.checked = false; });
+    window.scrollTo(0, 0);
+  });
+})();
+</script>
+</body>
+</html>

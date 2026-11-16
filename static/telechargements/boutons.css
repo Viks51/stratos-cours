@@ -1,8 +1,9 @@
 /* STRATOS — boutons de telechargement du cours.
  *
  * Quatre usages : dans chaque cas pratique, l'enonce PDF (a.enonce-pdf) et, cote
- * a cote, sa correction (a.correction-pdf) — celle-ci n'est en ligne qu'une
- * fois ouverte, voir $CorrectionsOuvertes dans _commun.ps1 ; en tete de partie,
+ * a cote, sa correction (a.correction-pdf) et son exercice interactif s'il
+ * existe (a.exercice) — ces deux-la ne sont en ligne qu'une fois la correction
+ * ouverte, voir $CorrectionsOuvertes dans _commun.ps1 ; en tete de partie,
  * le support de presentation (a.support-pdf) ; en tete de chapitre, la version
  * PDF du chapitre (a.version-pdf, voir versions-pdf.mjs).
  *
@@ -24,6 +25,7 @@
 a.enonce-pdf,
 a.correction-pdf,
 a.correction-html,
+a.exercice,
 a.support-pdf,
 a.version-pdf {
   display: inline-flex;
@@ -55,6 +57,8 @@ a.correction-pdf:hover,
 a.correction-pdf:focus-visible,
 a.correction-html:hover,
 a.correction-html:focus-visible,
+a.exercice:hover,
+a.exercice:focus-visible,
 a.support-pdf:hover,
 a.support-pdf:focus-visible,
 a.version-pdf:hover,
@@ -70,8 +74,16 @@ a.version-pdf:focus-visible {
 /* Les deux boutons d'un cas partagent une ligne : un ecart entre eux, et le
    meme quand l'ecran etroit les fait passer l'un sous l'autre. */
 a.enonce-pdf,
-a.correction-pdf {
+a.correction-pdf,
+a.exercice {
   margin: 0.15em 0.4em 0.15em 0;
+}
+
+/* Exercice interactif : il s'ouvre dans un nouvel onglet et l'on y repond,
+   d'ou le crayon plutot que la fleche de telechargement. */
+a.exercice::before {
+  content: "\270E"; /* crayon */
+  font-weight: 400;
 }
 
 a.support-pdf,
