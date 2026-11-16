@@ -104,3 +104,13 @@ a.correction-html::before {
   content: "\2197";
   font-weight: 700;
 }
+
+/* Schemas relationnels (<pre class="schema">) : un bloc HTML, et non un bloc
+ * ```, parce que la cle primaire y est soulignee par <u> (regle de l'examen,
+ * 2026-11-16). Meme rendu qu'un bloc de code de Quartz, dont le <code> interieur
+ * porte la marge verticale et le corps de 0,85rem. Feuille hebergee ici parce
+ * que c'est la seule du cours declaree sur toutes les pages. */
+article pre.schema {
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}

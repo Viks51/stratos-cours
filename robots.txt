@@ -1,4 +1,4 @@
-﻿# Site public, volontairement absent des resultats de recherche.
+# Site public, volontairement absent des resultats de recherche.
 # L'exclusion passe par la balise <meta name="robots" content="noindex">
 # presente dans chaque page. Le crawl doit donc rester autorise pour que
 # les moteurs lisent cette balise et desindexent le site.
